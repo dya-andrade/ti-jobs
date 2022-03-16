@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>TI Jobs - cadastro vaga</title>
+</h:head>
+
+<ui:include src="/WEB-INF/templates/template.xhtml" />
+
+<h:body>
+
+	<h:form>
+		<div class="flex align-items-center justify-content-center">
+			<div class="surface-card p-4 shadow-2 border-round w-full lg:w-10"
+				style="margin-top: 20px;">
+				<div class="text-center mb-5">
+					<i class="pi pi-briefcase" style="font-size: 30px;"></i>
+
+					<div class="text-900 text-3xl font-medium mb-3">
+						<div style="display: inline-flex;">
+							<h1 class="text-900" style="margin-right: 8px;">Cadastro de</h1>
+							<h1
+								class="text-blue-600 scalein animation-duration-2000 animation-iteration-infinite">Vagas</h1>
+						</div>
+					</div>
+
+					<span class="text-600 font-medium line-height-3">Os melhores
+						profissionais,</span> <a
+						class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">do
+						mercado!</a>
+				</div>
+
+				<div>
+
+
+
+				
+					<p:panelGrid columns="4" 
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						style="border:0px none; background-color:transparent;">
+
+							<p:row>
+						<p:divider align="left">
+						<div class="p-d-inline-flex p-ai-center">
+							<i class="pi pi-user p-mr-2" /> <b>Icon</b>
+						</div>
+					</p:divider>
+						</p:row>
+
+						<p:outputLabel for="@next" value="First Name" />
+						<p:inputText />
+
+						<p:outputLabel for="@next" value="Last Name" />
+						<p:inputText />
+				
+						<p:outputLabel for="@next" value="Phone" />
+						<p:inputText />
+
+						<p:outputLabel for="@next" value="Email" />
+						<p:inputText />
+
+						<p:outputLabel for="@next" value="Address" />
+						<p:inputTextarea rows="3" />
+
+				
+
+						<p:outputLabel for="@next" value="Manufacturer" />
+						<p:inputText />
+									<p:row>
+						<p:divider align="left">
+						<div class="p-d-inline-flex p-ai-center">
+							<i class="pi pi-user p-mr-2" /> <b>Icon</b>
+						</div>
+					</p:divider>
+						</p:row>
+
+						<p:outputLabel for="@next" value="Series" />
+						<p:inputText />
+
+						<p:outputLabel for="@next" value="Color" />
+						<p:inputText />
+
+
+						<p:row>
+							<p:column styleClass="ui-grid-col-12">
+								<p>
+									It should be noted that the use of @next is not possible for
+									the <u>Registration Number</u> outputLabel and the <u>for</u>
+									attribute should utilize an ID as shown in the example. The
+									other outputLabel and inputText fields do not require this as
+									they are the natural next element whereas <u>Registration
+										Number</u> is encapsulated in a column.
+								</p>
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column styleClass="ui-grid-col-12">
+								<p:commandButton value="Accept" styleClass="p-mr-2"
+									style="width: auto" />
+								<p:commandButton value="Reject" styleClass="p-mr-2"
+									style="width: auto" />
+								<p:commandButton value="Refer" style="width: auto" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+
+
+
+					<div class="flex align-items-center justify-content-between mb-6">
+						<div class="flex align-items-center">
+							<p:selectBooleanCheckbox id="rememberme" styleClass="mr-2" />
+							<label for="rememberme">Remember me</label>
+						</div>
+						<a
+							class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Forgot
+							your password?</a>
+					</div>
+
+					<p:commandButton type="button" value="Sign In" icon="pi pi-user"
+						styleClass="w-full" />
+				</div>
+			</div>
+		</div>
+
+	</h:form>
+
+	<style type="text/css">
+	
+.ui-divider {
+	color: #2972bd;
+	opacity: 0.3;
+}
+
+.ui-divider-content {
+	background-color: #ffffff;
+	padding: 0 0.5rem;
+	margin-left: 25px;
+}
+
+.ui-divider.ui-divider-solid.ui-divider-horizontal:before {
+	border-top-style: dotted !important;
+}
+</style>
+
+</h:body>
+</html>
