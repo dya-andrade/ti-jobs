@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity(name = "vaga")
 public class Vaga implements Serializable {
@@ -39,7 +40,7 @@ public class Vaga implements Serializable {
 	
 	private String tipoContrato;
 	
-	private List<String> principaisSkills;
+	private String principalTecnologia;
 	
 	@Lob
 	private String responsabilidades;
@@ -125,12 +126,12 @@ public class Vaga implements Serializable {
 		this.tipoContrato = tipoContrato;
 	}
 
-	public List<String> getPrincipaisSkills() {
-		return principaisSkills;
+	public String getPrincipalTecnologia() {
+		return principalTecnologia;
 	}
 
-	public void setPrincipaisSkills(List<String> principaisSkills) {
-		this.principaisSkills = principaisSkills;
+	public void setPrincipalTecnologia(String principalTecnologia) {
+		this.principalTecnologia = principalTecnologia;
 	}
 
 	public String getResponsabilidades() {

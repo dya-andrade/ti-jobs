@@ -49,24 +49,43 @@
 						<p:row>
 							<p:divider align="left">
 								<div class="p-d-inline-flex p-ai-center">
-									<i class="pi pi-user p-mr-2" /> <b>Empresa</b>
+									<i class="pi pi-building p-mr-2" /> <b>Empresa</b>
 								</div>
 							</p:divider>
 						</p:row>
 
 						<p:outputLabel for="@next" value="Deixar como anônima?" />
-						<p:inputText />
+						<p:selectOneRadio value="#{cadastroVagaController.vaga.anonima}"
+							unselectable="true">
+							<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							<f:selectItem itemLabel="Não" itemValue="Não" />
+						</p:selectOneRadio>
 
 						<p:outputLabel for="@next" value="Aceita candidatos de fora?" />
-						<p:inputText />
+						<p:selectOneRadio
+							value="#{cadastroVagaController.vaga.aceitaCandidatoFora}"
+							unselectable="true">
+							<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							<f:selectItem itemLabel="Não" itemValue="Não" />
+						</p:selectOneRadio>
 
 
-						<p:outputLabel for="@next" value="Apresentação:" />
-						<p:inputTextarea rows="3" />
+
 
 						<p:outputLabel for="@next" value="Tipo de Trabalho:" />
-						<p:inputText />
+						<p:selectOneRadio
+							value="#{cadastroVagaController.vaga.tipoTrabalho}"
+							unselectable="true">
+							<f:selectItem itemLabel="Presencial" itemValue="Presencial" />
+							<f:selectItem itemLabel="Híbrido" itemValue="Híbrido" />
+							<f:selectItem itemLabel="Remoto" itemValue="Remoto" />
+						</p:selectOneRadio>
 
+						<p:outputLabel for="@next" value="Apresentação:" />
+						<p:inputTextarea
+							value="#{cadastroVagaController.vaga.apresentacao}"
+							placeholder="Nossa empresa trabalho no ramo..."
+							style="width: 90%;" rows="3" />
 
 						<p:row>
 							<p:divider align="left">
@@ -77,38 +96,85 @@
 						</p:row>
 
 						<p:outputLabel for="@next" value="Profissão:" />
-						<p:inputText />
-
-						<p:outputLabel for="@next" value="Nível de Experiênica:" />
-						<p:inputText />
+						<p:inputText style="width: 90%;"
+							placeholder="Desenvolvedor Java Jr." />
 
 
 						<p:outputLabel for="@next" value="Salário:" />
-						<p:inputText />
+						<p:selectOneMenu value="#{cadastroVagaController.vaga.salario}"
+							style="width: 90%;" effect="fold" editable="true">
+							<f:selectItem itemLabel="Selecione ou Escreva" itemValue="" />
+							<f:selectItem itemLabel="a combinar" itemValue="a combinar" />
+							<f:selectItem itemLabel="entre 1.500,00 - 3.000,00"
+								itemValue="entre 1.500,00 - 3.000,00" />
+							<f:selectItem itemLabel="entre 3.000,00 - 5.000,00"
+								itemValue="entre 3.000,00 - 5.000,00" />
+							<f:selectItem itemLabel="entre 5.000,00 - 7.000,00"
+								itemValue="entre 5.000,00 - 7.000,00" />
+							<f:selectItem itemLabel="entre 7.000,00 - 10.000,00"
+								itemValue="entre 7.000,00 - 10.000,00" />
+							<f:selectItem itemLabel="entre 10.000,00 - 15.000,00"
+								itemValue="entre 10.000,00 - 15.000,00" />
+							<f:selectItem itemLabel="entre 15.000,00 - 20.000,00"
+								itemValue="entre 15.000,00 - 20.000,00" />
+						</p:selectOneMenu>
+
 
 						<p:outputLabel for="@next" value="Tipo de Contrato:" />
-						<p:inputText />
+						<p:selectOneRadio
+							value="#{cadastroVagaController.vaga.tipoContrato}"
+							unselectable="true">
+							<f:selectItem itemLabel="Freelancer" itemValue="Freelancer" />
+							<f:selectItem itemLabel="CLT" itemValue="CLT" />
+							<f:selectItem itemLabel="PJ" itemValue="PJ" />
+						</p:selectOneRadio>
 
-						<p:outputLabel for="@next" value="Principais Skills:" />
-						<p:inputText />
+						<p:outputLabel for="@next" value="Nível de Experiênica:" />
+						<p:selectOneRadio
+							value="#{cadastroVagaController.vaga.nivelExperiencia}"
+							unselectable="true">
+							<f:selectItem itemLabel="Estagiário" itemValue="Estagiário" />
+							<f:selectItem itemLabel="Júnior" itemValue="Júnior" />
+							<f:selectItem itemLabel="Pleno" itemValue="Pleno" />
+							<f:selectItem itemLabel="Sênior" itemValue="Sênior" />
+						</p:selectOneRadio>
 
-						<p:row>
+						<p:outputLabel for="@next" value="Principal Tecnologia:" />
+
+						<p:selectOneMenu
+							value="#{CadastroVagaController.vaga.principalTecnologia}"
+							style="width: 90%;" effect="fade" filter="true"
+							filterMatchMode="startsWith">
+							<f:selectItems value="#{cadastroVagaController.tecnologias}" />
+						</p:selectOneMenu>
+
+						<p:row style="margin-top: 15px;">
 							<p:divider align="left">
 								<div class="p-d-inline-flex p-ai-center">
-									<i class="pi pi-user p-mr-2" /> <b>Detalhes</b>
+									<i class="pi pi-align-left p-mr-2" /> <b>Detalhes</b>
 								</div>
 							</p:divider>
 						</p:row>
 
 
 						<p:outputLabel for="@next" value="Responsibilidades:" />
-						<p:inputText />
+						<p:inputTextarea
+							value="#{cadastroVagaController.vaga.responsabilidades}"
+							placeholder="O funcionário terá responsabilidade de realizar..."
+							style="width: 90%;" rows="3" />
 
-						<p:outputLabel for="@next" value="Skills Desejavéis:" />
-						<p:inputText />
+
+						<p:outputLabel for="@next" value="Skills Desejáveis:" />
+						<p:inputTextarea
+							value="#{cadastroVagaController.vaga.skillsDesejaveis}"
+							placeholder="Será um diferencial se o candidato tiver as skills..."
+							style="width: 90%;" rows="3" />
 
 						<p:outputLabel for="@next" value="Skills Obrigatórias:" />
-						<p:inputText />
+						<p:inputTextarea
+							value="#{cadastroVagaController.vaga.skillsObrigatorias}"
+							placeholder="O candidato precisa ter as skills..."
+							style="width: 90%;" rows="3" />
 
 					</p:panelGrid>
 
@@ -120,7 +186,12 @@
 							class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Verifique
 							se os dados estão corretos antes de cadastrar a vaga!</a>
 
-						<p:commandButton type="button" value="Cadastrar" icon="pi pi-user" />
+
+						<p:commandButton icon="pi pi-save" value="Cadastrar"
+							styleClass="btn-primary transition-colors transition-duration-500  hover:bg-blue-1000"
+							style="font-size: 14px;" title="Cadastrar a vaga" process="@form"
+							update="@form" action="#{cadastroVagaController.cadastrar}" />
+
 
 					</div>
 
