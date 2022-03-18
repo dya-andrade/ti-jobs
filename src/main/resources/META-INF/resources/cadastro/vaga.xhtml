@@ -38,9 +38,6 @@
 
 				<div>
 
-
-
-
 					<p:panelGrid columns="4"
 						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
 						layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
@@ -56,24 +53,22 @@
 
 						<p:outputLabel for="@next" value="Deixar como anônima?" />
 						<p:selectOneRadio value="#{cadastroVagaController.vaga.anonima}"
-							unselectable="true">
+							unselectable="true" required="true" requiredMessage="O campo anônimo é obrigatório">
 							<f:selectItem itemLabel="Sim" itemValue="Sim" />
 							<f:selectItem itemLabel="Não" itemValue="Não" />
 						</p:selectOneRadio>
+						
 
 						<p:outputLabel for="@next" value="Aceita candidatos de fora?" />
-						<p:selectOneRadio
+						<p:selectOneRadio required="true" requiredMessage="O campo aceita candidato de fora é obrigatório"
 							value="#{cadastroVagaController.vaga.aceitaCandidatoFora}"
 							unselectable="true">
 							<f:selectItem itemLabel="Sim" itemValue="Sim" />
 							<f:selectItem itemLabel="Não" itemValue="Não" />
 						</p:selectOneRadio>
 
-
-
-
 						<p:outputLabel for="@next" value="Tipo de Trabalho:" />
-						<p:selectOneRadio
+						<p:selectOneRadio required="true" requiredMessage="O campo tipo de trabalho é obrigatório"
 							value="#{cadastroVagaController.vaga.tipoTrabalho}"
 							unselectable="true">
 							<f:selectItem itemLabel="Presencial" itemValue="Presencial" />
@@ -82,7 +77,7 @@
 						</p:selectOneRadio>
 
 						<p:outputLabel for="@next" value="Apresentação:" />
-						<p:inputTextarea
+						<p:inputTextarea required="true" requiredMessage="Apresentação é obrigatório"
 							value="#{cadastroVagaController.vaga.apresentacao}"
 							placeholder="Nossa empresa trabalho no ramo..."
 							style="width: 90%;" rows="3" />
@@ -96,7 +91,7 @@
 						</p:row>
 
 						<p:outputLabel for="@next" value="Profissão:" />
-						<p:inputText style="width: 90%;"
+						<p:inputText style="width: 90%;" required="true" requiredMessage="A profissão é obrigatório"
 							placeholder="Desenvolvedor Java Jr." />
 
 
@@ -121,7 +116,7 @@
 
 
 						<p:outputLabel for="@next" value="Tipo de Contrato:" />
-						<p:selectOneRadio
+						<p:selectOneRadio required="true" requiredMessage="O campo tipo de contrato é obrigatório"
 							value="#{cadastroVagaController.vaga.tipoContrato}"
 							unselectable="true">
 							<f:selectItem itemLabel="Freelancer" itemValue="Freelancer" />
@@ -130,7 +125,7 @@
 						</p:selectOneRadio>
 
 						<p:outputLabel for="@next" value="Nível de Experiênica:" />
-						<p:selectOneRadio
+						<p:selectOneRadio required="true" requiredMessage="O nível de experiência é obrigatório"
 							value="#{cadastroVagaController.vaga.nivelExperiencia}"
 							unselectable="true">
 							<f:selectItem itemLabel="Estagiário" itemValue="Estagiário" />
@@ -141,8 +136,8 @@
 
 						<p:outputLabel for="@next" value="Principal Tecnologia:" />
 
-						<p:selectOneMenu
-							value="#{CadastroVagaController.vaga.principalTecnologia}"
+						<p:selectOneMenu required="true" requiredMessage="O campo principal tecnologia é obrigatório"
+							value="#{cadastroVagaController.vaga.principalTecnologia}"
 							style="width: 90%;" effect="fade" filter="true"
 							filterMatchMode="startsWith">
 							<f:selectItems value="#{cadastroVagaController.tecnologias}" />
@@ -171,7 +166,7 @@
 							style="width: 90%;" rows="3" />
 
 						<p:outputLabel for="@next" value="Skills Obrigatórias:" />
-						<p:inputTextarea
+						<p:inputTextarea required="true" requiredMessage="Informe as skills obrigatórias"
 							value="#{cadastroVagaController.vaga.skillsObrigatorias}"
 							placeholder="O candidato precisa ter as skills..."
 							style="width: 90%;" rows="3" />
@@ -180,18 +175,23 @@
 
 					<hr />
 
-					<div class="flex align-items-center justify-content-between mb-6">
-
+					<div>
+					
+					<div>
+					<p:messages id="msgs" />
+</div>
+<div  class="flex align-items-center justify-content-between mb-6">
 						<a style="width: 50%;"
 							class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Verifique
 							se os dados estão corretos antes de cadastrar a vaga!</a>
 
+						
 
 						<p:commandButton icon="pi pi-save" value="Cadastrar"
 							styleClass="btn-primary transition-colors transition-duration-500  hover:bg-blue-1000"
 							style="font-size: 14px;" title="Cadastrar a vaga" process="@form"
 							update="@form" action="#{cadastroVagaController.cadastrar}" />
-
+</div>
 
 					</div>
 
@@ -204,18 +204,39 @@
 
 	<style type="text/css">
 .ui-divider {
-	color: #2972bd;
-	opacity: 0.4;
+	color: #2972bd !important;
+	opacity: 0.4 !important;
 }
 
 .ui-divider-content {
-	background-color: #ffffff;
-	padding: 0 0.5rem;
-	margin-left: 25px;
+	background-color: #ffffff !important;
+	padding: 0 0.5rem !important;
+	margin-left: 25px !important;
 }
 
 .ui-divider.ui-divider-solid.ui-divider-horizontal:before {
 	border-top-style: dotted !important;
+}
+
+.ui-messages-error {
+	background: #FFCDD2 !important;
+	border: 1px solid #EF5350 !important;
+	border-width: 0 0 0 6px !important;
+	color: #B71C1C !important;
+	width: 100% !important;
+	font-size: 12px !important;
+}
+.ui-messages-error ul {
+display: inline-flex !important;
+}
+
+.ui-messages-error ul li {
+display: flex !important;
+    justify-content: flex-start !important;
+}
+
+.ui-messages-error ul {
+	text-align: initial !important;
 }
 </style>
 
