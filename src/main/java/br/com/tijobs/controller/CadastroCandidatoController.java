@@ -17,7 +17,8 @@ import org.springframework.web.client.RestTemplate;
 public class CadastroCandidatoController {
 	
 	private List<String> distritos;
-
+	
+	private int numero;
 
 	@PostConstruct
 	public void init() {
@@ -44,5 +45,13 @@ public class CadastroCandidatoController {
 
 	public List<String> getDistritos() {
 		return distritos;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 }
