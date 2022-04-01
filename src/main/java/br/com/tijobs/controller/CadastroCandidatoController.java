@@ -19,12 +19,12 @@ public class CadastroCandidatoController {
 	private List<String> distritos;
 	
 	private int numero;
-
+	
 	@PostConstruct
 	public void init() {
 		buscaDistritosSP();
 	}
-	
+
 	public void buscaDistritosSP() {
 
 		String url = "https://servicodados.ibge.gov.br/api/v1/localidades/estados/SP/distritos";
