@@ -16,6 +16,39 @@
 
 <h:body>
 
+	<script type="text/javascript">
+		PrimeFaces.locales['pt'] = {
+			closeText : 'Fechar',
+			prevText : 'Anterior',
+			nextText : 'Próximo',
+			currentText : 'Começo',
+			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+					'Novembro', 'Dezembro' ],
+			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+					'Sexta', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 0,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Só Horas',
+			timeText : 'Tempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			ampm : false,
+			month : 'Mês',
+			week : 'Semana',
+			day : 'Dia',
+			allDayText : 'Todo o Dia'
+		};
+	</script>
+
 	<style type="text/css">
 .ui-inputmask {
 	width: fit-content !important;
@@ -40,12 +73,22 @@
 	margin-bottom: 8px !important;
 }
 
+@media screen and (max-width: 720px) {
+	.empDiv {
+		display: grid !important;
+	}
+	.emp {
+		width: 50% !important;
+		margin-bottom: 10px !important;
+	}
+}
+
 .ui-chkbox-label {
 	margin-right: 0px !important;
 }
 
 .ui-panel-title {
-	    font-size: 16px !important;
+	font-size: 16px !important;
 }
 </style>
 
@@ -122,6 +165,7 @@
 
 											<p:selectOneMenu id="cidade" effect="fade" filter="true"
 												filterMatchMode="startsWith">
+												<f:selectItem itemLabel="selecione --" itemValue="" />
 												<f:selectItems
 													value="#{cadastroCandidatoController.distritos}" />
 											</p:selectOneMenu>
@@ -486,19 +530,132 @@
 
 
 										<p:panel header="Experiência I" toggleable="true"
-											toggleSpeed="500" widgetVar="panel" id="panel1">
+											toggleableHeader="true"
+											toggleSpeed="500" widgetVar="panel1" id="panel1">
 
-											<p class="p-m-0">Lorem ipsum dolor sit amet, consectetur
-												adipiscing elit, sed do eiusmod tempor incididunt ut labore
-												et dolore magna aliqua. Ut enim ad minim veniam, quis
-												nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-												commodo consequat. Duis aute irure dolor in reprehenderit in
-												voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-												Excepteur sint occaecat cupidatat non proident, sunt in
-												culpa qui officia deserunt mollit anim id est laborum.</p>
+											<div style="display: flex; width: 100%;" class="empDiv">
 
-											<p:inputText />
+												<div style="width: 30%; margin-right: 10px;" class="emp">
+													<p:outputLabel for="@next" value="Nome da empresa/projeto" />
 
+													<p:inputText autocomplete="no" />
+
+												</div>
+												<div style="width: 25%; margin-right: 10px;" class="emp">
+													<p:outputLabel for="@next" value="Perfil do empreendimento" />
+
+													<p:selectOneMenu>
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItem itemLabel="Projeto Pessoal"
+															itemValue="Projeto Pessoal" />
+														<f:selectItem itemLabel="Freelancer"
+															itemValue="Freelancer" />
+														<f:selectItem itemLabel="Startup" itemValue="Startup" />
+														<f:selectItem itemLabel="Pequena Empresa"
+															itemValue="Pequena Empresa" />
+														<f:selectItem itemLabel="Média Empresa"
+															itemValue="Média Empresa" />
+														<f:selectItem itemLabel="Grande Empresa"
+															itemValue="Grande Empresa" />
+													</p:selectOneMenu>
+												</div>
+
+												<div style="width: 25%;" class="emp">
+													<p:outputLabel for="@next" value="Seu cargo" />
+
+													<p:selectOneMenu>
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItem itemLabel="Estagiário"
+															itemValue="Estagiário" />
+														<f:selectItem itemLabel="Júnior" itemValue="Júnior" />
+														<f:selectItem itemLabel="Pleno" itemValue="Pleno" />
+														<f:selectItem itemLabel="Sênior" itemValue="Sênior" />
+													</p:selectOneMenu>
+												</div>
+											</div>
+
+											<br />
+
+											<div style="display: flex; width: 100%;">
+
+												<div style="width: 25%; margin-right: 10px;">
+
+													<p:outputLabel for="@next" value="Data de ínicio" />
+													<p:datePicker view="month" pattern="MM/yyyy"
+														style="width: fit-content;" yearNavigator="true"
+														yearRange="1990:2022" locale="pt" />
+
+												</div>
+
+												<div style="width: 25%; margin-right: 10px;">
+
+													<p:outputLabel for="@next" value="Data de término" />
+													<p:datePicker view="month" pattern="MM/yyyy"
+														style="width: fit-content;" yearNavigator="true"
+														yearRange="1990:2022" locale="pt" />
+
+												</div>
+
+												<div style="display: flex; align-items: flex-end;">
+
+													<p:selectBooleanCheckbox
+														itemLabel="Trabalho aqui atualmente" />
+
+												</div>
+
+											</div>
+
+											<br />
+
+											<div style="display: grid;">
+												<p:outputLabel
+													value="Quais as 4 principais habilidades que você teve contato neste trabalho? " />
+												<div style="display: flex;" class="empDiv">
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="emp" effect="fade"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="emp" effect="fade"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="emp" effect="fade"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="emp" effect="fade" style="width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+												</div>
+											</div>
+
+											<br />
+
+											<div style="display: grid; width: 70%;">
+
+												<p:outputLabel for="@next"
+													value="Conte um pouco do seu trabalho..." />
+												<p:inputTextarea
+													placeholder="Descreva suas atividades, objetivos e resultados."
+													rows="4" />
+
+											</div>
 
 											<f:facet name="actions">
 												<p:commandLink
@@ -522,18 +679,132 @@
 
 
 										<p:panel header="Experiência II" toggleable="true"
-											toggleSpeed="500" widgetVar="panel" id="panel2">
+											toggleableHeader="true"
+											toggleSpeed="500" widgetVar="panel2" id="panel2">
 
-											<p class="p-m-0">Lorem ipsum dolor sit amet, consectetur
-												adipiscing elit, sed do eiusmod tempor incididunt ut labore
-												et dolore magna aliqua. Ut enim ad minim veniam, quis
-												nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-												commodo consequat. Duis aute irure dolor in reprehenderit in
-												voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-												Excepteur sint occaecat cupidatat non proident, sunt in
-												culpa qui officia deserunt mollit anim id est laborum.</p>
+											<div style="display: flex; width: 100%;" class="empDiv">
 
-											<p:inputText />
+												<div style="width: 30%; margin-right: 10px;" class="emp">
+													<p:outputLabel for="@next" value="Nome da empresa/projeto" />
+
+													<p:inputText autocomplete="no" />
+
+												</div>
+												<div style="width: 25%; margin-right: 10px;" class="emp">
+													<p:outputLabel for="@next" value="Perfil do empreendimento" />
+
+													<p:selectOneMenu>
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItem itemLabel="Projeto Pessoal"
+															itemValue="Projeto Pessoal" />
+														<f:selectItem itemLabel="Freelancer"
+															itemValue="Freelancer" />
+														<f:selectItem itemLabel="Startup" itemValue="Startup" />
+														<f:selectItem itemLabel="Pequena Empresa"
+															itemValue="Pequena Empresa" />
+														<f:selectItem itemLabel="Média Empresa"
+															itemValue="Média Empresa" />
+														<f:selectItem itemLabel="Grande Empresa"
+															itemValue="Grande Empresa" />
+													</p:selectOneMenu>
+												</div>
+
+												<div style="width: 25%;" class="emp">
+													<p:outputLabel for="@next" value="Seu cargo" />
+
+													<p:selectOneMenu>
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItem itemLabel="Estagiário"
+															itemValue="Estagiário" />
+														<f:selectItem itemLabel="Júnior" itemValue="Júnior" />
+														<f:selectItem itemLabel="Pleno" itemValue="Pleno" />
+														<f:selectItem itemLabel="Sênior" itemValue="Sênior" />
+													</p:selectOneMenu>
+												</div>
+											</div>
+
+											<br />
+
+											<div style="display: flex; width: 100%;">
+
+												<div style="width: 25%; margin-right: 10px;">
+
+													<p:outputLabel for="@next" value="Data de ínicio" />
+													<p:datePicker view="month" pattern="MM/yyyy"
+														style="width: fit-content;" yearNavigator="true"
+														yearRange="1990:2022" locale="pt" />
+
+												</div>
+
+												<div style="width: 25%; margin-right: 10px;">
+
+													<p:outputLabel for="@next" value="Data de término" />
+													<p:datePicker view="month" pattern="MM/yyyy"
+														style="width: fit-content;" yearNavigator="true"
+														yearRange="1990:2022" locale="pt" />
+
+												</div>
+
+												<div style="display: flex; align-items: flex-end;">
+
+													<p:selectBooleanCheckbox
+														itemLabel="Trabalho aqui atualmente" />
+
+												</div>
+
+											</div>
+
+											<br />
+
+											<div style="display: grid;">
+												<p:outputLabel
+													value="Quais as 4 principais habilidades que você teve contato neste trabalho? " />
+												<div style="display: flex;" class="empDiv">
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="emp" effect="fade"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="emp" effect="fade"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="emp" effect="fade"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="emp" effect="fade" style="width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+												</div>
+											</div>
+
+											<br />
+
+											<div style="display: grid; width: 70%;">
+
+												<p:outputLabel for="@next"
+													value="Conte um pouco do seu trabalho..." />
+												<p:inputTextarea
+													placeholder="Descreva suas atividades, objetivos e resultados."
+													rows="4" />
+
+											</div>
 
 
 											<f:facet name="actions">
@@ -557,20 +828,132 @@
 									<div class="p-col-12 p-md-4">
 
 
-										<p:panel header="Experiência III" toggleable="true"
-											toggleSpeed="500" widgetVar="panel" id="panel3">
+										<p:panel header="Experiência III" toggleable="true" toggleableHeader="true"
+											toggleSpeed="500" widgetVar="panel3" id="panel3">
 
-											<p class="p-m-0">Lorem ipsum dolor sit amet, consectetur
-												adipiscing elit, sed do eiusmod tempor incididunt ut labore
-												et dolore magna aliqua. Ut enim ad minim veniam, quis
-												nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-												commodo consequat. Duis aute irure dolor in reprehenderit in
-												voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-												Excepteur sint occaecat cupidatat non proident, sunt in
-												culpa qui officia deserunt mollit anim id est laborum.</p>
+											<div style="display: flex; width: 100%;" class="empDiv">
 
-											<p:inputText />
+												<div style="width: 30%; margin-right: 10px;" class="emp">
+													<p:outputLabel for="@next" value="Nome da empresa/projeto" />
 
+													<p:inputText autocomplete="no" />
+
+												</div>
+												<div style="width: 25%; margin-right: 10px;" class="emp">
+													<p:outputLabel for="@next" value="Perfil do empreendimento" />
+
+													<p:selectOneMenu>
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItem itemLabel="Projeto Pessoal"
+															itemValue="Projeto Pessoal" />
+														<f:selectItem itemLabel="Freelancer"
+															itemValue="Freelancer" />
+														<f:selectItem itemLabel="Startup" itemValue="Startup" />
+														<f:selectItem itemLabel="Pequena Empresa"
+															itemValue="Pequena Empresa" />
+														<f:selectItem itemLabel="Média Empresa"
+															itemValue="Média Empresa" />
+														<f:selectItem itemLabel="Grande Empresa"
+															itemValue="Grande Empresa" />
+													</p:selectOneMenu>
+												</div>
+
+												<div style="width: 25%;" class="emp">
+													<p:outputLabel for="@next" value="Seu cargo" />
+
+													<p:selectOneMenu>
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItem itemLabel="Estagiário"
+															itemValue="Estagiário" />
+														<f:selectItem itemLabel="Júnior" itemValue="Júnior" />
+														<f:selectItem itemLabel="Pleno" itemValue="Pleno" />
+														<f:selectItem itemLabel="Sênior" itemValue="Sênior" />
+													</p:selectOneMenu>
+												</div>
+											</div>
+
+											<br />
+
+											<div style="display: flex; width: 100%;">
+
+												<div style="width: 25%; margin-right: 10px;">
+
+													<p:outputLabel for="@next" value="Data de ínicio" />
+													<p:datePicker view="month" pattern="MM/yyyy"
+														style="width: fit-content;" yearNavigator="true"
+														yearRange="1990:2022" locale="pt" />
+
+												</div>
+
+												<div style="width: 25%; margin-right: 10px;">
+
+													<p:outputLabel for="@next" value="Data de término" />
+													<p:datePicker view="month" pattern="MM/yyyy"
+														style="width: fit-content;" yearNavigator="true"
+														yearRange="1990:2022" locale="pt" />
+
+												</div>
+
+												<div style="display: flex; align-items: flex-end;">
+
+													<p:selectBooleanCheckbox
+														itemLabel="Trabalho aqui atualmente" />
+
+												</div>
+
+											</div>
+
+											<br />
+
+											<div style="display: grid;">
+												<p:outputLabel
+													value="Quais as 4 principais habilidades que você teve contato neste trabalho? " />
+												<div style="display: flex;" class="empDiv">
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="emp" effect="fade"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="emp" effect="fade"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="emp" effect="fade"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="emp" effect="fade" style="width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+												</div>
+											</div>
+
+											<br />
+
+											<div style="display: grid; width: 70%;">
+
+												<p:outputLabel for="@next"
+													value="Conte um pouco do seu trabalho..." />
+												<p:inputTextarea
+													placeholder="Descreva suas atividades, objetivos e resultados."
+													rows="4" />
+
+											</div>
 
 											<f:facet name="actions">
 												<p:commandLink
@@ -588,14 +971,12 @@
 
 									</div>
 
-
-
-
 								</div>
 
+<br />
 
-								<span class="text-green-500 font-medium">85 </span> <span
-									class="text-500">responded</span>
+								<span class="text-green-500 font-medium">Experiências: </span> <span
+									class="text-500">profissionais e pessoais.</span>
 							</div>
 						</div>
 					</div>
