@@ -21,7 +21,7 @@ public class CadastroCandidatoController {
 	private int numero;
 	
 	private List<String> habilidades;
-	
+
 	@PostConstruct
 	public void init() {
 		buscaDistritosSP();
