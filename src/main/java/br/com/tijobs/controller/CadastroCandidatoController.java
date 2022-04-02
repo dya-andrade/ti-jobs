@@ -21,7 +21,7 @@ public class CadastroCandidatoController {
 	private int numero;
 	
 	private List<String> habilidades;
-	
+
 	@PostConstruct
 	public void init() {
 		buscaDistritosSP();
@@ -143,6 +143,10 @@ public class CadastroCandidatoController {
 		habilidades.add("WordPress");
 		habilidades.add("Xamarin");
 		habilidades.add("XML");
+	}
+	
+	public void salvar() {
+		System.out.println("chamou salvar");
 	}
 
 	public void buscaDistritosSP() {
