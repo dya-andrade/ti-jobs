@@ -74,10 +74,10 @@
 }
 
 @media screen and (max-width: 720px) {
-	.empDiv {
+	.responsivoDiv {
 		display: grid !important;
 	}
-	.emp {
+	.responsivoDivchild {
 		width: 50% !important;
 		margin-bottom: 10px !important;
 	}
@@ -537,15 +537,15 @@
 											toggleableHeader="true" toggleSpeed="500" widgetVar="panel1"
 											id="panel1">
 
-											<div style="display: flex; width: 100%;" class="empDiv">
+											<div style="display: flex; width: 100%;" class="responsivoDiv">
 
-												<div style="width: 30%; margin-right: 10px;" class="emp">
+												<div style="width: 30%; margin-right: 10px;" class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Nome da empresa/projeto" />
 
 													<p:inputText autocomplete="no" />
 
 												</div>
-												<div style="width: 25%; margin-right: 10px;" class="emp">
+												<div style="width: 25%; margin-right: 10px;" class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Perfil do empreendimento" />
 
 													<p:selectOneMenu>
@@ -564,7 +564,7 @@
 													</p:selectOneMenu>
 												</div>
 
-												<div style="width: 25%;" class="emp">
+												<div style="width: 25%;" class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Seu cargo" />
 
 													<p:selectOneMenu>
@@ -614,10 +614,10 @@
 											<div style="display: grid;">
 												<p:outputLabel
 													value="Quais as 4 principais habilidades que você teve contato neste trabalho? " />
-												<div style="display: flex;" class="empDiv">
+												<div style="display: flex;" class="responsivoDiv">
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="emp" effect="fade"
+														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
@@ -625,7 +625,7 @@
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="emp" effect="fade"
+														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
@@ -633,7 +633,7 @@
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="emp" effect="fade"
+														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
@@ -641,7 +641,7 @@
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="emp" effect="fade" style="width: fit-content;">
+														class="responsivoDivchild" effect="fade" style="width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
 															value="#{cadastroCandidatoController.habilidades}" />
@@ -686,15 +686,15 @@
 											toggleableHeader="true" toggleSpeed="500" widgetVar="panel2"
 											id="panel2">
 
-											<div style="display: flex; width: 100%;" class="empDiv">
+											<div style="display: flex; width: 100%;" class="responsivoDiv">
 
-												<div style="width: 30%; margin-right: 10px;" class="emp">
+												<div style="width: 30%; margin-right: 10px;" class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Nome da empresa/projeto" />
 
 													<p:inputText autocomplete="no" />
 
 												</div>
-												<div style="width: 25%; margin-right: 10px;" class="emp">
+												<div style="width: 25%; margin-right: 10px;" class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Perfil do empreendimento" />
 
 													<p:selectOneMenu>
@@ -713,7 +713,7 @@
 													</p:selectOneMenu>
 												</div>
 
-												<div style="width: 25%;" class="emp">
+												<div style="width: 25%;" class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Seu cargo" />
 
 													<p:selectOneMenu>
@@ -763,10 +763,10 @@
 											<div style="display: grid;">
 												<p:outputLabel
 													value="Quais as 4 principais habilidades que você teve contato neste trabalho? " />
-												<div style="display: flex;" class="empDiv">
+												<div style="display: flex;" class="responsivoDiv">
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="emp" effect="fade"
+														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
@@ -774,7 +774,7 @@
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="emp" effect="fade"
+														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
@@ -782,7 +782,7 @@
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="emp" effect="fade"
+														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
@@ -790,7 +790,7 @@
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="emp" effect="fade" style="width: fit-content;">
+														class="responsivoDivchild" effect="fade" style="width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
 															value="#{cadastroCandidatoController.habilidades}" />
@@ -836,15 +836,15 @@
 											toggleableHeader="true" toggleSpeed="500" widgetVar="panel3"
 											id="panel3">
 
-											<div style="display: flex; width: 100%;" class="empDiv">
+											<div style="display: flex; width: 100%;" class="responsivoDiv">
 
-												<div style="width: 30%; margin-right: 10px;" class="emp">
+												<div style="width: 30%; margin-right: 10px;" class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Nome da empresa/projeto" />
 
 													<p:inputText autocomplete="no" />
 
 												</div>
-												<div style="width: 25%; margin-right: 10px;" class="emp">
+												<div style="width: 25%; margin-right: 10px;" class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Perfil do empreendimento" />
 
 													<p:selectOneMenu>
@@ -863,7 +863,7 @@
 													</p:selectOneMenu>
 												</div>
 
-												<div style="width: 25%;" class="emp">
+												<div style="width: 25%;" class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Seu cargo" />
 
 													<p:selectOneMenu>
@@ -913,10 +913,10 @@
 											<div style="display: grid;">
 												<p:outputLabel
 													value="Quais as 4 principais habilidades que você teve contato neste trabalho? " />
-												<div style="display: flex;" class="empDiv">
+												<div style="display: flex;" class="responsivoDiv">
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="emp" effect="fade"
+														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
@@ -924,7 +924,7 @@
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="emp" effect="fade"
+														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
@@ -932,7 +932,7 @@
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="emp" effect="fade"
+														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
@@ -940,7 +940,7 @@
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="emp" effect="fade" style="width: fit-content;">
+														class="responsivoDivchild" effect="fade" style="width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
 															value="#{cadastroCandidatoController.habilidades}" />
@@ -1033,12 +1033,12 @@
 
 									<br />
 
-									<div class="p-col-12 p-md-4 empDiv"
+									<div class="p-col-12 p-md-4 responsivoDiv"
 										style="display: flex; width: 80%;">
 
 
 										<div style="width: 50%; display: grid; margin-right: 15px;"
-											class="emp">
+											class="responsivoDivchild">
 
 											<p:outputLabel for="salario"
 												value="Qual é sua pretensão salarial?" />
@@ -1080,7 +1080,7 @@
 
 										</div>
 
-										<div style="width: 50%;" class="emp">
+										<div style="width: 50%;" class="responsivoDivchild">
 
 											<p:outputLabel for="status" value="Status de busca" />
 
@@ -1106,7 +1106,7 @@
 									<div class="p-col-12 p-md-4"
 										style="display: flex; width: 100%;">
 
-										<div style="width: 30%;" class="emp">
+										<div style="width: 30%;" class="responsivoDivchild">
 											<p:outputLabel for="remoto"
 												value="Aceita trabalhar remotamente?" />
 											<p:selectOneButton id="remoto">
@@ -1116,7 +1116,7 @@
 
 										</div>
 
-										<div style="width: 30%;" class="emp">
+										<div style="width: 30%;" class="responsivoDivchild">
 											<p:outputLabel for="deficiente" value="É deficiente físico?" />
 											<p:selectOneButton id="deficiente">
 												<f:selectItem itemLabel="Sim" itemValue="Sim" />
