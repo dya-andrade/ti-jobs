@@ -147,7 +147,8 @@
 
 
 										<p:outputLabel for="nome" value="Nome Completo" />
-										<p:inputText id="nome" />
+										<p:inputText id="nome" required="true"
+											requiredMessage="O nome é obrigatório" />
 
 
 									</div>
@@ -160,6 +161,7 @@
 
 											<p:outputLabel for="telefone" value="Telefone" />
 											<p:inputMask id="telefone" mask="(99) 99999-9999"
+												required="true" requiredMessage="O telefone é obrigatório"
 												validateMask="true" style="width: fit-content" />
 										</div>
 
@@ -168,7 +170,8 @@
 											<p:outputLabel for="cidade" value="Cidade a onde você mora?" />
 
 											<p:selectOneMenu id="cidade" effect="fade" filter="true"
-												filterMatchMode="startsWith">
+												filterMatchMode="startsWith" required="true"
+												requiredMessage="O campo cidade é obrigatório">
 												<f:selectItem itemLabel="selecione --" itemValue="" />
 												<f:selectItems
 													value="#{cadastroCandidatoController.distritos}" />
@@ -227,7 +230,8 @@
 
 
 										<p:outputLabel for="titulo" value="Título do seu perfil:" />
-										<p:inputText id="titulo"
+										<p:inputText id="titulo" required="true"
+											requiredMessage="O campo título é obrigatório"
 											placeholder="ex: Desenvolvedor Java Jr." />
 
 
@@ -258,7 +262,8 @@
 
 
 										<p:outputLabel for="descricao" value="Descrição" />
-										<p:inputTextarea id="descricao"
+										<p:inputTextarea id="descricao" required="true"
+											requiredMessage="A descrição é obrigatório"
 											placeholder="Descreva um pouco sobre seus conhecimentos técnicos..."
 											rows="4" />
 
@@ -339,7 +344,9 @@
 
 									<div class="p-col-12 p-md-4" style="width: 50%; display: grid;">
 										<p:outputLabel for="carreira" value="Foco de carreira" />
-										<p:selectOneMenu id="carreira">
+										<p:selectOneMenu id="carreira" required="true"
+											requiredMessage="O campo carreira é obrigatório">
+											<f:selectItem itemLabel="selecione --" itemValue="" />
 											<f:selectItem itemLabel="Full Stack" itemValue="Full Stack" />
 											<f:selectItem itemLabel="Back-End" itemValue="Back-End" />
 											<f:selectItem itemLabel="Front-End" itemValue="Front-End" />
@@ -354,7 +361,9 @@
 
 										<p:outputLabel for="experiencia" value="Nível de experiência" />
 
-										<p:selectOneRadio unselectable="true" id="experiencia">
+										<p:selectOneRadio unselectable="true" id="experiencia"
+											required="true"
+											requiredMessage="O campo experiência é obrigatório">
 											<f:selectItem itemLabel="Estágio" itemValue="Estágio" />
 											<f:selectItem itemLabel="Júnior" itemValue="Júnior" />
 											<f:selectItem itemLabel="Pleno" itemValue="Pleno" />
@@ -377,7 +386,8 @@
 											<div style="width: 25%; margin-right: 15px;" class="hab">
 
 												<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-													effect="fade">
+													effect="fade" required="true"
+													requiredMessage="Você deve selecionar pelo menos 3 habilidades">
 													<f:selectItem itemLabel="selecione --" itemValue="" />
 													<f:selectItems
 														value="#{cadastroCandidatoController.habilidades}" />
@@ -399,7 +409,8 @@
 											<div style="width: 25%; margin-right: 15px;" class="hab">
 
 												<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-													effect="fade">
+													effect="fade" required="true"
+													requiredMessage="Você deve selecionar pelo menos 3 habilidades">
 													<f:selectItem itemLabel="selecione --" itemValue="" />
 													<f:selectItems
 														value="#{cadastroCandidatoController.habilidades}" />
@@ -421,7 +432,8 @@
 											<div style="width: 25%; margin-right: 15px;" class="hab">
 
 												<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-													effect="fade">
+													effect="fade" required="true"
+													requiredMessage="Você deve selecionar pelo menos 3 habilidades">
 													<f:selectItem itemLabel="selecione --" itemValue="" />
 													<f:selectItems
 														value="#{cadastroCandidatoController.habilidades}" />
@@ -537,15 +549,18 @@
 											toggleableHeader="true" toggleSpeed="500" widgetVar="panel1"
 											id="panel1">
 
-											<div style="display: flex; width: 100%;" class="responsivoDiv">
+											<div style="display: flex; width: 100%;"
+												class="responsivoDiv">
 
-												<div style="width: 30%; margin-right: 10px;" class="responsivoDivchild">
+												<div style="width: 30%; margin-right: 10px;"
+													class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Nome da empresa/projeto" />
 
 													<p:inputText autocomplete="no" />
 
 												</div>
-												<div style="width: 25%; margin-right: 10px;" class="responsivoDivchild">
+												<div style="width: 25%; margin-right: 10px;"
+													class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Perfil do empreendimento" />
 
 													<p:selectOneMenu>
@@ -641,7 +656,8 @@
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="responsivoDivchild" effect="fade" style="width: fit-content;">
+														class="responsivoDivchild" effect="fade"
+														style="width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
 															value="#{cadastroCandidatoController.habilidades}" />
@@ -686,15 +702,18 @@
 											toggleableHeader="true" toggleSpeed="500" widgetVar="panel2"
 											id="panel2">
 
-											<div style="display: flex; width: 100%;" class="responsivoDiv">
+											<div style="display: flex; width: 100%;"
+												class="responsivoDiv">
 
-												<div style="width: 30%; margin-right: 10px;" class="responsivoDivchild">
+												<div style="width: 30%; margin-right: 10px;"
+													class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Nome da empresa/projeto" />
 
 													<p:inputText autocomplete="no" />
 
 												</div>
-												<div style="width: 25%; margin-right: 10px;" class="responsivoDivchild">
+												<div style="width: 25%; margin-right: 10px;"
+													class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Perfil do empreendimento" />
 
 													<p:selectOneMenu>
@@ -790,7 +809,8 @@
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="responsivoDivchild" effect="fade" style="width: fit-content;">
+														class="responsivoDivchild" effect="fade"
+														style="width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
 															value="#{cadastroCandidatoController.habilidades}" />
@@ -836,15 +856,18 @@
 											toggleableHeader="true" toggleSpeed="500" widgetVar="panel3"
 											id="panel3">
 
-											<div style="display: flex; width: 100%;" class="responsivoDiv">
+											<div style="display: flex; width: 100%;"
+												class="responsivoDiv">
 
-												<div style="width: 30%; margin-right: 10px;" class="responsivoDivchild">
+												<div style="width: 30%; margin-right: 10px;"
+													class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Nome da empresa/projeto" />
 
 													<p:inputText autocomplete="no" />
 
 												</div>
-												<div style="width: 25%; margin-right: 10px;" class="responsivoDivchild">
+												<div style="width: 25%; margin-right: 10px;"
+													class="responsivoDivchild">
 													<p:outputLabel for="@next" value="Perfil do empreendimento" />
 
 													<p:selectOneMenu>
@@ -940,7 +963,8 @@
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-														class="responsivoDivchild" effect="fade" style="width: fit-content;">
+														class="responsivoDivchild" effect="fade"
+														style="width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
 														<f:selectItems
 															value="#{cadastroCandidatoController.habilidades}" />
@@ -1084,7 +1108,9 @@
 
 											<p:outputLabel for="status" value="Status de busca" />
 
-											<p:selectOneMenu id="status" style="min-width: 270px;">
+											<p:selectOneMenu id="status" style="min-width: 270px;"
+												required="true"
+												requiredMessage="O campo status é obrigatório">
 												<f:selectItem itemLabel="selecione --" itemValue="" />
 												<f:selectItem itemLabel="Em busca de novas oportunidades!"
 													itemValue="Em busca de novas oportunidades!" />
@@ -1109,7 +1135,8 @@
 										<div style="width: 30%;" class="responsivoDivchild">
 											<p:outputLabel for="remoto"
 												value="Aceita trabalhar remotamente?" />
-											<p:selectOneButton id="remoto">
+											<p:selectOneButton id="remoto" required="true"
+												requiredMessage="O campo remoto é obrigatório">
 												<f:selectItem itemLabel="Sim" itemValue="Sim" />
 												<f:selectItem itemLabel="Não" itemValue="Não" />
 											</p:selectOneButton>
@@ -1118,7 +1145,8 @@
 
 										<div style="width: 30%;" class="responsivoDivchild">
 											<p:outputLabel for="deficiente" value="É deficiente físico?" />
-											<p:selectOneButton id="deficiente">
+											<p:selectOneButton id="deficiente" required="true"
+												requiredMessage="O campo deficiente físico é obrigatório">
 												<f:selectItem itemLabel="Sim" itemValue="Sim" />
 												<f:selectItem itemLabel="Não" itemValue="Não" />
 											</p:selectOneButton>
@@ -1140,7 +1168,6 @@
 						</div>
 
 
-
 						<div>
 
 							<p:messages id="msgs" />
@@ -1152,9 +1179,6 @@
 								update="@form" action="#{cadastroCandidatoController.salvar}" />
 
 						</div>
-
-
-
 
 					</div>
 
