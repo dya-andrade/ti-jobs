@@ -2,21 +2,14 @@ package br.com.tijobs.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import javax.persistence.Transient;
 
 @Entity(name = "experiencia")
 public class Experiencia implements Serializable {
@@ -42,16 +35,26 @@ public class Experiencia implements Serializable {
 
 	private Boolean atual;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	@Fetch(value = FetchMode.SUBSELECT)
-	@JoinTable(name = "experiencia_habilidade", joinColumns = @JoinColumn(name = "id_experiencia"), inverseJoinColumns = @JoinColumn(name = "id_habilidade"))
-	private List<Habilidade> habilidades;
-
+	private String habilidades;
+	
 	private String descricao;
 
 	@ManyToOne
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id")
-	private Candidato candidato;	
+	private Candidato candidato;
+	
+	@Transient
+	private Habilidade habilidade;
+	
+
+	public Habilidade getHabilidade() {
+		return habilidade;
+	}
+
+	public void setHabilidade(Habilidade habilidade) {
+		this.habilidade = habilidade;
+		habilidades = habilidades + "," + habilidade.getNome();
+	}
 
 	public Integer getId() {
 		return id;
@@ -109,16 +112,16 @@ public class Experiencia implements Serializable {
 		this.atual = atual;
 	}
 
-	public List<Habilidade> getHabilidades() {
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public String getHabilidades() {
 		return habilidades;
 	}
 
-	public void setHabilidades(List<Habilidade> habilidades) {
+	public void setHabilidades(String habilidades) {
 		this.habilidades = habilidades;
-	}
-
-	public String getDescricao() {
-		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
