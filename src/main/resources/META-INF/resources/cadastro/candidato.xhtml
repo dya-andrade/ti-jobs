@@ -148,6 +148,7 @@
 
 										<p:outputLabel for="nome" value="Nome Completo" />
 										<p:inputText id="nome" required="true"
+											value="#{cadastroCandidatoController.candidato.nome}"
 											requiredMessage="O nome é obrigatório" />
 
 
@@ -161,6 +162,7 @@
 
 											<p:outputLabel for="telefone" value="Telefone" />
 											<p:inputMask id="telefone" mask="(99) 99999-9999"
+												value="#{cadastroCandidatoController.candidato.telefone}"
 												required="true" requiredMessage="O telefone é obrigatório"
 												validateMask="true" style="width: fit-content" />
 										</div>
@@ -171,6 +173,7 @@
 
 											<p:selectOneMenu id="cidade" effect="fade" filter="true"
 												filterMatchMode="startsWith" required="true"
+												value="#{cadastroCandidatoController.candidato.cidade}"
 												requiredMessage="O campo cidade é obrigatório">
 												<f:selectItem itemLabel="selecione --" itemValue="" />
 												<f:selectItems
@@ -231,6 +234,7 @@
 
 										<p:outputLabel for="titulo" value="Título do seu perfil:" />
 										<p:inputText id="titulo" required="true"
+											value="#{cadastroCandidatoController.candidato.titulo}"
 											requiredMessage="O campo título é obrigatório"
 											placeholder="ex: Desenvolvedor Java Jr." />
 
@@ -244,7 +248,8 @@
 
 										<p:outputLabel for="ingles" value="Nível de inglês" />
 
-										<p:selectOneRadio unselectable="true" id="ingles">
+										<p:selectOneRadio unselectable="true" id="ingles"
+											value="#{cadastroCandidatoController.candidato.ingles}">
 											<f:selectItem itemLabel="Nenhum" itemValue="Nenhum" />
 											<f:selectItem itemLabel="Básico" itemValue="Básico" />
 											<f:selectItem itemLabel="Intermediário"
@@ -263,6 +268,7 @@
 
 										<p:outputLabel for="descricao" value="Descrição" />
 										<p:inputTextarea id="descricao" required="true"
+											value="#{cadastroCandidatoController.candidato.descricao}"
 											requiredMessage="A descrição é obrigatório"
 											placeholder="Descreva um pouco sobre seus conhecimentos técnicos..."
 											rows="4" />
@@ -279,6 +285,7 @@
 												<i class="pi pi-github"></i>
 											</div>
 											<p:inputText id="git"
+												value="#{cadastroCandidatoController.candidato.github}"
 												placeholder="https://github.com/seuUsuário" />
 										</div>
 
@@ -294,6 +301,7 @@
 												<i class="pi pi-linkedin"></i>
 											</div>
 											<p:inputText id="link"
+												value="#{cadastroCandidatoController.candidato.linkedin}"
 												placeholder="https://www.linkedin.com/in/seuUsuário" />
 										</div>
 
@@ -345,6 +353,7 @@
 									<div class="p-col-12 p-md-4" style="width: 50%; display: grid;">
 										<p:outputLabel for="carreira" value="Foco de carreira" />
 										<p:selectOneMenu id="carreira" required="true"
+											value="#{cadastroCandidatoController.candidato.carreira}"
 											requiredMessage="O campo carreira é obrigatório">
 											<f:selectItem itemLabel="selecione --" itemValue="" />
 											<f:selectItem itemLabel="Full Stack" itemValue="Full Stack" />
@@ -363,6 +372,7 @@
 
 										<p:selectOneRadio unselectable="true" id="experiencia"
 											required="true"
+											value="#{cadastroCandidatoController.candidato.experiencia}"
 											requiredMessage="O campo experiência é obrigatório">
 											<f:selectItem itemLabel="Estágio" itemValue="Estágio" />
 											<f:selectItem itemLabel="Júnior" itemValue="Júnior" />
@@ -389,7 +399,8 @@
 													effect="fade" required="true"
 													requiredMessage="Você deve selecionar pelo menos 3 habilidades">
 													<f:selectItem itemLabel="selecione --" itemValue="" />
-													<f:selectItems
+													<f:selectItems var="habilidade"
+														itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 														value="#{cadastroCandidatoController.habilidades}" />
 												</p:selectOneMenu>
 											</div>
@@ -412,7 +423,8 @@
 													effect="fade" required="true"
 													requiredMessage="Você deve selecionar pelo menos 3 habilidades">
 													<f:selectItem itemLabel="selecione --" itemValue="" />
-													<f:selectItems
+													<f:selectItems var="habilidade"
+														itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 														value="#{cadastroCandidatoController.habilidades}" />
 												</p:selectOneMenu>
 											</div>
@@ -435,7 +447,8 @@
 													effect="fade" required="true"
 													requiredMessage="Você deve selecionar pelo menos 3 habilidades">
 													<f:selectItem itemLabel="selecione --" itemValue="" />
-													<f:selectItems
+													<f:selectItems var="habilidade"
+														itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 														value="#{cadastroCandidatoController.habilidades}" />
 												</p:selectOneMenu>
 											</div>
@@ -456,7 +469,8 @@
 												<p:selectOneMenu filter="true" filterMatchMode="startsWith"
 													effect="fade">
 													<f:selectItem itemLabel="selecione --" itemValue="" />
-													<f:selectItems
+													<f:selectItems var="habilidade"
+														itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 														value="#{cadastroCandidatoController.habilidades}" />
 												</p:selectOneMenu>
 											</div>
@@ -477,7 +491,8 @@
 												<p:selectOneMenu filter="true" filterMatchMode="startsWith"
 													effect="fade">
 													<f:selectItem itemLabel="selecione --" itemValue="" />
-													<f:selectItems
+													<f:selectItems var="habilidade"
+														itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 														value="#{cadastroCandidatoController.habilidades}" />
 												</p:selectOneMenu>
 											</div>
@@ -529,7 +544,8 @@
 								<div class="p-grid ui-fluid">
 
 									<div class="p-col-12 p-md-4">
-										<p:selectBooleanCheckbox itemLabel="Não tenho experiência" />
+										<p:selectBooleanCheckbox itemLabel="Não tenho experiência"
+											value="#{cadastroCandidatoController.candidato.semExperiencia}" />
 										<p:commandButton type="button" id="tt" icon="pi pi-question"
 											style="background: none; width: fit-content; border: none;color: green; font-weight: 900;
 											margin-bottom: 5px;" />
@@ -635,7 +651,8 @@
 														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
-														<f:selectItems
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 															value="#{cadastroCandidatoController.habilidades}" />
 													</p:selectOneMenu>
 
@@ -643,7 +660,8 @@
 														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
-														<f:selectItems
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 															value="#{cadastroCandidatoController.habilidades}" />
 													</p:selectOneMenu>
 
@@ -651,7 +669,8 @@
 														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
-														<f:selectItems
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 															value="#{cadastroCandidatoController.habilidades}" />
 													</p:selectOneMenu>
 
@@ -659,7 +678,8 @@
 														class="responsivoDivchild" effect="fade"
 														style="width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
-														<f:selectItems
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 															value="#{cadastroCandidatoController.habilidades}" />
 													</p:selectOneMenu>
 												</div>
@@ -786,33 +806,40 @@
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
 														class="responsivoDivchild" effect="fade"
+														converter="entityConverter"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
-														<f:selectItems
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 															value="#{cadastroCandidatoController.habilidades}" />
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
 														class="responsivoDivchild" effect="fade"
+														converter="entityConverter"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
-														<f:selectItems
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 															value="#{cadastroCandidatoController.habilidades}" />
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
 														class="responsivoDivchild" effect="fade"
+														converter="entityConverter"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
-														<f:selectItems
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 															value="#{cadastroCandidatoController.habilidades}" />
 													</p:selectOneMenu>
 
 													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
 														class="responsivoDivchild" effect="fade"
-														style="width: fit-content;">
+														converter="entityConverter" style="width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
-														<f:selectItems
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 															value="#{cadastroCandidatoController.habilidades}" />
 													</p:selectOneMenu>
 												</div>
@@ -942,7 +969,8 @@
 														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
-														<f:selectItems
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 															value="#{cadastroCandidatoController.habilidades}" />
 													</p:selectOneMenu>
 
@@ -950,7 +978,8 @@
 														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
-														<f:selectItems
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 															value="#{cadastroCandidatoController.habilidades}" />
 													</p:selectOneMenu>
 
@@ -958,7 +987,8 @@
 														class="responsivoDivchild" effect="fade"
 														style="margin-right: 10px; width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
-														<f:selectItems
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 															value="#{cadastroCandidatoController.habilidades}" />
 													</p:selectOneMenu>
 
@@ -966,7 +996,8 @@
 														class="responsivoDivchild" effect="fade"
 														style="width: fit-content;">
 														<f:selectItem itemLabel="selecione --" itemValue="" />
-														<f:selectItems
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
 															value="#{cadastroCandidatoController.habilidades}" />
 													</p:selectOneMenu>
 												</div>
@@ -1030,7 +1061,9 @@
 
 										<p:outputLabel for="tamanho" value="Tamanho da empresa" />
 
-										<p:selectManyCheckbox id="tamanho" unselectable="true">
+										<p:selectManyCheckbox
+											value="#{cadastroCandidatoController.candidato.tamanhoEmpresa}"
+											id="tamanho" unselectable="true">
 											<f:selectItem itemLabel="Startup" itemValue="Startup" />
 											<f:selectItem itemLabel="Pequena" itemValue="Pequena" />
 											<f:selectItem itemLabel="Média" itemValue="Média" />
@@ -1046,7 +1079,9 @@
 
 										<p:outputLabel for="contrato" value="Tipo de contrato" />
 
-										<p:selectManyCheckbox id="contrato" unselectable="true">
+										<p:selectManyCheckbox
+											value="#{cadastroCandidatoController.candidato.tipoContrato}"
+											id="contrato" unselectable="true">
 											<f:selectItem itemLabel="Estágio" itemValue="Estágio" />
 											<f:selectItem itemLabel="CLT" itemValue="CLT" />
 											<f:selectItem itemLabel="PJ" itemValue="PJ" />
@@ -1069,7 +1104,9 @@
 
 											<div class="ui-inputgroup">
 
-												<p:selectOneMenu id="salario">
+												<p:selectOneMenu
+													value="#{cadastroCandidatoController.candidato.pretensaoSalarial}"
+													id="salario">
 													<f:selectItem itemLabel="selecione --" itemValue="" />
 													<f:selectItem itemLabel="Entre R$ 1.000 e 2.000"
 														itemValue="Entre R$ 1.000 e 2.000" />
@@ -1108,8 +1145,9 @@
 
 											<p:outputLabel for="status" value="Status de busca" />
 
-											<p:selectOneMenu id="status" style="min-width: 270px;"
-												required="true"
+											<p:selectOneMenu
+												value="#{cadastroCandidatoController.candidato.statusBusca}"
+												id="status" style="min-width: 270px;" required="true"
 												requiredMessage="O campo status é obrigatório">
 												<f:selectItem itemLabel="selecione --" itemValue="" />
 												<f:selectItem itemLabel="Em busca de novas oportunidades!"
@@ -1135,7 +1173,9 @@
 										<div style="width: 30%;" class="responsivoDivchild">
 											<p:outputLabel for="remoto"
 												value="Aceita trabalhar remotamente?" />
-											<p:selectOneButton id="remoto" required="true"
+											<p:selectOneButton
+												value="#{cadastroCandidatoController.candidato.remoto}"
+												id="remoto" required="true"
 												requiredMessage="O campo remoto é obrigatório">
 												<f:selectItem itemLabel="Sim" itemValue="Sim" />
 												<f:selectItem itemLabel="Não" itemValue="Não" />
@@ -1145,7 +1185,9 @@
 
 										<div style="width: 30%;" class="responsivoDivchild">
 											<p:outputLabel for="deficiente" value="É deficiente físico?" />
-											<p:selectOneButton id="deficiente" required="true"
+											<p:selectOneButton
+												value="#{cadastroCandidatoController.candidato.deficienteFisico}"
+												id="deficiente" required="true"
 												requiredMessage="O campo deficiente físico é obrigatório">
 												<f:selectItem itemLabel="Sim" itemValue="Sim" />
 												<f:selectItem itemLabel="Não" itemValue="Não" />

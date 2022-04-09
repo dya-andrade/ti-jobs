@@ -1,12 +1,22 @@
 package br.com.tijobs.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity(name = "candidato")
 public class Candidato implements Serializable {
@@ -18,53 +28,55 @@ public class Candidato implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	private String nome;
-	
-	private String telefone;
-	
-	private String cidade;
-	
-	@Lob
-	private byte[] foto;
-	
-	private String titulo;
-	
-	private String ingles;
-	
-	private String descricao;
-	
-	private String github;
-	
-	private String linkedin;
-	
-	@Lob
-	private byte[] curriculo;
-	
-	private String carreira;
-	
-	private String experiencia;
-	
-	private Habilidade idHhabilidade1;
 
-	private Habilidade idHabilidade2;
-	
-	private Habilidade idHabilidade3;
-	
-	private Habilidade idHabilidade4;
-	
-	private Habilidade idHabilidade5;
-	
+	private String nome;
+
+	private String telefone;
+
+	private String cidade;
+
+	@Lob //---
+	private byte[] foto;
+
+	private String titulo;
+
+	private String ingles;
+
+	private String descricao;
+
+	private String github;
+
+	private String linkedin;
+
+	@Lob //---
+	private byte[] curriculo;
+
+	private String carreira;
+
+	private String experiencia;
+
+	//---
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinTable(name = "candidato_habilidade", joinColumns = @JoinColumn(name = "id_candidato"), inverseJoinColumns = @JoinColumn(name = "id_habilidade"))
+	private List<Habilidade> habilidades;
+
+	private Boolean semExperiencia;
+
+	//---
+	@OneToMany(mappedBy = "candidato", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Experiencia> experiencias;
+
 	private String tamanhoEmpresa;
-	
+
 	private String tipoContrato;
-	
+
 	private String pretensaoSalarial;
-	
+
 	private String statusBusca;
-	
+
 	private String remoto;
-	
+
 	private String deficienteFisico;
 
 	public Integer getId() {
@@ -169,6 +181,30 @@ public class Candidato implements Serializable {
 
 	public void setExperiencia(String experiencia) {
 		this.experiencia = experiencia;
+	}
+
+	public List<Habilidade> getHabilidades() {
+		return habilidades;
+	}
+
+	public void setHabilidades(List<Habilidade> habilidades) {
+		this.habilidades = habilidades;
+	}
+
+	public Boolean getSemExperiencia() {
+		return semExperiencia;
+	}
+
+	public void setSemExperiencia(Boolean semExperiencia) {
+		this.semExperiencia = semExperiencia;
+	}
+
+	public List<Experiencia> getExperiencias() {
+		return experiencias;
+	}
+
+	public void setExperiencias(List<Experiencia> experiencias) {
+		this.experiencias = experiencias;
 	}
 
 	public String getTamanhoEmpresa() {

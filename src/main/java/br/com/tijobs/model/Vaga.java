@@ -3,13 +3,17 @@ package br.com.tijobs.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
 @Entity(name = "vaga")
 public class Vaga implements Serializable {
@@ -52,7 +56,13 @@ public class Vaga implements Serializable {
 	private String skillsObrigatorias;
 	
 	@ManyToOne
+	@JoinColumn(name = "id_empresa")
 	private Empresa empresa;
+	
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinTable(name = "vaga_candidato", joinColumns = @JoinColumn(name = "id_vaga"), 
+	inverseJoinColumns = @JoinColumn(name = "id_candidato"))
+	private List<Candidato> candidados;
 
 	public Integer getId() {
 		return id;
@@ -164,5 +174,13 @@ public class Vaga implements Serializable {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+
+	public List<Candidato> getCandidados() {
+		return candidados;
+	}
+
+	public void setCandidados(List<Candidato> candidados) {
+		this.candidados = candidados;
 	}
 }
