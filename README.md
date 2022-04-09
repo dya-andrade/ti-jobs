@@ -1,2 +1,1 @@
-# tijobs
-# Java <3
+# tijobs - Java
