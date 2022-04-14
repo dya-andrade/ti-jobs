@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import br.com.tijobs.model.Empresa;
 import br.com.tijobs.model.Vaga;
 
 @Named

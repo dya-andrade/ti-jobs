@@ -6,7 +6,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:sec="http://www.springframework.org/security/tags"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets" style="overflow: auto;">
 
 <h:head>
 	<title>index</title>
@@ -14,16 +14,124 @@
 
 <ui:include src="/WEB-INF/templates/template.xhtml" />
 
-<h:body>
-	<div class="card" style="padding: 70px;">
-
-		<div class="flex justify-content-center flex-wrap card-container">
-			<h1>BEM VINDO</h1>
-		</div>
-	</div>
+<h:body style="height: auto;overflow: hidden;">
 
 	<style type="text/css">
+@media screen and (max-width: 770px) {
+	.principalItem {
+		font-size: 28px !important;
+	}
+	.menuItem {
+		font-size: 15px !important;
+	}
+	.texto {
+		margin-top: 25% !important;
+	}
+}
+
+@media screen and (max-width: 673px) {
+	.menu {
+		display: none !important;
+	}
+	
+	.principal {
+		width: 60% !important;
+	}
+}
+
+@media screen and (max-width: 545px) {
+	.texto {
+		margin-top: 30% !important;
+	}
+	.texto-btn {
+		font-size: 12px !important;
+	}
+}
 </style>
+
+
+
+	<h:form>
+
+		<div style="display: flex">
+			<p:menubar style="width: 50%; border-right: none;" styleClass="principal">
+				<p:menuitem outcome="/index.html" styleClass="principalItem"
+					style="font-family: monospace; font-size: 32px; font-weight: 700; color: #000000a6; ">
+						#{indexController.tijobsTexto1}
+						<i class="fa fa-fw fa-coffee"></i>
+						#{indexController.tijobsTexto2}
+						
+				</p:menuitem>
+
+			</p:menubar>
+
+			<p:menubar id="menu"
+				style="display: flex; justify-content: flex-end; width: 50%; border-left: none; align-items: center;" styleClass="menu">
+
+				<p:menuitem style="font-size: 18px; height: 43px;" value="Vagas"
+					icon="pi pi-fw pi-briefcase" styleClass="menuItem" />
+
+				<p:submenu style="font-size: 18px;" label="Login"
+					icon="pi pi-fw pi-sign-in" styleClass="menuItem">
+					<p:menuitem style="font-size: 15px;" value="Candidato"
+						icon="pi pi-fw pi-user" />
+					<p:menuitem style="font-size: 15px; " value="Empresa"
+						icon="pi pi-fw pi-building" />
+				</p:submenu>
+
+				<p:submenu style="font-size: 18px;" label="Cadastre-se"
+					icon="pi pi-fw pi-id-card" styleClass="menuItem">
+					<p:menuitem style="font-size: 15px;" value="Candidato"
+						icon="pi pi-fw pi-user" />
+					<p:menuitem style="font-size: 15px;" value="Empresa"
+						icon="pi pi-fw pi-building" />
+				</p:submenu>
+
+
+			</p:menubar>
+		</div>
+
+
+
+
+		<div class="grid grid-nogutter surface-section text-800"
+			style="height: 530px;">
+			<div
+				class="col-6 md:col-6 p-6 text-center md:text-left flex align-items-center texto"
+				style="height: 32%; margin-top: 10%;">
+				<section>
+					<span class="block text-6xl font-bold mb-1">Realize o seu
+						cadastro,</span>
+					<div class="text-6xl text-primary font-bold mb-3">E tenha
+						acesso as melhores oportunidades</div>
+					<p class="mt-0 mb-4 text-700 line-height-3">Lembrete: A única
+						coisa impossível é aquilo que você não tenta.</p>
+
+					<p:commandButton value="Ver vagas" type="button"
+						class="mr-3 texto-btn" />
+					<p:commandButton value="Cadastra-se" type="button"
+						styleClass="btn-primary texto-btn" />
+				</section>
+			</div>
+			<div class="col-6 md:col-6 overflow-hidden">
+				<p:graphicImage name="/resources/images/cidade.jpg" alt="Image"
+					style="clip-path: polygon(8% 0, 50% 0%, 100% 100%, 0 100%);  height: 32%;" />
+			</div>
+		</div>
+
+
+		<div
+			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">
+
+			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
+
+			<span style="margin-right: 10px;">Versão: 1.0.0</span>
+
+
+		</div>
+
+
+	</h:form>
 
 </h:body>
 </html>
