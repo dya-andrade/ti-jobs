@@ -27,7 +27,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String user = authentication.getName();
 		String password = authentication.getCredentials().toString();
-		
+				
 		Usuario usuario = security.login(user, password);
 		
 		List<GrantedAuthority> grantedAuths = new ArrayList<>();
