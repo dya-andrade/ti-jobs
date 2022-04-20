@@ -6,7 +6,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:sec="http://www.springframework.org/security/tags"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets" style="overflow: auto;">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<title>Login</title>
@@ -14,27 +14,9 @@
 
 <ui:include src="/WEB-INF/templates/template.xhtml" />
 
-<h:body style="height: auto;overflow: hidden;">
+<h:body>
 
 	<style type="text/css">
-@media screen and (max-width: 770px) {
-	.principalItem {
-		font-size: 28px !important;
-	}
-	.menuItem {
-		font-size: 15px !important;
-	}
-}
-
-@media screen and (max-width: 673px) {
-	.menu {
-		display: none !important;
-	}
-	.principal {
-		width: 60% !important;
-	}
-}
-
 .ui-tabs-nav {
 	border: none !important;
 }
@@ -51,47 +33,6 @@
 
 	<h:form prependId="false">
 
-		<div style="display: flex">
-			<p:menubar style="width: 50%; border-right: none;"
-				styleClass="principal">
-				<p:menuitem outcome="/index.html" styleClass="principalItem"
-					style="font-family: monospace; font-size: 32px; font-weight: 700; color: #000000a6; ">
-						#{indexController.tijobsTexto1}
-						<i class="fa fa-fw fa-coffee"></i>
-						#{indexController.tijobsTexto2}
-						
-				</p:menuitem>
-
-			</p:menubar>
-
-			<p:menubar id="menu"
-				style="display: flex; justify-content: flex-end; width: 50%; border-left: none; align-items: center;"
-				styleClass="menu">
-
-				<p:menuitem style="font-size: 18px; height: 43px;" value="Vagas"
-					icon="pi pi-fw pi-briefcase" styleClass="menuItem" />
-
-				<p:submenu style="font-size: 18px;" label="Login"
-					icon="pi pi-fw pi-sign-in" styleClass="menuItem">
-					<p:menuitem style="font-size: 15px;" value="Candidato"
-						icon="pi pi-fw pi-user" />
-					<p:menuitem style="font-size: 15px; " value="Empresa"
-						icon="pi pi-fw pi-building" />
-				</p:submenu>
-
-				<p:submenu style="font-size: 18px;" label="Cadastre-se"
-					icon="pi pi-fw pi-id-card" styleClass="menuItem">
-					<p:menuitem style="font-size: 15px;" value="Candidato"
-						icon="pi pi-fw pi-user" />
-					<p:menuitem style="font-size: 15px;" value="Empresa"
-						icon="pi pi-fw pi-building" />
-				</p:submenu>
-
-
-			</p:menubar>
-		</div>
-
-
 		<div class="card"
 			style="height: 530px; display: flex; justify-content: center; align-items: center; background-repeat: no-repeat; background: left;">
 
@@ -99,90 +40,59 @@
 			<p:tabView style="width: 50%; height: auto;">
 				<p:tab title="Login">
 
+					<div class="text-center mb-5" style="font-size: 20px;">
 
 
-						<div class="text-center mb-5" style="font-size: 20px;">
+						<i class="pi pi-briefcase" />
 
+						<div class="text-900 text-3xl font-medium mb-3">Bem vindo(a)
+							de volta!</div>
+						<span class="text-600 text-3xl font-medium line-height-3">Ainda
+							não possui conta?</span>
 
-							<i class="pi pi-user mb-3"></i>
+						<p:link
+							class="font-medium text-3xl no-underline ml-2 text-blue-500 cursor-pointer"
+							value="Crie agora!" outcome="/cadastre.xhtml">
+							<f:param name="index" value="0" />
+						</p:link>
 
+					</div>
 
-							<div class="text-900 text-3xl font-medium mb-3">Bem
-								vindo(a) de volta!</div>
-							<span class="text-600 text-3xl font-medium line-height-3">Ainda
-								não possui conta?</span> <a
-								class="font-medium text-3xl no-underline ml-2 text-blue-500 cursor-pointer">Crie
-								agora!</a>
-						</div>
+					<div>
+						<label for="username" class="block text-900 font-medium mb-2">E-mail</label>
+						<p:inputText id="username" styleClass="w-full mb-4" />
 
-						<div>
-							<label for="username" class="block text-900 font-medium mb-2">E-mail</label>
-							<p:inputText id="username" styleClass="w-full mb-4" />
+						<label for="password" class="block text-900 font-medium mb-2">Senha</label>
+						<p:inputText id="password" type="password"
+							styleClass="w-full mb-3" />
 
-							<label for="password" class="block text-900 font-medium mb-2">Senha</label>
-							<p:inputText id="password" type="password"
-								styleClass="w-full mb-3" />
-
-							<div class="flex align-items-center justify-content-between mb-6">
-								<div class="flex align-items-center">
-									<p:selectBooleanCheckbox id="rememberme" styleClass="mr-2" />
-									<label for="rememberme">Lembre-me</label>
-								</div>
-								<a
-									class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Esqueceu
-									sua senha?</a>
+						<div class="flex align-items-center justify-content-between mb-6">
+							<div class="flex align-items-center">
+								<p:selectBooleanCheckbox id="rememberme" styleClass="mr-2" />
+								<label for="rememberme">Lembre-me</label>
 							</div>
-							<p:commandButton id="submit" ajax="false" value="Entrar"
-								icon="pi pi-user" styleClass="btn-primary" />
+							<a
+								class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Esqueceu
+								sua senha?</a>
 						</div>
 
+						<h:panelGroup rendered="#{param.authfailed eq 'true'}">
+							<div class="alert alert-danger" style="text-align: center;">
+								E-mail ou senha inválidos</div>
+						</h:panelGroup>
 
 
-				</p:tab>
-				<p:tab title="Cadastre-se">
-						<div class="text-center mb-5" style="font-size: 20px;">
+						<p:commandButton id="submit" ajax="false" value="Entrar"
+							icon="pi pi-sign-in" styleClass="btn-primary" />
+					</div>
 
-
-							<i class="pi pi-user mb-3"></i>
-
-
-							<div class="text-900 text-3xl font-medium mb-3">Seja bem
-								vindo(a)!</div>
-							<span class="text-600 text-3xl font-medium line-height-3">Já
-								possui uma conta?</span> <a
-								class="font-medium text-3xl no-underline ml-2 text-blue-500 cursor-pointer">Faça
-								login agora!</a>
-						</div>
-
-						<div>
-							<label for="email" class="block text-900 font-medium mb-2">E-mail</label>
-							<p:inputText id="email" styleClass="w-full mb-4" />
-
-							<label for="novaSenha" class="block text-900 font-medium mb-2">Senha</label>
-							<p:inputText id="novaSenha" type="password"
-								styleClass="w-full mb-3" />
-
-
-							<label for="novaSenhaConfirme"
-								class="block text-900 font-medium mb-2">Confirme a senha</label>
-							<p:inputText id="novaSenhaConfirme" type="password"
-								styleClass="w-full mb-6" />
-
-							<p:commandButton id="criar" ajax="false" value="Criar"
-								icon="pi pi-user"  styleClass="btn-primary" />
-						</div>
 
 
 				</p:tab>
 
 			</p:tabView>
 
-
-
-
 		</div>
-
-
 
 		<div
 			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">

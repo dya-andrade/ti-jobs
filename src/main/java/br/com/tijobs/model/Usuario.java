@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity(name = "usuario")
 public class Usuario implements Serializable {
@@ -25,6 +26,9 @@ public class Usuario implements Serializable {
 	private String email;
 
 	private String senha;
+	
+	@Transient
+	private String confirmeSenha;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_perfil")
@@ -44,6 +48,14 @@ public class Usuario implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getConfirmeSenha() {
+		return confirmeSenha;
+	}
+
+	public void setConfirmeSenha(String confirmeSenha) {
+		this.confirmeSenha = confirmeSenha;
 	}
 
 	public String getSenha() {

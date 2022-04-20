@@ -6,7 +6,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:sec="http://www.springframework.org/security/tags"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets" style="overflow: auto;">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<title>index</title>
@@ -14,28 +14,12 @@
 
 <ui:include src="/WEB-INF/templates/template.xhtml" />
 
-<h:body style="height: auto;overflow: hidden;">
+<h:body>
 
 	<style type="text/css">
 @media screen and (max-width: 770px) {
-	.principalItem {
-		font-size: 28px !important;
-	}
-	.menuItem {
-		font-size: 15px !important;
-	}
 	.texto {
 		margin-top: 25% !important;
-	}
-}
-
-@media screen and (max-width: 673px) {
-	.menu {
-		display: none !important;
-	}
-	
-	.principal {
-		width: 60% !important;
 	}
 }
 
@@ -52,47 +36,6 @@
 
 
 	<h:form>
-
-		<div style="display: flex">
-			<p:menubar style="width: 50%; border-right: none;" styleClass="principal">
-				<p:menuitem outcome="/index.html" styleClass="principalItem"
-					style="font-family: monospace; font-size: 32px; font-weight: 700; color: #000000a6; ">
-						#{indexController.tijobsTexto1}
-						<i class="fa fa-fw fa-coffee"></i>
-						#{indexController.tijobsTexto2}
-						
-				</p:menuitem>
-
-			</p:menubar>
-
-			<p:menubar id="menu"
-				style="display: flex; justify-content: flex-end; width: 50%; border-left: none; align-items: center;" styleClass="menu">
-
-				<p:menuitem style="font-size: 18px; height: 43px;" value="Vagas"
-					icon="pi pi-fw pi-briefcase" styleClass="menuItem" />
-
-				<p:submenu style="font-size: 18px;" label="Login"
-					icon="pi pi-fw pi-sign-in" styleClass="menuItem">
-					<p:menuitem style="font-size: 15px;" value="Candidato"
-						icon="pi pi-fw pi-user" />
-					<p:menuitem style="font-size: 15px; " value="Empresa"
-						icon="pi pi-fw pi-building" />
-				</p:submenu>
-
-				<p:submenu style="font-size: 18px;" label="Cadastre-se"
-					icon="pi pi-fw pi-id-card" styleClass="menuItem">
-					<p:menuitem style="font-size: 15px;" value="Candidato"
-						icon="pi pi-fw pi-user" />
-					<p:menuitem style="font-size: 15px;" value="Empresa"
-						icon="pi pi-fw pi-building" />
-				</p:submenu>
-
-
-			</p:menubar>
-		</div>
-
-
-
 
 		<div class="grid grid-nogutter surface-section text-800"
 			style="height: 530px;">
