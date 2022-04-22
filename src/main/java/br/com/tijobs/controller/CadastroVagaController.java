@@ -1,30 +1,46 @@
 package br.com.tijobs.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import br.com.tijobs.model.Empresa;
 import br.com.tijobs.model.Vaga;
+import br.com.tijobs.repository.EmpresaRepository;
+import br.com.tijobs.repository.VagaRepository;
+import br.com.tijobs.security.SecurityService;
 
 @Named
 @ViewScoped
 public class CadastroVagaController {
-	
-	private Vaga vaga;
-	
-    private List<String> tecnologias;
 
-	
+	private Vaga vaga;
+
+	private List<String> tecnologias;
+
+	@Autowired
+	private VagaRepository vagaRepository;
+
+	@Autowired
+	private EmpresaRepository empresaRepository;
+
+	@Autowired
+	private SecurityService securityService;
+
 	@PostConstruct
 	public void init() {
-		
-		if(vaga == null) {
+
+		if (vaga == null) {
 			vaga = new Vaga();
 		}
-		
+
 		tecnologias = new ArrayList<>();
 		tecnologias.add("Linguagem Python");
 		tecnologias.add("Linguagem JavaScript");
@@ -55,11 +71,17 @@ public class CadastroVagaController {
 		tecnologias.add("Linguagem Ruby");
 		tecnologias.add("Linguagem Go");
 		tecnologias.add("Linguagem TypeScript");
-		
+
 	}
-	
-	public void cadastrar() {
-		
+
+	public void cadastrar() throws IOException {
+		Empresa empresa = empresaRepository.findByUsuario(securityService.getLogado());
+
+		vaga.setEmpresa(empresa);
+
+		vagaRepository.save(vaga);
+
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/index.xhtml");
 	}
 
 	public Vaga getVaga() {

@@ -31,13 +31,13 @@
 </style>
 
 
-	<h:form prependId="false">
+	<h:form prependId="false" >
 
 		<div class="card"
-			style="height: 530px; display: flex; justify-content: center; align-items: center; background-repeat: no-repeat; background: left;">
+			style="height: 537px; display: flex; justify-content: center; align-items: center; background-repeat: no-repeat; background: left;">
 
 
-			<p:tabView style="width: 50%; height: auto;">
+			<p:tabView style="width: 50%; height: auto;" prependId="false">
 				<p:tab title="Login">
 
 					<div class="text-center mb-5" style="font-size: 20px;">
@@ -59,11 +59,13 @@
 					</div>
 
 					<div>
-						<label for="username" class="block text-900 font-medium mb-2">E-mail</label>
-						<p:inputText id="username" styleClass="w-full mb-4" />
+						<label for="@next" class="block text-900 font-medium mb-2">E-mail</label>
+						<p:inputText id="username" styleClass="w-full mb-4">
+						<p:focus />
+						</p:inputText>
 
-						<label for="password" class="block text-900 font-medium mb-2">Senha</label>
-						<p:inputText id="password" type="password"
+						<label for="@next" class="block text-900 font-medium mb-2">Senha</label>
+						<p:password id="password" 
 							styleClass="w-full mb-3" />
 
 						<div class="flex align-items-center justify-content-between mb-6">

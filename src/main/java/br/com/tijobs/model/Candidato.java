@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Fetch;
@@ -30,6 +31,10 @@ public class Candidato implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+	private Usuario usuario;
 
 	private String nome;
 
@@ -189,6 +194,14 @@ public class Candidato implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getNome() {

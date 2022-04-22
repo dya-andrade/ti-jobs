@@ -34,6 +34,7 @@ public class CadastreController {
 	@Autowired
 	private SecurityService securityService;
 
+	@Autowired
 	private UsuarioRepository usuarioRepository;
 
 	@PostConstruct
@@ -85,8 +86,17 @@ public class CadastreController {
 		}
 	}
 
-	public void criarCadastroEmpresa() {
-		usuarioCandidato.setPerfil(perfilAcessoRepository.findById(2).get());
+	public void criarCadastroEmpresa() throws IOException {
+		
+		usuarioEmpresa.setPerfil(perfilAcessoRepository.findById(2).get());
+		
+		if (usuarioEmpresa.getSenha().equals(usuarioEmpresa.getConfirmeSenha())) {
+			usuarioEmpresa.setSenha(securityService.passwordEncoder().encode(usuarioEmpresa.getSenha()));
+			usuarioRepository.save(usuarioEmpresa);
+
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/cadastro/empresa.xhtml");
+
+		}
 	}
 
 	public Integer getIndex() {

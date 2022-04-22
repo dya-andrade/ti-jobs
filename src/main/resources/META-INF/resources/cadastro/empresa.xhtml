@@ -18,7 +18,7 @@
 
 	<h:form enctype="multipart/form-data">
 
-		<div class="surface-section text-center">
+		<div class="surface-section text-center" style="margin-top: 40px;">
 			<div class="mb-3 font-bold text-2xl" style="display: inline-flex;">
 				<h1 class="text-900" style="margin-right: 8px;">Sobre a</h1>
 				<h1
@@ -88,7 +88,8 @@
 								<div class="text-500 w-6 md:w-2 font-medium">Telefone</div>
 								<div style="display: flex;"
 									class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
-									<p:inputMask id="telefone" required="true" requiredMessage="Telefone é obrigatório"
+									<p:inputMask id="telefone" required="true"
+										requiredMessage="Telefone é obrigatório"
 										value="#{cadastroEmpresaController.empresa.telefone}"
 										mask="(99)9999-9999" validateMask="true" style="width: 47%;" />
 									<p:message for="telefone" display="icon" />
@@ -101,7 +102,7 @@
 								<div style="display: flex;"
 									class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">
 									<p:inputTextarea id="descricao" rows="4" required="true"
-									requiredMessage="Descrição é obrigatório"
+										requiredMessage="Descrição é obrigatório"
 										value="#{cadastroEmpresaController.empresa.descricao}"
 										placeholder="Sobre a empresa e suas atividades." cols="35" />
 									<p:message for="descricao" display="icon" />
@@ -194,6 +195,17 @@
 				</div>
 			</div>
 		</div>
+
+		<div
+			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center; margin-top: 30px;">
+
+			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
+
+			<span style="margin-right: 10px;">Versão: 1.0.0</span>
+
+		</div>
+
+
 	</h:form>
 
 	<style type="text/css">

@@ -55,7 +55,7 @@ public class Vaga implements Serializable {
 	@Lob
 	private String skillsObrigatorias;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_empresa")
 	private Empresa empresa;
 	

@@ -10,7 +10,6 @@ import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.file.UploadedFile;
 import org.primefaces.shaded.json.JSONArray;
@@ -21,14 +20,15 @@ import org.springframework.web.client.RestTemplate;
 
 import br.com.tijobs.model.Empresa;
 import br.com.tijobs.repository.EmpresaRepository;
+import br.com.tijobs.security.SecurityService;
 
 @Named
 @ViewScoped
 public class CadastroEmpresaController {
-	
+
 	@Autowired
 	private EmpresaRepository empresaRepository;
-	
+
 	private Empresa empresa;
 
 	private List<SelectItem> tiposGrupo;
@@ -39,13 +39,16 @@ public class CadastroEmpresaController {
 
 	private UploadedFile file;
 
+	@Autowired
+	private SecurityService securityService;
+
 	@PostConstruct
 	public void init() {
-		
-		if(empresa == null) {
+
+		if (empresa == null) {
 			empresa = new Empresa();
 		}
-		
+
 		tiposGrupo = new ArrayList<>();
 
 		SelectItemGroup tiposStartUp = new SelectItemGroup("Start Up");
@@ -104,11 +107,13 @@ public class CadastroEmpresaController {
 	}
 
 	public void salvar() throws IOException {
-		Empresa empresaSalva = empresaRepository.save(empresa);
-		
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-		session.setAttribute("idEmpresa", empresaSalva.getId());
-		FacesContext.getCurrentInstance().getExternalContext().redirect("");;
+
+		empresa.setUsuario(securityService.getLogado());
+
+		empresaRepository.save(empresa);
+
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/index.xhtml");
+
 	}
 
 	public Empresa getEmpresa() {
@@ -137,7 +142,7 @@ public class CadastroEmpresaController {
 
 	public void setFile(UploadedFile file) {
 		this.file = file;
-		if(file != null) {
+		if (file != null) {
 			empresa.setLogotipo(file.getContent());
 		}
 	}

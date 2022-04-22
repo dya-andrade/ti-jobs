@@ -47,8 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 			http.authorizeRequests()
 					.antMatchers("/", "/login.jsf", "/recover.xhtml", "/javax.faces.resource/**", "/resources/**",
-							"/index.xhtml", "/cadastre.xhtml", "/cadastro/empresa.xhtml", "/cadastro/candidato.xhtml")
-					.permitAll().antMatchers("/cadastro/vaga.xhtml").fullyAuthenticated().and().formLogin()
+							"/index.jsf", "/cadastre.jsf", "/cadastro/**")
+					.permitAll().antMatchers("/**").fullyAuthenticated().and().formLogin()
 					.loginPage("/login.jsf").defaultSuccessUrl("/index.xhtml").failureUrl("/login.jsf?authfailed=true")
 					.permitAll().and().logout().logoutSuccessUrl("/login.jsf").logoutUrl("/logout").and().csrf()
 					.disable();
@@ -65,9 +65,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// form login
 		http.authorizeRequests().antMatchers("/", "/login.jsf", "/javax.faces.resource/**").permitAll()
-				.antMatchers("/cadastro/vaga.xhtml").fullyAuthenticated().and().formLogin().loginPage("/login.jsf")
+				.antMatchers("/**").fullyAuthenticated().and().formLogin().loginPage("/login.jsf")
 				.defaultSuccessUrl("/index.xhtml").failureUrl("/login.jsf?authfailed=true").permitAll().and().logout()
-				.logoutSuccessUrl("/login.xhtml").logoutUrl("/j_spring_security_logout").and().csrf().disable();
+				.logoutSuccessUrl("/login.jsf").logoutUrl("/j_spring_security_logout").and().csrf().disable();
 
 		http.headers().frameOptions().sameOrigin();
 	}
