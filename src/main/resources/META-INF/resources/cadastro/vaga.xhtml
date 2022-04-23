@@ -16,23 +16,29 @@
 
 <h:body>
 
+	<style type="text/css">
+#cabecalho {
+	background-image: url("/resources/images/cidade4.jpg") !important;
+}
+</style>
 	<h:form>
 
-		<div class="surface-section text-center"  style="margin-top: 40px;">
+		<div id="cabecalho" class="surface-section text-center"
+			style="padding-bottom: 20px; padding-top: 45px; margin-bottom: 20px;">
 
-			<div style="margin-top: 10px;">
+			<div>
 				<i class="pi pi-briefcase" style="font-size: 30px;"></i>
 
 			</div>
 
 			<div class="mb-3 font-bold text-2xl" style="display: inline-flex;">
 
-				<h1 class="text-900" style="margin-right: 8px; margin-top: 0px;">Cadastro
-					de</h1>
+				<h2 class="text-900" style="margin-right: 8px; margin-top: 0px;">Cadastro
+					de</h2>
 
-				<h1
-					class="text-blue-600 scalein animation-duration-2000 animation-iteration-infinite"
-					style="margin-top: 0px;">Vagas</h1>
+				<h2
+					class="text-blue-700 scalein animation-duration-2000 animation-iteration-infinite"
+					style="margin-top: 0px;">Vagas</h2>
 			</div>
 			<div>
 
@@ -42,8 +48,9 @@
 					mercado!</a>
 			</div>
 		</div>
-		
-		<div class="flex align-items-center justify-content-center" style="margin-top: 25px;" >
+
+		<div class="flex align-items-center justify-content-center"
+			style="margin-top: 25px;">
 			<div class="surface-card p-4 shadow-2 border-round w-full lg:w-10">
 
 				<div class="surface-section">
@@ -96,6 +103,17 @@
 							placeholder="Nossa empresa trabalho no ramo..."
 							style="width: 90%;" rows="3" />
 
+						<p:outputLabel for="@next" value="Benefícios:" />
+
+						<p:selectCheckboxMenu required="true"
+							requiredMessage="O campo benefícios é obrigatório"
+							value="#{cadastroVagaController.beneficiosSelecionados}"
+							style="width: 90%;" multiple="true" filter="true"
+							filterMatchMode="startsWith" panelStyle="width: 30rem"
+							scrollHeight="250">
+							<f:selectItems value="#{cadastroVagaController.benefícios}" />
+						</p:selectCheckboxMenu>
+
 						<p:row>
 							<p:divider align="left">
 								<div class="p-d-inline-flex p-ai-center">
@@ -105,8 +123,8 @@
 						</p:row>
 
 						<p:outputLabel for="@next" value="Profissão:" />
-						<p:inputText value="#{cadastroVagaController.vaga.profissao}" 
-							style="width: 90%;"  required="true"
+						<p:inputText value="#{cadastroVagaController.vaga.profissao}"
+							style="width: 90%;" required="true"
 							requiredMessage="A profissão é obrigatório"
 							placeholder="Desenvolvedor Java Jr." />
 
@@ -152,15 +170,30 @@
 							<f:selectItem itemLabel="Sênior" itemValue="Sênior" />
 						</p:selectOneRadio>
 
-						<p:outputLabel for="@next" value="Principal Tecnologia:" />
-
-						<p:selectOneMenu required="true"
-							requiredMessage="O campo principal tecnologia é obrigatório"
-							value="#{cadastroVagaController.vaga.principalTecnologia}"
-							style="width: 90%;" effect="fade" filter="true"
-							filterMatchMode="startsWith">
-							<f:selectItems value="#{cadastroVagaController.tecnologias}" />
+						<p:outputLabel for="@next" value="Principal Área:" />
+						<p:selectOneMenu required="true" style="width: 90%;"
+							value="#{cadastroVagaController.vaga.area}"
+							requiredMessage="O campo carreira é obrigatório">
+							<f:selectItem itemLabel="Selecione --" itemValue="" />
+							<f:selectItem itemLabel="Full Stack" itemValue="Full Stack" />
+							<f:selectItem itemLabel="Back-End" itemValue="Back-End" />
+							<f:selectItem itemLabel="Front-End" itemValue="Front-End" />
+							<f:selectItem itemLabel="Mobile" itemValue="Mobile" />
 						</p:selectOneMenu>
+
+						<p:outputLabel for="@next" value="Principais Tecnologias:" />
+
+						<p:selectCheckboxMenu required="true"
+							requiredMessage="O campo principais tecnologias é obrigatório"
+							value="#{cadastroVagaController.tecnologiasSelecionadas}"
+							style="width: 90%;" multiple="true" filter="true"
+							filterMatchMode="startsWith" panelStyle="width: 30rem"
+							scrollHeight="250">
+							<f:selectItems var="habilidade" itemLabel=" #{habilidade.nome}"
+								itemValue="#{habilidade}"
+								value="#{cadastroVagaController.habilidades}" />
+						</p:selectCheckboxMenu>
+
 
 						<p:row style="margin-top: 15px;">
 							<p:divider align="left">
@@ -177,6 +210,12 @@
 							placeholder="O funcionário terá responsabilidade de realizar..."
 							style="width: 90%;" rows="3" />
 
+						<p:outputLabel for="@next" value="Skills Obrigatórias:" />
+						<p:inputTextarea required="true"
+							requiredMessage="Informe as skills obrigatórias"
+							value="#{cadastroVagaController.vaga.skillsObrigatorias}"
+							placeholder="O candidato precisa ter as skills..."
+							style="width: 90%;" rows="3" />
 
 						<p:outputLabel for="@next" value="Skills Desejáveis:" />
 						<p:inputTextarea
@@ -184,12 +223,7 @@
 							placeholder="Será um diferencial se o candidato tiver as skills..."
 							style="width: 90%;" rows="3" />
 
-						<p:outputLabel for="@next" value="Skills Obrigatórias:" />
-						<p:inputTextarea required="true"
-							requiredMessage="Informe as skills obrigatórias"
-							value="#{cadastroVagaController.vaga.skillsObrigatorias}"
-							placeholder="O candidato precisa ter as skills..."
-							style="width: 90%;" rows="3" />
+
 
 					</p:panelGrid>
 
@@ -220,8 +254,8 @@
 
 			</div>
 		</div>
-		
-			<div
+
+		<div
 			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center; margin-top: 30px;">
 
 			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>

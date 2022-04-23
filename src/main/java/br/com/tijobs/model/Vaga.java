@@ -34,6 +34,8 @@ public class Vaga implements Serializable {
 	@Lob
 	private String apresentacao;
 	
+	private String beneficios;
+	
 	private String tipoTrabalho;
 	
 	private String profissao;
@@ -44,7 +46,9 @@ public class Vaga implements Serializable {
 	
 	private String tipoContrato;
 	
-	private String principalTecnologia;
+	private String area;
+	
+	private String principaisTecnologias;
 	
 	@Lob
 	private String responsabilidades;
@@ -96,6 +100,14 @@ public class Vaga implements Serializable {
 		this.apresentacao = apresentacao;
 	}
 
+	public String getBeneficios() {
+		return beneficios;
+	}
+
+	public void setBeneficios(String beneficios) {
+		this.beneficios = beneficios;
+	}
+
 	public String getTipoTrabalho() {
 		return tipoTrabalho;
 	}
@@ -136,12 +148,20 @@ public class Vaga implements Serializable {
 		this.tipoContrato = tipoContrato;
 	}
 
-	public String getPrincipalTecnologia() {
-		return principalTecnologia;
+	public String getArea() {
+		return area;
 	}
 
-	public void setPrincipalTecnologia(String principalTecnologia) {
-		this.principalTecnologia = principalTecnologia;
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getPrincipaisTecnologias() {
+		return principaisTecnologias;
+	}
+
+	public void setPrincipaisTecnologias(String principaisTecnologias) {
+		this.principaisTecnologias = principaisTecnologias;
 	}
 
 	public String getResponsabilidades() {

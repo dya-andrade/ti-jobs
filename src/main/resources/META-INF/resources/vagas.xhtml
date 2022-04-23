@@ -9,7 +9,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-	<title>index</title>
+	<title>TI Jobs - vagas</title>
 </h:head>
 
 <ui:include src="/WEB-INF/templates/template.xhtml" />
@@ -36,24 +36,56 @@
 	background-image: linear-gradient(to bottom, #fdfdfd, #9eaccd)
 		!important;
 }
+
+.styleBtn {
+	border-radius: 16px !important;
+	font-size: 13px !important;
+	margin-bottom: 5px !important;
+	margin-right: 3px !important;
+}
+
+.styleDivFiltro {
+	display: grid !important;
+	margin-bottom: 10px !important;
+}
+
+#searchBtn {
+	border: 2px solid #d2d6de !important;
+}
+
+#searchIcon {
+	border: 2px solid #d2d6de !important;
+	border-right: none !important;
+	width: 30px !important;
+	background-color: #8080802e !important;
+}
+#dialogoVaga {
+	width: 80% !important; 
+	height: 80% !important;
+}
 </style>
 
 
 
-	<h:form prependId="false">
+	<h:form prependId="false" id="vagas">
 
 		<div style="height: auto;">
 			<div id="cabecalho" class="surface-section text-center"
-				style="background-color: #eaeaff; padding-bottom: 2px; margin-bottom: 20px; background: left;">
+				style="padding-bottom: 2px; margin-bottom: 20px; background: left;">
 				<div class="mb-3 font-bold text-2xl"
 					style="display: inline-flex; margin-top: 40px;">
-					<h1 class="text-900" style="margin-right: 8px;">Sobre a</h1>
-					<h1
-						class="text-blue-600 scalein animation-duration-2000 animation-iteration-infinite">empresa</h1>
+					<h2 class="text-900" style="margin-right: 8px;">Vagas para</h2>
+					<h2
+						class="text-blue-600 scalein animation-duration-2000 animation-iteration-infinite"
+						style="margin-right: 8px;">Desenvolvedores</h2>
+					<h2 class="text-900" style="margin-right: 8px;">e</h2>
+					<h2
+						class="text-blue-600 scalein animation-duration-2000 animation-iteration-infinite">Programadores</h2>
+
 				</div>
 				<div class="text-700 text-sm mb-6 text-2xl">
-					<p>O cadastro será utilizado para apresentação da empresa nas
-						vagas de emprego.</p>
+					<p>Quer ser contratado como PJ, estagiário ou CLT?.</p>
+					<p>Então você está no lugar certo!</p>
 				</div>
 			</div>
 
@@ -63,149 +95,224 @@
 
 					<div class="surface-section" style="display: flex;">
 
-						<div style="width: 30%;">
+						<div>
 
-							<h4>Filtros</h4>
+							<div id="divSearch"
+								style="margin-bottom: 15px; display: flex; justify-content: center;">
 
-
-							<div>
-								<p:outputLabel for="@next" value="Filtrar:" />
-
-								<p:commandButton value="TODAS" style="border-radius: 16px;" />
-
-							</div>
-
-							<div>
-
-								<p:outputLabel value="Tipo de Contrato" />
-
-								<p:commandButton value="CLT" style="border-radius: 16px;" />
-
-								<p:commandButton value="PJ" style="border-radius: 16px;" />
-								<p:commandButton value="Estágio" style="border-radius: 16px;" />
-
-
-							</div>
-
-							<div>
-
-								<p:outputLabel value="Nível de Experiência" />
-
-								<p:commandButton value="Júnior" style="border-radius: 16px;" />
-
-								<p:commandButton value="Pleno" style="border-radius: 16px;" />
-								<p:commandButton value="Sênior" style="border-radius: 16px;" />
-
-							</div>
-
-
-							<div>
-
-								<p:outputLabel value="Tamanho da Empresa" />
-
-								<p:commandButton value="Startup" style="border-radius: 16px;" />
-
-								<p:commandButton value="Pequena/Média Empresa"
-									style="border-radius: 16px;" />
-								<p:commandButton value="Grande Empresa"
-									style="border-radius: 16px;" />
-
-
-							</div>
-
-							<div>
-								<p:outputLabel value="Cidade" />
-
-							</div>
-
-							<div>
-
-								<p:commandButton value="Remoto" style="border-radius: 16px;" />
-								<p:commandButton value="Aceita Candidatos de Fora"
-									style="border-radius: 16px;" />
-
-							</div>
-
-
-						</div>
-
-						<div style="width: 70%;">
-							<p:dataTable id="tabela" var="vaga"
-								value="#{vagaController.vagas}" widgetVar="tabelaVagas"
-								multiViewState="true" selectionMode="single" scrollable="true"
-								scrollHeight="500"
-								currentPageReportTemplate="[{startRecord} a {endRecord}]"
-								selection="#{vagaController.vagasSelecionadas}"
-								rowKey="#{vaga.id}" emptyMessage="Sem vagas." reflow="true">
-
-								<p:column width="20%" style="text-align: center;">
-									<img
-										src="data:image/jpg;base64, #{vagaController.fotoStr(vaga.empresa)}"
-										style="width: 60px;" />
-								</p:column>
-
-								<p:column>
-									<div style="margin-bottom: 10px;">
-										<h:outputText style="font-size: 1.5em; font-weight: 600;"
-											value="#{vaga.profissao}" />
-										<span
-											style="background: #FFCDD2; color: #C63737; font-weight: 600; padding: 1px;">NOVA</span>
+								<div class="ui-inputgroup">
+									<div id="searchIcon" class="ui-inputgroup-addon">
+										<i class="pi pi-search"
+											style="font-size: 15px; margin-top: 4px;"></i>
 									</div>
-									<div style="margin-bottom: 10px;">
-										<div style="display: flex;">
-											<div class="styleInfo">
-												<i class="pi pi-briefcase"></i>
-												<h:outputText value=" #{vaga.empresa.nomeEmpresarial}" />
-											</div>
+									<p:selectOneMenu id="searchBtn" filter="true"
+										filterMatchMode="startsWith" effect="fade"
+										style="height: 36px; font-size: 16px;min-width: 350px;">
+										<f:selectItem itemLabel="Todas as Skills" itemValue="" />
+										<f:selectItems var="habilidade"
+											itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+											value="#{vagaController.habilidades}" />
+									</p:selectOneMenu>
+								</div>
+
+							</div>
+
+							<div style="display: flex;">
+
+								<div style="width: 25%;">
+
+									<h4>Filtros</h4>
 
 
-											<div class="styleInfo">
-												<i class="pi pi-map-marker"></i>
-												<h:outputText value=" #{vaga.empresa.localidade}" />
-											</div>
-											<div class="styleInfo">
-												<i class="pi pi-building"></i>
-												<h:outputText value=" #{vaga.empresa.tamanho}" />
-											</div>
+									<div class="styleDivFiltro">
+										<p:outputLabel for="@next" value="Filtrar:"
+											style="margin-bottom: 2px;" />
 
-											<div class="styleInfo">
-												<i class="pi pi-chart-bar"></i>
-												<h:outputText value=" #{vaga.nivelExperiencia}" />
-											</div>
+										<p:commandButton value="TODAS" styleClass="styleBtn"
+											style="width: fit-content;" />
+
+									</div>
+
+									<div class="styleDivFiltro">
+
+										<p:outputLabel value="Tipo de Contrato"
+											style="margin-bottom: 2px;" />
+
+										<div>
+											<p:commandButton value="CLT" styleClass="styleBtn" />
+
+											<p:commandButton value="PJ" styleClass="styleBtn" />
+											<p:commandButton value="Estágio" styleClass="styleBtn" />
 										</div>
-										<div style="display: flex;">
 
-											<div class="styleInfo">
-												<i class="fa fa-money"></i> <span> Salário: </span>
 
-												<h:outputText value="#{vaga.salario}" />
-											</div>
+									</div>
 
-											<div class="styleInfo">
-												<i class="fa fa-file-text-o"></i>
-												<h:outputText value=" #{vaga.tipoContrato}" />
-											</div>
-											<div class="styleInfo">
-												<i class="fa fa-plane"></i> <span> Aceita Candidatos
-													de Fora: </span>
-												<h:outputText value=" #{vaga.aceitaCandidatoFora}" />
-											</div>
+									<div class="styleDivFiltro">
+
+										<p:outputLabel value="Nível de Experiência"
+											style="margin-bottom: 2px;" />
+
+										<div>
+											<p:commandButton value="Júnior" styleClass="styleBtn" />
+
+											<p:commandButton value="Pleno" styleClass="styleBtn" />
+											<p:commandButton value="Sênior" styleClass="styleBtn" />
 										</div>
-									</div>
-									<div>
-										<span
-											style="border-radius: 16px; background-color: #e0f1ff; padding: 0 0.5rem; font-size: 16px;">#{vaga.principalTecnologia}</span>
-									</div>
-								</p:column>
 
-							</p:dataTable>
+									</div>
+
+
+									<div class="styleDivFiltro">
+
+										<p:outputLabel value="Tamanho da Empresa"
+											style="margin-bottom: 2px;" />
+
+										<div>
+											<p:commandButton value="Startup" styleClass="styleBtn" />
+
+											<p:commandButton value="Pequena/Média Empresa"
+												styleClass="styleBtn" />
+											<p:commandButton value="Grande Empresa" styleClass="styleBtn" />
+										</div>
+
+									</div>
+
+									<div class="styleDivFiltro">
+										<p:outputLabel for="@next" value="Cidade da Vaga"
+											style="margin-bottom: 2px;" />
+
+										<div class="ui-inputgroup">
+											<div class="ui-inputgroup-addon">
+												<i class="pi pi-search"></i>
+											</div>
+											<p:selectOneMenu effect="fade" filter="true"
+												filterMatchMode="startsWith" style="width: fit-content;">
+												<f:selectItem itemLabel="selecione --" itemValue="" />
+
+												<f:selectItems value="#{vagaController.distritos}" />
+											</p:selectOneMenu>
+										</div>
+
+									</div>
+
+									<div class="styleDivFiltro">
+
+										<p:commandButton value="Remoto" styleClass="styleBtn"
+											style="width: fit-content;" />
+										<p:commandButton value="Aceita Candidatos de Fora"
+											styleClass="styleBtn" style="width: fit-content;" />
+
+									</div>
+
+
+								</div>
+
+								<div style="width: 75%;">
+									<p:dataTable id="tabela" var="vaga"
+										value="#{vagaController.vagas}" widgetVar="tabelaVagas"
+										multiViewState="true" selectionMode="single" scrollable="true"
+										scrollHeight="500"
+										currentPageReportTemplate="[{startRecord} a {endRecord}]"
+										selection="#{vagaController.vagaSelecionada}"
+										rowKey="#{vaga.id}" emptyMessage="Sem vagas." reflow="true">
+
+										<p:ajax event="rowSelect" update=":dialogoVaga"
+											oncomplete="PF('vagaDialogo').show()" />
+
+										<p:column width="25%" style="text-align: center;">
+											<img
+												src="data:image/jpg;base64, #{vagaController.fotoStr(vaga.empresa)}"
+												style="width: 60px;" />
+										</p:column>
+
+										<p:column>
+											<div style="margin-bottom: 10px;">
+												<h:outputText style="font-size: 1.5em; font-weight: 600;"
+													value="#{vaga.profissao}" />
+												<span
+													style="background: #FFCDD2; color: #C63737; font-weight: 600; padding: 1px;">NOVA</span>
+											</div>
+											<div style="margin-bottom: 10px;">
+												<div style="display: flex;">
+													<div class="styleInfo">
+														<i class="pi pi-briefcase"></i>
+														<h:outputText value=" #{vaga.empresa.nomeEmpresarial}" />
+													</div>
+
+
+													<div class="styleInfo">
+														<i class="pi pi-map-marker"></i>
+														<h:outputText value=" #{vaga.empresa.localidade}" />
+													</div>
+													<div class="styleInfo">
+														<i class="pi pi-building"></i>
+														<h:outputText value=" #{vaga.empresa.tamanho}" />
+													</div>
+
+													<div class="styleInfo">
+														<i class="pi pi-chart-bar"></i>
+														<h:outputText value=" #{vaga.nivelExperiencia}" />
+													</div>
+												</div>
+												<div style="display: flex;">
+
+													<div class="styleInfo">
+														<i class="fa fa-money"></i> <span> Salário: </span>
+
+														<h:outputText value="#{vaga.salario}" />
+													</div>
+
+													<div class="styleInfo">
+														<i class="fa fa-file-text-o"></i>
+														<h:outputText value=" #{vaga.tipoContrato}" />
+													</div>
+													<div class="styleInfo">
+														<i class="fa fa-plane"></i> <span> Aceita
+															Candidatos de Fora: </span>
+														<h:outputText value=" #{vaga.aceitaCandidatoFora}" />
+													</div>
+												</div>
+											</div>
+											<div>
+												<span
+													style="border-radius: 16px; background-color: #e0f1ff; padding: 0 0.5rem; font-size: 16px;">#{vaga.principaisTecnologias}</span>
+											</div>
+										</p:column>
+
+									</p:dataTable>
+								</div>
+
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
+
+		<p:dialog id="dialogoVaga" 
+			header="#{vagaController.vagaSelecionada.empresa.nomeEmpresarial}"
+			widgetVar="vagaDialogo" modal="true" showEffect="fade"
+			hideEffect="fade" resizable="false">
+			<p:outputPanel id="vagaDetalhes" style="text-align:center;">
+
+
+				<div id="header">
+					<span>#{vagaController.vagaSelecionada.profissao}</span>
+					<h4>#{vagaController.vagaSelecionada.profissao}</h4>
+					<span
+						style="border-radius: 16px; background-color: #e0f1ff; padding: 0 0.5rem; font-size: 16px;">
+						#{vagaController.vagaSelecionada.principaisTecnologias}</span>
+				</div>
+
+			</p:outputPanel>
+		</p:dialog>
+
+
+
 		<div
-			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">
+			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center; margin-top: 20px;">
 
 			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
 

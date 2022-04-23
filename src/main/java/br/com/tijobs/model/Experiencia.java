@@ -42,18 +42,55 @@ public class Experiencia implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id")
 	private Candidato candidato;
+
+	//-------
+	@Transient
+	private Habilidade primeiraHabilidade;
 	
 	@Transient
-	private Habilidade habilidade;
+	private Habilidade segundaHabilidade;
+	
+	@Transient
+	private Habilidade terceiraHabilidade;
+	
+	@Transient
+	private Habilidade quartaHabilidade;
 	
 
-	public Habilidade getHabilidade() {
-		return habilidade;
+	public Habilidade getPrimeiraHabilidade() {
+		return primeiraHabilidade;
 	}
 
-	public void setHabilidade(Habilidade habilidade) {
-		this.habilidade = habilidade;
-		habilidades = habilidades + "," + habilidade.getNome();
+	public void setPrimeiraHabilidade(Habilidade primeiraHabilidade) {
+		this.primeiraHabilidade = primeiraHabilidade;
+		habilidades = habilidades + "," + primeiraHabilidade.getNome();
+	}
+
+	public Habilidade getSegundaHabilidade() {
+		return segundaHabilidade;
+	}
+
+	public void setSegundaHabilidade(Habilidade segundaHabilidade) {
+		this.segundaHabilidade = segundaHabilidade;
+		habilidades = habilidades + "," + segundaHabilidade.getNome();
+	}
+
+	public Habilidade getTerceiraHabilidade() {
+		return terceiraHabilidade;
+	}
+
+	public void setTerceiraHabilidade(Habilidade terceiraHabilidade) {
+		this.terceiraHabilidade = terceiraHabilidade;
+		habilidades = habilidades + "," + terceiraHabilidade.getNome();
+	}
+
+	public Habilidade getQuartaHabilidade() {
+		return quartaHabilidade;
+	}
+
+	public void setQuartaHabilidade(Habilidade quartaHabilidade) {
+		this.quartaHabilidade = quartaHabilidade;
+		habilidades = habilidades + "," + quartaHabilidade.getNome();
 	}
 
 	public Integer getId() {
