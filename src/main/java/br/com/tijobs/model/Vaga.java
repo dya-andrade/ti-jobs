@@ -38,6 +38,8 @@ public class Vaga implements Serializable {
 	
 	private String tipoTrabalho;
 	
+	private String remoto;
+	
 	private String profissao;
 	
 	private String nivelExperiencia;
@@ -114,6 +116,14 @@ public class Vaga implements Serializable {
 
 	public void setTipoTrabalho(String tipoTrabalho) {
 		this.tipoTrabalho = tipoTrabalho;
+	}
+
+	public String getRemoto() {
+		return remoto;
+	}
+
+	public void setRemoto(String remoto) {
+		this.remoto = remoto;
 	}
 
 	public String getProfissao() {

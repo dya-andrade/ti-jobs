@@ -86,6 +86,19 @@ public class VagaController {
 					.encode(IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream("profile.jpg"))));
 		}
 	}
+	
+	public String fotoEmpresa( ) throws IOException {		
+		if(vagaSelecionada != null) {
+			if (vagaSelecionada.getEmpresa().getLogotipo() != null) {
+				return new String(Base64.getEncoder().encode(vagaSelecionada.getEmpresa().getLogotipo()));
+			} else {
+
+				return new String(Base64.getEncoder()
+						.encode(IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream("profile.jpg"))));
+			}
+		}
+		return null;
+	}
 
 	public List<Vaga> getVagas() {
 		return vagas;

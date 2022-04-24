@@ -193,6 +193,15 @@
 								itemValue="#{habilidade}"
 								value="#{cadastroVagaController.habilidades}" />
 						</p:selectCheckboxMenu>
+						
+					<p:outputLabel for="@next" value="Trabalho Remoto?" />
+						<p:selectOneRadio required="true"
+							requiredMessage="O campo remoto é obrigatório"
+							value="#{cadastroVagaController.vaga.remoto}"
+							unselectable="true">
+							<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							<f:selectItem itemLabel="Não" itemValue="Não" />
+						</p:selectOneRadio>
 
 
 						<p:row style="margin-top: 15px;">

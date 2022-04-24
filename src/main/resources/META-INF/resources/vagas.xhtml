@@ -17,7 +17,7 @@
 <h:body>
 
 	<style type="text/css">
-#cabecalho {
+#cabecalho, #cabecalhoMobile {
 	background-image: url("/resources/images/cidade3.jpg") !important;
 }
 
@@ -59,9 +59,55 @@
 	width: 30px !important;
 	background-color: #8080802e !important;
 }
+
 #dialogoVaga {
-	width: 80% !important; 
+	width: 80% !important;
 	height: 80% !important;
+}
+
+#header {
+	background-color: #386491a6 !important;
+	padding-top: 40px !important;
+	padding-bottom: 30px !important;
+}
+
+.ui-divider.ui-divider-solid.ui-divider-horizontal:before {
+	border: 1px solid #c7c2c2f7 !important;
+}
+
+@media screen and (max-width: 760px) {
+	#menuFiltrosMobile {
+		display: grid !important;
+	}
+	#menuFiltros {
+		display: none !important;
+	}
+	#tabelaVagas {
+		width: 100% !important;
+	}
+	#divFiltros {
+		display: flex !important;
+	}
+	#searchBtn {
+		min-width: 250px !important;
+	}
+	#cabecalhoMobile {
+		display: grid !important;
+	}
+	#cabecalho {
+		display: none !important;
+	}
+	#resumoVaga {
+		font-size: 14px !important;
+		width: 65% !important;
+	}
+	#dialogoVaga {
+		width: 90% !important;
+	}
+}
+
+.ui-column-title {
+	display: none !important;
 }
 </style>
 
@@ -89,6 +135,28 @@
 				</div>
 			</div>
 
+			<div id="cabecalhoMobile" class="surface-section text-center"
+				style="padding-bottom: 2px; margin-bottom: 20px; background: left; display: none;">
+				<div class="font-bold text-2xl"
+					style="display: inline-flex; margin-top: 40px; justify-content: center;">
+					<h3 class="text-900">Vagas Profissionais</h3>
+
+
+				</div>
+				<div class="mb-8 font-bold text-2xl"
+					style="display: inline-flex; justify-content: center;">
+					<h3
+						class="text-blue-700 scalein animation-duration-2000 animation-iteration-infinite"
+						style="margin-right: 8px; margin-top: 0px;">Desenvolvedores</h3>
+					<h3 class="text-900" style="margin-right: 8px; margin-top: 0px;">e</h3>
+					<h3 style="margin-top: 0px;"
+						class="text-blue-700 scalein animation-duration-2000 animation-iteration-infinite">Programadores</h3>
+
+				</div>
+			</div>
+
+
+
 			<div class="flex align-items-center justify-content-center">
 
 				<div class="surface-card p-4 shadow-2 border-round w-full lg:w-11">
@@ -97,29 +165,51 @@
 
 						<div>
 
-							<div id="divSearch"
-								style="margin-bottom: 15px; display: flex; justify-content: center;">
+							<div id="divFiltros">
 
-								<div class="ui-inputgroup">
-									<div id="searchIcon" class="ui-inputgroup-addon">
-										<i class="pi pi-search"
-											style="font-size: 15px; margin-top: 4px;"></i>
-									</div>
-									<p:selectOneMenu id="searchBtn" filter="true"
-										filterMatchMode="startsWith" effect="fade"
-										style="height: 36px; font-size: 16px;min-width: 350px;">
-										<f:selectItem itemLabel="Todas as Skills" itemValue="" />
-										<f:selectItems var="habilidade"
-											itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
-											value="#{vagaController.habilidades}" />
-									</p:selectOneMenu>
+								<div id="menuFiltrosMobile" style="display: none; width: 25%;">
+
+									<p:commandButton id="dynaButton" value="Filtros" type="button"
+										icon="pi pi-bars"
+										style="height: fit-content; width: fit-content;" />
+									<p:menu overlay="true" trigger="dynaButton" my="left top"
+										at="left bottom">
+										<p:submenu label="Options">
+											<p:menuitem value="Save" ajax="false" icon="pi pi-save" />
+											<p:menuitem value="Update" icon="pi pi-refresh" />
+											<p:menuitem value="Delete" icon="pi pi-times" />
+										</p:submenu>
+										<p:submenu label="Navigations">
+											<p:menuitem value="Website" icon="pi pi-external-link" />
+											<p:menuitem value="Internal" icon="pi pi-upload" />
+										</p:submenu>
+									</p:menu>
+
 								</div>
 
+								<div id="divSearch"
+									style="margin-bottom: 15px; display: flex; justify-content: center;">
+
+									<div class="ui-inputgroup">
+										<div id="searchIcon" class="ui-inputgroup-addon">
+											<i class="pi pi-search"
+												style="font-size: 15px; margin-top: 4px;"></i>
+										</div>
+										<p:selectOneMenu id="searchBtn" filter="true"
+											filterMatchMode="startsWith" effect="fade"
+											style="height: 36px; font-size: 16px;min-width: 350px;">
+											<f:selectItem itemLabel="Todas as Skills" itemValue="" />
+											<f:selectItems var="habilidade"
+												itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+												value="#{vagaController.habilidades}" />
+										</p:selectOneMenu>
+									</div>
+								</div>
 							</div>
 
 							<div style="display: flex;">
 
-								<div style="width: 25%;">
+								<div id="menuFiltros" style="width: 25%;">
 
 									<h4>Filtros</h4>
 
@@ -208,7 +298,7 @@
 
 								</div>
 
-								<div style="width: 75%;">
+								<div id="tabelaVagas" style="width: 75%;">
 									<p:dataTable id="tabela" var="vaga"
 										value="#{vagaController.vagas}" widgetVar="tabelaVagas"
 										multiViewState="true" selectionMode="single" scrollable="true"
@@ -219,6 +309,10 @@
 
 										<p:ajax event="rowSelect" update=":dialogoVaga"
 											oncomplete="PF('vagaDialogo').show()" />
+
+										<p:ajaxStatus onstart="PF('statusDialog').show()"
+											onsuccess="PF('statusDialog').hide()" />
+
 
 										<p:column width="25%" style="text-align: center;">
 											<img
@@ -291,24 +385,175 @@
 		</div>
 
 
-		<p:dialog id="dialogoVaga" 
-			header="#{vagaController.vagaSelecionada.empresa.nomeEmpresarial}"
-			widgetVar="vagaDialogo" modal="true" showEffect="fade"
-			hideEffect="fade" resizable="false">
+		<p:dialog id="dialogoVaga" responsive="true"
+			header="VAGA: ID# #{vagaController.vagaSelecionada.id}"
+			widgetVar="vagaDialogo" modal="true" showEffect="explode"
+			resizable="false" hideEffect="explode"
+			style="overflow: auto; max-height: 550px;">
 			<p:outputPanel id="vagaDetalhes" style="text-align:center;">
 
 
 				<div id="header">
-					<span>#{vagaController.vagaSelecionada.profissao}</span>
-					<h4>#{vagaController.vagaSelecionada.profissao}</h4>
-					<span
-						style="border-radius: 16px; background-color: #e0f1ff; padding: 0 0.5rem; font-size: 16px;">
+					<span style="color: white; font-size: 16px;">#{vagaController.vagaSelecionada.area}</span>
+					<h4 style="color: white; font-size: 28px;">#{vagaController.vagaSelecionada.profissao}</h4>
+					<br /> <span
+						style="border-radius: 16px; padding: 0 0.75rem; font-size: 16px; color: white; border: 1px solid;">
 						#{vagaController.vagaSelecionada.principaisTecnologias}</span>
+				</div>
+
+				<div id="body">
+					<div id="empresa" style="margin-top: 30px; text-align: initial;">
+
+						<h:outputText style="font-size: 24px; font-weight: 600;"
+							value="#{vagaController.vagaSelecionada.empresa.nomeEmpresarial}" />
+
+						<div
+							style="display: flex; padding-top: 20px; padding-bottom: 20px; background-color: #80808038; height: auto; align-items: center; margin-top: 5px;">
+							<div
+								style="width: 30%; display: flex; justify-content: center; align-items: center;">
+								<img
+									src="data:image/jpg;base64, #{vagaController.fotoEmpresa()}"
+									style="width: 60px;" />
+							</div>
+							<div id="resumoVaga"
+								style="display: flex; font-size: 16px; justify-content: space-between; width: 55%;">
+
+								<div>
+									<div style="margin-bottom: 5px">
+										<i class="pi pi-building"></i>
+										<h:outputText
+											value=" #{vagaController.vagaSelecionada.empresa.tamanho}" />
+									</div>
+									<div style="margin-bottom: 5px">
+										<i class="pi pi-map-marker"></i>
+										<h:outputText
+											value=" #{vagaController.vagaSelecionada.empresa.localidade}" />
+									</div>
+									<div style="margin-bottom: 5px">
+										<i class="pi pi-globe"></i>
+
+										<h:outputText value=" Remoto" />
+									</div>
+									<div style="margin-bottom: 5px">
+										<i class="fa fa-plane"></i>
+										<h:outputText
+											value=" Aceita candidatos de fora: #{vagaController.vagaSelecionada.aceitaCandidatoFora}" />
+									</div>
+								</div>
+
+								<div>
+									<div style="margin-bottom: 5px">
+										<i class="fa fa-file-text-o"></i>
+
+										<h:outputText
+											value=" #{vagaController.vagaSelecionada.tipoContrato}" />
+									</div>
+									<div style="margin-bottom: 5px">
+										<i class="pi pi-chart-bar"></i>
+
+										<h:outputText
+											value=" #{vagaController.vagaSelecionada.nivelExperiencia}" />
+									</div>
+									<div style="margin-bottom: 5px">
+										<i class="fa fa-money"></i>
+										<h:outputText
+											value=" Salário: #{vagaController.vagaSelecionada.salario}" />
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div id="descricao" style="margin-top: 20px; text-align: initial;">
+
+						<div style="display: grid; margin-bottom: 30px;">
+
+							<p:divider align="left">
+								<div class="p-d-inline-flex p-ai-center"
+									style="background: white; padding: 4px; margin-left: 20px; font-size: 18px; font-weight: 600;">
+									<span> Descrição da Empresa</span>
+								</div>
+							</p:divider>
+
+							<h:outputText
+								style="font-size: 16px; margin-top: 10px; font-family: system-ui;"
+								value="#{vagaController.vagaSelecionada.apresentacao}" />
+
+						</div>
+
+						<div style="margin-top: 10px; display: grid; margin-bottom: 30px;">
+
+							<p:divider align="left">
+								<div class="p-d-inline-flex p-ai-center"
+									style="background: white; padding: 4px; margin-left: 20px; font-size: 18px; font-weight: 600;">
+									<span> Atividades e Reponsabilidades</span>
+								</div>
+							</p:divider>
+
+							<h:outputText
+								style="font-size: 16px; margin-top: 10px; font-family: system-ui;"
+								value="#{vagaController.vagaSelecionada.responsabilidades}" />
+						</div>
+
+						<div style="margin-top: 10px; display: grid; margin-bottom: 30px;">
+
+							<p:divider align="left">
+								<div class="p-d-inline-flex p-ai-center"
+									style="background: white; padding: 4px; margin-left: 20px; font-size: 18px; font-weight: 600;">
+									<span> Requisitos Obrigatórios</span>
+								</div>
+							</p:divider>
+
+							<h:outputText
+								style="font-size: 16px; margin-top: 10px; font-family: system-ui;"
+								value="#{vagaController.vagaSelecionada.skillsObrigatorias}" />
+						</div>
+
+						<div style="margin-top: 10px; display: grid; margin-bottom: 30px;">
+
+							<p:divider align="left">
+								<div class="p-d-inline-flex p-ai-center"
+									style="background: white; padding: 4px; margin-left: 20px; font-size: 18px; font-weight: 600;">
+									<span> Requisitos Desejavéis</span>
+								</div>
+							</p:divider>
+
+							<h:outputText
+								style="font-size: 16px; margin-top: 10px; font-family: system-ui;"
+								value="#{vagaController.vagaSelecionada.skillsDesejaveis}" />
+						</div>
+
+						<div style="margin-top: 10px; display: grid; margin-bottom: 30px;">
+							<p:divider align="left">
+								<div class="p-d-inline-flex p-ai-center"
+									style="background: white; padding: 4px; margin-left: 20px; font-size: 18px; font-weight: 600;">
+									<span> Quais benefícios oferecemos</span>
+								</div>
+							</p:divider>
+
+							<div style="background-color: #80808038;">
+								<h:outputText
+									style="font-size: 16px; margin-top: 10px; font-family: system-ui;"
+									value="#{vagaController.vagaSelecionada.beneficios}" />
+
+							</div>
+						</div>
+
+					</div>
+
 				</div>
 
 			</p:outputPanel>
 		</p:dialog>
 
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<div class="p-text-center">
+				<i class="pi pi-spin pi-spinner loading-icon" aria-hidden="true"></i>
+			</div>
+		</p:dialog>
 
 
 		<div
