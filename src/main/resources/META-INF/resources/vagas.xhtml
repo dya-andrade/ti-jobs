@@ -109,6 +109,26 @@
 .ui-column-title {
 	display: none !important;
 }
+
+.subTituloDescricao {
+	background: white !important;
+	padding: 4px !important;
+	margin-left: 20px !important;
+	font-size: 18px !important;
+	font-weight: 600 !important;
+}
+
+.subDivDescricao {
+	margin-top: 10px !important;
+	display: grid !important;
+	margin-bottom: 30px !important;
+}
+
+.subTextoDescricao {
+	font-size: 16px !important;
+	margin-top: 10px !important;
+	font-family: system-ui !important;
+}
 </style>
 
 
@@ -470,71 +490,61 @@
 						<div style="display: grid; margin-bottom: 30px;">
 
 							<p:divider align="left">
-								<div class="p-d-inline-flex p-ai-center"
-									style="background: white; padding: 4px; margin-left: 20px; font-size: 18px; font-weight: 600;">
+								<div class="p-d-inline-flex p-ai-center subTituloDescricao">
 									<span> Descrição da Empresa</span>
 								</div>
 							</p:divider>
 
-							<h:outputText
-								style="font-size: 16px; margin-top: 10px; font-family: system-ui;"
+							<h:outputText styleClass="subTextoDescricao"
 								value="#{vagaController.vagaSelecionada.apresentacao}" />
 
 						</div>
 
-						<div style="margin-top: 10px; display: grid; margin-bottom: 30px;">
+						<div class="subDivDescricao">
 
 							<p:divider align="left">
-								<div class="p-d-inline-flex p-ai-center"
-									style="background: white; padding: 4px; margin-left: 20px; font-size: 18px; font-weight: 600;">
+								<div class="p-d-inline-flex p-ai-center subTituloDescricao">
 									<span> Atividades e Reponsabilidades</span>
 								</div>
 							</p:divider>
 
-							<h:outputText
-								style="font-size: 16px; margin-top: 10px; font-family: system-ui;"
+							<h:outputText styleClass="subTextoDescricao"
 								value="#{vagaController.vagaSelecionada.responsabilidades}" />
 						</div>
 
-						<div style="margin-top: 10px; display: grid; margin-bottom: 30px;">
+						<div class="subDivDescricao">
 
 							<p:divider align="left">
-								<div class="p-d-inline-flex p-ai-center"
-									style="background: white; padding: 4px; margin-left: 20px; font-size: 18px; font-weight: 600;">
+								<div class="p-d-inline-flex p-ai-center subTituloDescricao">
 									<span> Requisitos Obrigatórios</span>
 								</div>
 							</p:divider>
 
-							<h:outputText
-								style="font-size: 16px; margin-top: 10px; font-family: system-ui;"
+							<h:outputText styleClass="subTextoDescricao"
 								value="#{vagaController.vagaSelecionada.skillsObrigatorias}" />
 						</div>
 
-						<div style="margin-top: 10px; display: grid; margin-bottom: 30px;">
+						<div class="subDivDescricao">
 
 							<p:divider align="left">
-								<div class="p-d-inline-flex p-ai-center"
-									style="background: white; padding: 4px; margin-left: 20px; font-size: 18px; font-weight: 600;">
+								<div class="p-d-inline-flex p-ai-center subTituloDescricao">
 									<span> Requisitos Desejavéis</span>
 								</div>
 							</p:divider>
 
-							<h:outputText
-								style="font-size: 16px; margin-top: 10px; font-family: system-ui;"
+							<h:outputText styleClass="subTextoDescricao"
 								value="#{vagaController.vagaSelecionada.skillsDesejaveis}" />
 						</div>
 
-						<div style="margin-top: 10px; display: grid; margin-bottom: 30px;">
+						<div class="subDivDescricao">
 							<p:divider align="left">
-								<div class="p-d-inline-flex p-ai-center"
-									style="background: white; padding: 4px; margin-left: 20px; font-size: 18px; font-weight: 600;">
+								<div class="p-d-inline-flex p-ai-center subTituloDescricao">
 									<span> Quais benefícios oferecemos</span>
 								</div>
 							</p:divider>
 
 							<div style="background-color: #80808038;">
-								<h:outputText
-									style="font-size: 16px; margin-top: 10px; font-family: system-ui;"
+								<h:outputText styleClass="subTextoDescricao"
 									value="#{vagaController.vagaSelecionada.beneficios}" />
 
 							</div>

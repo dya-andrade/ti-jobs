@@ -44,7 +44,6 @@ public class CadastreController {
 			usuarioCandidato = new Usuario();
 			usuarioEmpresa = new Usuario();
 		}
-
 	}
 
 	public void senhasIguaisCandidato() {
