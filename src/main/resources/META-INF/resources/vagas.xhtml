@@ -317,6 +317,7 @@
 
 
 								</div>
+								
 
 								<div id="tabelaVagas" style="width: 75%;">
 									<p:dataTable id="tabela" var="vaga"
@@ -553,8 +554,22 @@
 					</div>
 
 				</div>
-
+				
+				<hr />
+				
+				    <p:commandButton value="CADASTRA-SE" styleClass="btn-success" process="@this"
+				    rendered="#{vagaController.usuarioLogado == null}" action="#{vagaController.cadastrar}" 
+				    style="font-size: 18px;" />
+				
+					<p:commandButton value="CANDIDATAR" styleClass="btn-success" process="@this" 
+					update=":growl dialogoVaga" rendered="#{vagaController.candidatoLogado != null and !vagaController.verificaCandidatura}" 
+					action="#{vagaController.candidatar}" style="font-size: 18px;" />
+					
+					<p:commandButton value="CANCELAR CANDIDATURA" styleClass="btn-danger"
+					update=":growl" rendered="#{vagaController.verificaCandidatura}" style="font-size: 18px;" />
+				
 			</p:outputPanel>
+			
 		</p:dialog>
 
 
@@ -564,7 +579,7 @@
 				<i class="pi pi-spin pi-spinner loading-icon" aria-hidden="true"></i>
 			</div>
 		</p:dialog>
-
+	
 
 		<div
 			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center; margin-top: 20px;">

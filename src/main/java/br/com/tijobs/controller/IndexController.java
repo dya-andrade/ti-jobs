@@ -16,6 +16,7 @@ import br.com.tijobs.model.Usuario;
 import br.com.tijobs.repository.CandidatoRepository;
 import br.com.tijobs.repository.EmpresaRepository;
 import br.com.tijobs.security.SecurityService;
+import br.com.tijobs.util.UtilService;
 
 @Named
 @ViewScoped
@@ -30,7 +31,7 @@ public class IndexController {
 	private Usuario usuario;
 
 	@Autowired
-	private SecurityService securityService;
+	private UtilService utilService;
 
 	@Autowired
 	private EmpresaRepository empresaRepository;
@@ -40,7 +41,7 @@ public class IndexController {
 
 	@PostConstruct
 	public void init() {
-		usuario = securityService.getLogado();
+		usuario = utilService.usuarioLogado();
 		atualizarFoto();
 	}
 

@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>TI Jobs - cadastro candidato</title>
+</h:head>
+
+<ui:include src="/WEB-INF/templates/template.xhtml" />
+
+<h:body>
+
+	<script type="text/javascript">
+		PrimeFaces.locales['pt'] = {
+			closeText : 'Fechar',
+			prevText : 'Anterior',
+			nextText : 'Próximo',
+			currentText : 'Começo',
+			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+					'Novembro', 'Dezembro' ],
+			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+					'Sexta', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 0,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Só Horas',
+			timeText : 'Tempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			ampm : false,
+			month : 'Mês',
+			week : 'Semana',
+			day : 'Dia',
+			allDayText : 'Todo o Dia'
+		};
+	</script>
+
+	<style type="text/css">
+.ui-inputmask {
+	width: fit-content !important;
+}
+
+.ui-fileupload-simple {
+	width: fit-content !important;
+}
+
+.ui-fileupload-simple .ui-button {
+	color: #606060 !important;
+	background-color: #d1b9f7 !important;
+}
+
+@media screen and (max-width: 560px) {
+	.hab {
+		margin-right: 30px !important;
+	}
+}
+
+.habDiv {
+	margin-bottom: 8px !important;
+}
+
+@media screen and (max-width: 720px) {
+	.responsivoDiv {
+		display: grid !important;
+	}
+	.responsivoDivchild {
+		width: 50% !important;
+		margin-bottom: 10px !important;
+	}
+}
+
+.ui-chkbox-label {
+	margin-right: 0px !important;
+}
+
+.ui-panel-title {
+	font-size: 16px !important;
+}
+
+.ui-selectonebutton .ui-button {
+	width: 100px !important;
+}
+
+.ui-messages-error {
+	background: #FFCDD2 !important;
+	border: 1px solid #EF5350 !important;
+	border-width: 0 0 0 6px !important;
+	color: #B71C1C !important;
+	width: 50% !important;
+	font-size: 12px !important;
+}
+
+.ui-messages-error ul {
+	text-align: initial !important;
+}
+</style>
+
+
+	<h:form>
+
+		<div class="surface-section text-center" style="margin-top: 40px;">
+
+			<div style="margin-top: 10px;">
+				<i class="pi pi-user" style="font-size: 30px;"></i>
+
+			</div>
+
+			<div class="mb-3 font-bold text-2xl" style="display: inline-flex;">
+
+				<h1 class="text-900" style="margin-right: 8px; margin-top: 0px;">Sobre
+					o</h1>
+
+				<h1
+					class="text-blue-600 scalein animation-duration-2000 animation-iteration-infinite"
+					style="margin-top: 0px;">canditato</h1>
+			</div>
+			<div class="text-700 text-sm mb-6 text-2xl">
+				<p>Complete seu perfil para receber as melhores prospostas da
+					plataforma.</p>
+			</div>
+		</div>
+
+		<div class="flex align-items-center justify-content-center">
+			<div class="surface-card p-4 shadow-2 border-round w-full lg:w-10">
+
+				<div class="surface-section">
+
+					<div class="grid">
+						<div class="col-12 md:col-12 lg:col-12">
+							<div class="surface-card shadow-2 p-3 border-round">
+								<div class="flex justify-content-between mb-3">
+									<div>
+										<span class="block text-500 font-medium mb-3">Sobre
+											você</span>
+										<div class="text-900 font-medium text-xl"></div>
+									</div>
+									<div
+										class="flex align-items-center justify-content-center bg-blue-100 border-round"
+										style="width: 2.5rem; height: 2.5rem">
+										<i class="pi pi-user text-blue-500 text-4xl" />
+									</div>
+								</div>
+
+								<div class="p-grid ui-fluid">
+									<div class="p-col-12 p-md-4" style="width: 50%; display: grid;">
+
+
+										<p:outputLabel for="nome" value="Nome Completo" />
+										<p:inputText id="nome" required="true"
+											value="#{cadastroCandidatoController.candidato.nome}"
+											requiredMessage="O nome é obrigatório" />
+
+
+									</div>
+
+									<br />
+
+									<div class="p-col-12 p-md-4" style="display: flex;">
+
+										<div style="display: grid; margin-right: 10px;">
+
+											<p:outputLabel for="telefone" value="Telefone" />
+											<p:inputMask id="telefone" mask="(99) 99999-9999"
+												value="#{cadastroCandidatoController.candidato.telefone}"
+												required="true" requiredMessage="O telefone é obrigatório"
+												validateMask="true" style="width: fit-content" />
+										</div>
+
+										<div>
+
+											<p:outputLabel for="cidade" value="Cidade a onde você mora?" />
+
+											<p:selectOneMenu id="cidade" effect="fade" filter="true"
+												filterMatchMode="startsWith" required="true"
+												value="#{cadastroCandidatoController.candidato.cidade}"
+												requiredMessage="O campo cidade é obrigatório">
+												<f:selectItem itemLabel="selecione --" itemValue="" />
+												<f:selectItems
+													value="#{cadastroCandidatoController.distritos}" />
+											</p:selectOneMenu>
+
+
+										</div>
+
+									</div>
+
+									<br />
+
+
+									<div class="p-col-12 p-md-4" style="display: grid;">
+
+										<p:outputLabel for="foto" value="Foto de Perfil" />
+
+										<p:fileUpload value="#{cadastroCandidatoController.foto}"
+											sizeLimit="1000000" allowTypes="/(\.|\/)(jpe?g|png)$/"
+											invalidSizeMessage="Tamanho máximo permitido: 1MB"
+											invalidFileMessage="Formato não suportado" id="foto"
+											chooseIcon="pi pi-camera" mode="simple" skinSimple="true"
+											label="Escolher" />
+
+										<p style="opacity: 0.5; font-size: 12px;">apenas formatos:
+											JPEG e PNG</p>
+
+
+									</div>
+
+								</div>
+
+								<br /> <span class="text-green-500 font-medium">Sobre
+									você: </span> <span class="text-500">nome, telefone, cidade e
+									foto perfil.</span>
+							</div>
+						</div>
+						<div class="col-12 md:col-12 lg:col-12">
+							<div class="surface-card shadow-2 p-3 border-round">
+
+								<div class="flex justify-content-between mb-3">
+									<div>
+										<span class="block text-500 font-medium mb-3">Apresentação</span>
+										<div class="text-900 font-medium text-xl"></div>
+									</div>
+									<div
+										class="flex align-items-center justify-content-center bg-pink-100 border-round"
+										style="width: 3rem; height: 2.5rem">
+										<i class="pi pi-id-card text-pink-500 text-5xl" />
+									</div>
+								</div>
+
+								<div class="p-grid ui-fluid">
+
+									<div class="p-col-12 p-md-4" style="width: 50%; display: grid;">
+
+
+										<p:outputLabel for="titulo" value="Título do seu perfil:" />
+										<p:inputText id="titulo" required="true"
+											value="#{cadastroCandidatoController.candidato.titulo}"
+											requiredMessage="O campo título é obrigatório"
+											placeholder="ex: Desenvolvedor Java Jr." />
+
+
+									</div>
+
+									<br />
+
+									<div class="p-col-12 p-md-4" style="width: 50%; display: grid;">
+
+
+										<p:outputLabel for="ingles" value="Nível de inglês" />
+
+										<p:selectOneRadio unselectable="true" id="ingles"
+											value="#{cadastroCandidatoController.candidato.ingles}">
+											<f:selectItem itemLabel="Nenhum" itemValue="Nenhum" />
+											<f:selectItem itemLabel="Básico" itemValue="Básico" />
+											<f:selectItem itemLabel="Intermediário"
+												itemValue="Intermediário" />
+											<f:selectItem itemLabel="Avançado" itemValue="Avançado" />
+											<f:selectItem itemLabel="Fluente" itemValue="Fluente" />
+										</p:selectOneRadio>
+
+
+									</div>
+
+									<br />
+
+									<div class="p-col-12 p-md-4" style="width: 50%; display: grid;">
+
+
+										<p:outputLabel for="descricao" value="Descrição" />
+										<p:inputTextarea id="descricao" required="true"
+											value="#{cadastroCandidatoController.candidato.descricao}"
+											requiredMessage="A descrição é obrigatório"
+											placeholder="Descreva um pouco sobre seus conhecimentos técnicos..."
+											rows="4" />
+
+									</div>
+
+									<br />
+
+									<div class="p-col-12 p-md-4" style="width: 50%; display: grid;">
+										<p:outputLabel for="git" value="Link do GitHub" />
+
+										<div class="ui-inputgroup">
+											<div class="ui-inputgroup-addon">
+												<i class="pi pi-github"></i>
+											</div>
+											<p:inputText id="git"
+												value="#{cadastroCandidatoController.candidato.github}"
+												placeholder="https://github.com/seuUsuário" />
+										</div>
+
+									</div>
+
+									<br />
+
+									<div class="p-col-12 p-md-4" style="width: 50%; display: grid;">
+										<p:outputLabel for="link" value="Link do Linkedin" />
+
+										<div class="ui-inputgroup">
+											<div class="ui-inputgroup-addon">
+												<i class="pi pi-linkedin"></i>
+											</div>
+											<p:inputText id="link"
+												value="#{cadastroCandidatoController.candidato.linkedin}"
+												placeholder="https://www.linkedin.com/in/seuUsuário" />
+										</div>
+
+									</div>
+
+									<br />
+
+									<div class="p-col-12 p-md-4" style="width: 50%; display: grid;">
+
+
+										<p:outputLabel for="cv" value="Anexar seu currículo" />
+
+										<p:fileUpload value="#{cadastroCandidatoController.curriculo}"
+											sizeLimit="1000000" allowTypes="/(\.|\/)(pdf|docx)$/"
+											invalidSizeMessage="Tamanho máximo permitido: 1MB"
+											invalidFileMessage="Formato não suportado" id="cv"
+											chooseIcon="pi pi-camera" mode="simple" skinSimple="true"
+											label="Escolher" />
+
+										<p style="opacity: 0.5; font-size: 12px;">apenas formatos:
+											PDF e DOCX</p>
+
+									</div>
+
+								</div>
+
+								<br /> <span class="text-green-500 font-medium">Apresentação:
+								</span> <span class="text-500">título, inglês, descrição, GitHub
+									e CV.</span>
+
+							</div>
+						</div>
+						<div class="col-12 md:col-12 lg:col-12">
+							<div class="surface-card shadow-2 p-3 border-round">
+								<div class="flex justify-content-between mb-3">
+									<div>
+										<span class="block text-500 font-medium mb-3">Habilidades</span>
+									</div>
+									<div
+										class="flex align-items-center justify-content-center bg-purple-100 border-round"
+										style="width: 2.75rem; height: 2.75rem">
+										<i class="fa fa-code text-purple-500 text-4xl" />
+									</div>
+								</div>
+
+
+								<div class="p-grid ui-fluid">
+
+									<div class="p-col-12 p-md-4" style="width: 50%; display: grid;">
+										<p:outputLabel for="carreira" value="Foco de carreira" />
+										<p:selectOneMenu id="carreira" required="true"
+											value="#{cadastroCandidatoController.candidato.carreira}"
+											requiredMessage="O campo carreira é obrigatório">
+											<f:selectItem itemLabel="selecione --" itemValue="" />
+											<f:selectItem itemLabel="Full Stack" itemValue="Full Stack" />
+											<f:selectItem itemLabel="Back-End" itemValue="Back-End" />
+											<f:selectItem itemLabel="Front-End" itemValue="Front-End" />
+											<f:selectItem itemLabel="Mobile" itemValue="Mobile" />
+										</p:selectOneMenu>
+
+									</div>
+
+									<br />
+
+									<div class="p-col-12 p-md-4" style="width: 50%; display: grid;">
+
+										<p:outputLabel for="experiencia" value="Nível de experiência" />
+
+										<p:selectOneRadio unselectable="true" id="experiencia"
+											required="true"
+											value="#{cadastroCandidatoController.candidato.experiencia}"
+											requiredMessage="O campo experiência é obrigatório">
+											<f:selectItem itemLabel="Estágio" itemValue="Estágio" />
+											<f:selectItem itemLabel="Júnior" itemValue="Júnior" />
+											<f:selectItem itemLabel="Pleno" itemValue="Pleno" />
+											<f:selectItem itemLabel="Sênior" itemValue="Sênior" />
+										</p:selectOneRadio>
+
+									</div>
+
+									<br />
+
+
+									<div class="p-col-12 p-md-4">
+
+										<p:outputLabel style="margin-bottom: 8px;"
+											value="Informe suas habilidades e indique quantos anos (0 a +10 anos) você possui em cada" />
+
+
+										<div style="display: flex;" class="habDiv">
+
+											<div style="width: 25%; margin-right: 15px;" class="hab">
+
+												<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+													effect="fade" required="true"
+													value="#{cadastroCandidatoController.candidato.primeiraHabilidade}"
+													requiredMessage="Você deve selecionar pelo menos 3 habilidades">
+													<f:selectItem itemLabel="selecione --" itemValue="" />
+													<f:selectItems var="habilidade"
+														itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+														value="#{cadastroCandidatoController.habilidades}" />
+												</p:selectOneMenu>
+											</div>
+
+											<div style="width: 24%; display: grid;">
+												<p:slider style="margin-top: 0px;" for="spinner1"
+													minValue="0" maxValue="10" />
+												<p:inputText id="spinner1" disabled="true"
+													value="#{cadastroCandidatoController.candidato.primeiraHabilidade.ano}" />
+											</div>
+
+										</div>
+
+
+										<div style="display: flex;" class="habDiv">
+
+											<div style="width: 25%; margin-right: 15px;" class="hab">
+
+												<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+													effect="fade" required="true"
+													value="#{cadastroCandidatoController.candidato.segundaHabilidade}"
+													requiredMessage="Você deve selecionar pelo menos 3 habilidades">
+													<f:selectItem itemLabel="selecione --" itemValue="" />
+													<f:selectItems var="habilidade"
+														itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+														value="#{cadastroCandidatoController.habilidades}" />
+												</p:selectOneMenu>
+											</div>
+
+											<div style="width: 24%; display: grid;">
+												<p:slider style="margin-top: 0px;" for="spinner2"
+													minValue="0" maxValue="10" />
+												<p:inputText id="spinner2" disabled="true"
+													value="#{cadastroCandidatoController.candidato.segundaHabilidade.ano}" />
+											</div>
+
+										</div>
+
+
+										<div style="display: flex;" class="habDiv">
+
+											<div style="width: 25%; margin-right: 15px;" class="hab">
+
+												<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+													effect="fade" required="true"
+													value="#{cadastroCandidatoController.candidato.terceiraHabilidade}"
+													requiredMessage="Você deve selecionar pelo menos 3 habilidades">
+													<f:selectItem itemLabel="selecione --" itemValue="" />
+													<f:selectItems var="habilidade"
+														itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+														value="#{cadastroCandidatoController.habilidades}" />
+												</p:selectOneMenu>
+											</div>
+
+											<div style="width: 24%; display: grid;">
+												<p:slider style="margin-top: 0px;" for="spinner3"
+													minValue="0" maxValue="10" />
+												<p:inputText id="spinner3" disabled="true"
+													value="#{cadastroCandidatoController.candidato.terceiraHabilidade.ano}" />
+											</div>
+
+										</div>
+
+										<div style="display: flex;" class="habDiv">
+
+											<div style="width: 25%; margin-right: 15px;" class="hab">
+
+												<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+													effect="fade"
+													value="#{cadastroCandidatoController.candidato.quartaHabilidade}">
+													<f:selectItem itemLabel="selecione --" itemValue="" />
+													<f:selectItems var="habilidade"
+														itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+														value="#{cadastroCandidatoController.habilidades}" />
+												</p:selectOneMenu>
+											</div>
+
+											<div style="width: 24%; display: grid;">
+												<p:slider style="margin-top: 0px;" for="spinner4"
+													minValue="0" maxValue="10" />
+												<p:inputText id="spinner4" disabled="true"
+													value="#{cadastroCandidatoController.candidato.quartaHabilidade.ano}" />
+											</div>
+
+										</div>
+
+										<div style="display: flex;">
+
+											<div style="width: 25%; margin-right: 15px;" class="hab">
+
+												<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+													effect="fade"
+													value="#{cadastroCandidatoController.candidato.quintaHabilidade}">
+													<f:selectItem itemLabel="selecione --" itemValue="" />
+													<f:selectItems var="habilidade"
+														itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+														value="#{cadastroCandidatoController.habilidades}" />
+												</p:selectOneMenu>
+											</div>
+
+											<div style="width: 24%; display: grid;">
+												<p:slider style="margin-top: 0px;" for="spinner5"
+													minValue="0" maxValue="10" />
+												<p:inputText id="spinner5" disabled="true"
+													value="#{cadastroCandidatoController.candidato.quintaHabilidade.ano}" />
+											</div>
+
+										</div>
+
+									</div>
+
+
+									<br />
+
+								</div>
+
+								<span class="text-green-500 font-medium">Habilidades: </span> <span
+									class="text-500">carreira, experiência e habilidades.</span>
+							</div>
+						</div>
+
+
+
+
+						<div class="col-12 md:col-12 lg:col-12">
+							<div class="surface-card shadow-2 p-3 border-round">
+								<div class="flex justify-content-between mb-3">
+									<div>
+										<span class="block text-500 font-medium mb-3">Experiências</span>
+										<div class="text-900 font-medium text-xl">
+											<i class="pi pi-star"></i> Adicionar experiências
+											profissionais e/ou projetos pessoais aumentará visibilidade
+											do seu perfil
+										</div>
+
+									</div>
+									<div
+										class="flex align-items-center justify-content-center bg-yellow-100 border-round"
+										style="width: 3rem; height: 2.75rem">
+										<i class="pi pi-briefcase text-yellow-500 text-5xl" />
+									</div>
+								</div>
+
+
+								<div class="p-grid ui-fluid">
+
+									<div class="p-col-12 p-md-4">
+										<p:selectBooleanCheckbox itemLabel="Não tenho experiência"
+											value="#{cadastroCandidatoController.candidato.semExperiencia}" />
+										<p:commandButton type="button" id="tt" icon="pi pi-question"
+											style="background: none; width: fit-content; border: none;color: green; font-weight: 900;
+											margin-bottom: 5px;" />
+
+										<p:tooltip for="tt"
+											value="Caso não preencha nenhuma experiência, seu perfil aparecerá por último."
+											showEffect="clip" hideEffect="fold" />
+
+									</div>
+
+									<br />
+
+									<div class="p-col-12 p-md-4">
+
+
+										<p:panel header="Experiência I" toggleable="true"
+											toggleableHeader="true" toggleSpeed="500" widgetVar="panel1"
+											id="panel1">
+
+											<div style="display: flex; width: 100%;"
+												class="responsivoDiv">
+
+												<div style="width: 30%; margin-right: 10px;"
+													class="responsivoDivchild">
+													<p:outputLabel for="@next" value="Nome da empresa/projeto" />
+
+													<p:inputText
+														value="#{cadastroCandidatoController.candidato.primeiraExperiencia.nome}"
+														autocomplete="no" />
+
+												</div>
+												<div style="width: 25%; margin-right: 10px;"
+													class="responsivoDivchild">
+													<p:outputLabel for="@next" value="Perfil do empreendimento" />
+
+													<p:selectOneMenu
+														value="#{cadastroCandidatoController.candidato.primeiraExperiencia.perfil}">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItem itemLabel="Projeto Pessoal"
+															itemValue="Projeto Pessoal" />
+														<f:selectItem itemLabel="Freelancer"
+															itemValue="Freelancer" />
+														<f:selectItem itemLabel="Startup" itemValue="Startup" />
+														<f:selectItem itemLabel="Pequena Empresa"
+															itemValue="Pequena Empresa" />
+														<f:selectItem itemLabel="Média Empresa"
+															itemValue="Média Empresa" />
+														<f:selectItem itemLabel="Grande Empresa"
+															itemValue="Grande Empresa" />
+													</p:selectOneMenu>
+												</div>
+
+												<div style="width: 25%;" class="responsivoDivchild">
+													<p:outputLabel for="@next" value="Seu cargo" />
+
+													<p:selectOneMenu
+														value="#{cadastroCandidatoController.candidato.primeiraExperiencia.cargo}">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItem itemLabel="Estagiário"
+															itemValue="Estagiário" />
+														<f:selectItem itemLabel="Júnior" itemValue="Júnior" />
+														<f:selectItem itemLabel="Pleno" itemValue="Pleno" />
+														<f:selectItem itemLabel="Sênior" itemValue="Sênior" />
+													</p:selectOneMenu>
+												</div>
+											</div>
+
+											<br />
+
+											<div style="display: flex; width: 100%;">
+
+												<div style="width: 25%; margin-right: 10px;">
+
+													<p:outputLabel for="@next" value="Data de ínicio" />
+													<p:datePicker
+														value="#{cadastroCandidatoController.candidato.primeiraExperiencia.dataInicio}"
+														view="month" pattern="MM/yyyy" style="width: fit-content;"
+														yearNavigator="true" yearRange="1990:2022" locale="pt" />
+
+												</div>
+
+												<div style="width: 25%; margin-right: 10px;">
+
+													<p:outputLabel for="@next" value="Data de término" />
+													<p:datePicker
+														value="#{cadastroCandidatoController.candidato.primeiraExperiencia.dataTermino}"
+														view="month" pattern="MM/yyyy" style="width: fit-content;"
+														yearNavigator="true" yearRange="1990:2022" locale="pt" />
+
+												</div>
+
+												<div style="display: flex; align-items: flex-end;">
+
+													<p:selectBooleanCheckbox
+														value="#{cadastroCandidatoController.candidato.primeiraExperiencia.atual}"
+														itemLabel="Trabalho aqui atualmente" />
+
+												</div>
+
+											</div>
+
+											<br />
+
+											<div style="display: grid;">
+												<p:outputLabel
+													value="Quais as 4 principais habilidades que você teve contato neste trabalho? " />
+												<div style="display: flex;" class="responsivoDiv">
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="responsivoDivchild" effect="fade"
+														value="#{cadastroCandidatoController.candidato.primeiraExperiencia.primeiraHabilidade}"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="responsivoDivchild" effect="fade"
+														value="#{cadastroCandidatoController.candidato.primeiraExperiencia.segundaHabilidade}"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="responsivoDivchild" effect="fade"
+														value="#{cadastroCandidatoController.candidato.primeiraExperiencia.terceiraHabilidade}"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="responsivoDivchild" effect="fade"
+														value="#{cadastroCandidatoController.candidato.primeiraExperiencia.quartaHabilidade}"
+														style="width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+												</div>
+											</div>
+
+											<br />
+
+											<div style="display: grid; width: 70%;">
+
+												<p:outputLabel for="@next"
+													value="Conte um pouco do seu trabalho..." />
+												<p:inputTextarea
+													value="#{cadastroCandidatoController.candidato.primeiraExperiencia.descricao}"
+													placeholder="Descreva suas atividades, objetivos e resultados."
+													rows="4" />
+
+											</div>
+
+											<f:facet name="actions">
+												<p:commandLink
+													styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+													<h:outputText styleClass="ui-icon pi pi-trash" />
+
+													<f:ajax render="panel1" resetValues="true" />
+
+												</p:commandLink>
+
+											</f:facet>
+
+
+										</p:panel>
+
+									</div>
+
+									<br />
+
+									<div class="p-col-12 p-md-4">
+
+
+										<p:panel header="Experiência II" toggleable="true"
+											toggleableHeader="true" toggleSpeed="500" widgetVar="panel2"
+											id="panel2">
+
+											<div style="display: flex; width: 100%;"
+												class="responsivoDiv">
+
+												<div style="width: 30%; margin-right: 10px;"
+													class="responsivoDivchild">
+													<p:outputLabel for="@next" value="Nome da empresa/projeto" />
+
+													<p:inputText
+														value="#{cadastroCandidatoController.candidato.segundaExperiencia.nome}"
+														autocomplete="no" />
+
+												</div>
+												<div style="width: 25%; margin-right: 10px;"
+													class="responsivoDivchild">
+													<p:outputLabel for="@next" value="Perfil do empreendimento" />
+
+													<p:selectOneMenu
+														value="#{cadastroCandidatoController.candidato.segundaExperiencia.perfil}">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItem itemLabel="Projeto Pessoal"
+															itemValue="Projeto Pessoal" />
+														<f:selectItem itemLabel="Freelancer"
+															itemValue="Freelancer" />
+														<f:selectItem itemLabel="Startup" itemValue="Startup" />
+														<f:selectItem itemLabel="Pequena Empresa"
+															itemValue="Pequena Empresa" />
+														<f:selectItem itemLabel="Média Empresa"
+															itemValue="Média Empresa" />
+														<f:selectItem itemLabel="Grande Empresa"
+															itemValue="Grande Empresa" />
+													</p:selectOneMenu>
+												</div>
+
+												<div style="width: 25%;" class="responsivoDivchild">
+													<p:outputLabel for="@next" value="Seu cargo" />
+
+													<p:selectOneMenu
+														value="#{cadastroCandidatoController.candidato.segundaExperiencia.cargo}">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItem itemLabel="Estagiário"
+															itemValue="Estagiário" />
+														<f:selectItem itemLabel="Júnior" itemValue="Júnior" />
+														<f:selectItem itemLabel="Pleno" itemValue="Pleno" />
+														<f:selectItem itemLabel="Sênior" itemValue="Sênior" />
+													</p:selectOneMenu>
+												</div>
+											</div>
+
+											<br />
+
+											<div style="display: flex; width: 100%;">
+
+												<div style="width: 25%; margin-right: 10px;">
+
+													<p:outputLabel for="@next" value="Data de ínicio" />
+													<p:datePicker
+														value="#{cadastroCandidatoController.candidato.segundaExperiencia.dataInicio}"
+														view="month" pattern="MM/yyyy" style="width: fit-content;"
+														yearNavigator="true" yearRange="1990:2022" locale="pt" />
+
+												</div>
+
+												<div style="width: 25%; margin-right: 10px;">
+
+													<p:outputLabel for="@next" value="Data de término" />
+													<p:datePicker
+														value="#{cadastroCandidatoController.candidato.segundaExperiencia.dataTermino}"
+														view="month" pattern="MM/yyyy" style="width: fit-content;"
+														yearNavigator="true" yearRange="1990:2022" locale="pt" />
+
+												</div>
+
+												<div style="display: flex; align-items: flex-end;">
+
+													<p:selectBooleanCheckbox
+														value="#{cadastroCandidatoController.candidato.segundaExperiencia.atual}"
+														itemLabel="Trabalho aqui atualmente" />
+
+												</div>
+
+											</div>
+
+											<br />
+
+											<div style="display: grid;">
+												<p:outputLabel
+													value="Quais as 4 principais habilidades que você teve contato neste trabalho? " />
+												<div style="display: flex;" class="responsivoDiv">
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="responsivoDivchild" effect="fade"
+														value="#{cadastroCandidatoController.candidato.segundaExperiencia.primeiraHabilidade}"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="responsivoDivchild" effect="fade"
+														value="#{cadastroCandidatoController.candidato.segundaExperiencia.segundaHabilidade}"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="responsivoDivchild" effect="fade"
+														value="#{cadastroCandidatoController.candidato.segundaExperiencia.terceiraHabilidade}"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="responsivoDivchild" effect="fade"
+														value="#{cadastroCandidatoController.candidato.segundaExperiencia.quartaHabilidade}"
+														style="width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+												</div>
+											</div>
+
+											<br />
+
+											<div style="display: grid; width: 70%;">
+
+												<p:outputLabel for="@next"
+													value="Conte um pouco do seu trabalho..." />
+												<p:inputTextarea
+													value="#{cadastroCandidatoController.candidato.segundaExperiencia.descricao}"
+													placeholder="Descreva suas atividades, objetivos e resultados."
+													rows="4" />
+
+											</div>
+
+
+											<f:facet name="actions">
+												<p:commandLink
+													styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+													<h:outputText styleClass="ui-icon pi pi-trash" />
+
+													<f:ajax render="panel2" resetValues="true" />
+
+												</p:commandLink>
+
+											</f:facet>
+
+
+										</p:panel>
+
+									</div>
+
+									<br />
+
+									<div class="p-col-12 p-md-4">
+
+
+										<p:panel header="Experiência III" toggleable="true"
+											toggleableHeader="true" toggleSpeed="500" widgetVar="panel3"
+											id="panel3">
+
+											<div style="display: flex; width: 100%;"
+												class="responsivoDiv">
+
+												<div style="width: 30%; margin-right: 10px;"
+													class="responsivoDivchild">
+													<p:outputLabel for="@next" value="Nome da empresa/projeto" />
+
+													<p:inputText
+														value="#{cadastroCandidatoController.candidato.terceiraExperiencia.nome}"
+														autocomplete="no" />
+
+												</div>
+												<div style="width: 25%; margin-right: 10px;"
+													class="responsivoDivchild">
+													<p:outputLabel for="@next" value="Perfil do empreendimento" />
+
+													<p:selectOneMenu
+														value="#{cadastroCandidatoController.candidato.terceiraExperiencia.perfil}">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItem itemLabel="Projeto Pessoal"
+															itemValue="Projeto Pessoal" />
+														<f:selectItem itemLabel="Freelancer"
+															itemValue="Freelancer" />
+														<f:selectItem itemLabel="Startup" itemValue="Startup" />
+														<f:selectItem itemLabel="Pequena Empresa"
+															itemValue="Pequena Empresa" />
+														<f:selectItem itemLabel="Média Empresa"
+															itemValue="Média Empresa" />
+														<f:selectItem itemLabel="Grande Empresa"
+															itemValue="Grande Empresa" />
+													</p:selectOneMenu>
+												</div>
+
+												<div style="width: 25%;" class="responsivoDivchild">
+													<p:outputLabel for="@next" value="Seu cargo" />
+
+													<p:selectOneMenu
+														value="#{cadastroCandidatoController.candidato.terceiraExperiencia.cargo}">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItem itemLabel="Estagiário"
+															itemValue="Estagiário" />
+														<f:selectItem itemLabel="Júnior" itemValue="Júnior" />
+														<f:selectItem itemLabel="Pleno" itemValue="Pleno" />
+														<f:selectItem itemLabel="Sênior" itemValue="Sênior" />
+													</p:selectOneMenu>
+												</div>
+											</div>
+
+											<br />
+
+											<div style="display: flex; width: 100%;">
+
+												<div style="width: 25%; margin-right: 10px;">
+
+													<p:outputLabel for="@next" value="Data de ínicio" />
+													<p:datePicker
+														value="#{cadastroCandidatoController.candidato.terceiraExperiencia.dataInicio}"
+														view="month" pattern="MM/yyyy" style="width: fit-content;"
+														yearNavigator="true" yearRange="1990:2022" locale="pt" />
+
+												</div>
+
+												<div style="width: 25%; margin-right: 10px;">
+
+													<p:outputLabel for="@next" value="Data de término" />
+													<p:datePicker
+														value="#{cadastroCandidatoController.candidato.terceiraExperiencia.dataTermino}"
+														view="month" pattern="MM/yyyy" style="width: fit-content;"
+														yearNavigator="true" yearRange="1990:2022" locale="pt" />
+
+												</div>
+
+												<div style="display: flex; align-items: flex-end;">
+
+													<p:selectBooleanCheckbox
+														value="#{cadastroCandidatoController.candidato.terceiraExperiencia.atual}"
+														itemLabel="Trabalho aqui atualmente" />
+
+												</div>
+
+											</div>
+
+											<br />
+
+											<div style="display: grid;">
+												<p:outputLabel
+													value="Quais as 4 principais habilidades que você teve contato neste trabalho? " />
+												<div style="display: flex;" class="responsivoDiv">
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="responsivoDivchild" effect="fade"
+														value="#{cadastroCandidatoController.candidato.terceiraExperiencia.primeiraHabilidade}"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="responsivoDivchild" effect="fade"
+														value="#{cadastroCandidatoController.candidato.terceiraExperiencia.segundaHabilidade}"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="responsivoDivchild" effect="fade"
+														value="#{cadastroCandidatoController.candidato.terceiraExperiencia.terceiraHabilidade}"
+														style="margin-right: 10px; width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+
+													<p:selectOneMenu filter="true" filterMatchMode="startsWith"
+														class="responsivoDivchild" effect="fade"
+														value="#{cadastroCandidatoController.candidato.terceiraExperiencia.quartaHabilidade}"
+														style="width: fit-content;">
+														<f:selectItem itemLabel="selecione --" itemValue="" />
+														<f:selectItems var="habilidade"
+															itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"
+															value="#{cadastroCandidatoController.habilidades}" />
+													</p:selectOneMenu>
+												</div>
+											</div>
+
+											<br />
+
+											<div style="display: grid; width: 70%;">
+
+												<p:outputLabel for="@next"
+													value="Conte um pouco do seu trabalho..." />
+												<p:inputTextarea
+													value="#{cadastroCandidatoController.candidato.terceiraExperiencia.descricao}"
+													placeholder="Descreva suas atividades, objetivos e resultados."
+													rows="4" />
+
+											</div>
+
+											<f:facet name="actions">
+												<p:commandLink
+													styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+													<h:outputText styleClass="ui-icon pi pi-trash" />
+
+													<f:ajax render="panel3" resetValues="true" />
+
+												</p:commandLink>
+
+											</f:facet>
+
+
+										</p:panel>
+
+									</div>
+
+								</div>
+
+								<br /> <span class="text-green-500 font-medium">Experiências:
+								</span> <span class="text-500">profissionais e pessoais.</span>
+							</div>
+						</div>
+
+
+						<div class="col-12 md:col-12 lg:col-12">
+							<div class="surface-card shadow-2 p-3 border-round">
+
+								<div class="flex justify-content-between mb-3">
+									<div>
+										<span class="block text-500 font-medium mb-3">O que
+											você busca</span>
+										<div class="text-900 font-medium text-xl"></div>
+									</div>
+									<div
+										class="flex align-items-center justify-content-center bg-green-100 border-round"
+										style="width: 2.5rem; height: 2.5rem">
+										<i class="pi pi-check-square text-green-500 text-4xl" />
+									</div>
+								</div>
+
+								<div class="p-grid ui-fluid">
+
+									<div class="p-col-12 p-md-4" style="width: 50%; display: grid;">
+
+										<p:outputLabel for="tamanho" value="Tamanho da empresa" />
+
+										<p:selectManyCheckbox
+											value="#{cadastroCandidatoController.tamanhoEmpresa}"
+											id="tamanho" unselectable="true">
+											<f:selectItem itemLabel="Startup" itemValue="Startup" />
+											<f:selectItem itemLabel="Pequena" itemValue="Pequena" />
+											<f:selectItem itemLabel="Média" itemValue="Média" />
+											<f:selectItem itemLabel="Grande" itemValue="Grande" />
+										</p:selectManyCheckbox>
+
+
+									</div>
+
+									<br />
+
+									<div class="p-col-12 p-md-4" style="width: 30%; display: grid;">
+
+										<p:outputLabel for="contrato" value="Tipo de contrato" />
+
+										<p:selectManyCheckbox
+											value="#{cadastroCandidatoController.tipoContrato}"
+											id="contrato" unselectable="true">
+											<f:selectItem itemLabel="Estágio" itemValue="Estágio" />
+											<f:selectItem itemLabel="CLT" itemValue="CLT" />
+											<f:selectItem itemLabel="PJ" itemValue="PJ" />
+										</p:selectManyCheckbox>
+
+
+									</div>
+
+									<br />
+
+									<div class="p-col-12 p-md-4 responsivoDiv"
+										style="display: flex; width: 80%;">
+
+
+										<div style="width: 50%; display: grid; margin-right: 15px;"
+											class="responsivoDivchild">
+
+											<p:outputLabel for="salario"
+												value="Qual é sua pretensão salarial?" />
+
+											<div class="ui-inputgroup">
+
+												<p:selectOneMenu
+													value="#{cadastroCandidatoController.candidato.pretensaoSalarial}"
+													id="salario">
+													<f:selectItem itemLabel="selecione --" itemValue="" />
+													<f:selectItem itemLabel="Entre R$ 1.000 e 2.000"
+														itemValue="Entre R$ 1.000 e 2.000" />
+													<f:selectItem itemLabel="Entre R$ 2.000 e 3.000"
+														itemValue="Entre R$ 2.000 e 3.000" />
+													<f:selectItem itemLabel="Entre R$ 3.000 e 4.000"
+														itemValue="Entre R$ 3.000 e 4.000" />
+													<f:selectItem itemLabel="Entre R$ 4.000 e 5.000"
+														itemValue="Entre R$ 4.000 e 5.000" />
+													<f:selectItem itemLabel="Entre R$ 5.000 e 6.000"
+														itemValue="Entre R$ 5.000 e 6.000" />
+													<f:selectItem itemLabel="Entre R$ 6.000 e 7.000"
+														itemValue="Entre R$ 6.000 e 7.000" />
+													<f:selectItem itemLabel="Entre R$ 7.000 e 8.000"
+														itemValue="Entre R$ 7.000 e 8.000" />
+													<f:selectItem itemLabel="Entre R$ 8.000 e 10.000"
+														itemValue="Entre R$ 8.000 e 10.000" />
+													<f:selectItem itemLabel="Entre R$ 10.000 e 12.000"
+														itemValue="Entre R$ 10.000 e 12.000" />
+													<f:selectItem itemLabel="Entre R$ 12.000 e 15.000"
+														itemValue="Entre R$ 12.000 e 15.000" />
+													<f:selectItem itemLabel="Entre R$ 15.000 e 18.000"
+														itemValue="Entre R$ 15.000 e 18.000" />
+													<f:selectItem itemLabel="Acima de R$ 18.000"
+														itemValue="Acima de R$ 18.000" />
+												</p:selectOneMenu>
+
+
+												<div class="ui-inputgroup-addon bg-green-100 text-green-500"
+													style="width: 100px;">por mês</div>
+											</div>
+
+										</div>
+
+										<div style="width: 50%;" class="responsivoDivchild">
+
+											<p:outputLabel for="status" value="Status de busca" />
+
+											<p:selectOneMenu
+												value="#{cadastroCandidatoController.candidato.statusBusca}"
+												id="status" style="min-width: 270px;" required="true"
+												requiredMessage="O campo status é obrigatório">
+												<f:selectItem itemLabel="selecione --" itemValue="" />
+												<f:selectItem itemLabel="Em busca de novas oportunidades!"
+													itemValue="Em busca de novas oportunidades!" />
+												<f:selectItem
+													itemLabel="Empregado(a). Porém, uma boa oportunidade é sempre bem-vinda!"
+													itemValue="Empregado(a). Porém, uma boa oportunidade é sempre bem-vinda!" />
+												<f:selectItem
+													itemLabel="Não estou procurando um novo emprego agora."
+													itemValue="Não estou procurando um novo emprego agora." />
+
+											</p:selectOneMenu>
+
+										</div>
+
+									</div>
+
+									<hr />
+
+									<div class="p-col-12 p-md-4"
+										style="display: flex; width: 100%;">
+
+										<div style="width: 30%;" class="responsivoDivchild">
+											<p:outputLabel for="remoto"
+												value="Aceita trabalhar remotamente?" />
+											<p:selectOneButton
+												value="#{cadastroCandidatoController.candidato.remoto}"
+												id="remoto" required="true"
+												requiredMessage="O campo remoto é obrigatório">
+												<f:selectItem itemLabel="Sim" itemValue="Sim" />
+												<f:selectItem itemLabel="Não" itemValue="Não" />
+											</p:selectOneButton>
+
+										</div>
+
+										<div style="width: 30%;" class="responsivoDivchild">
+											<p:outputLabel for="deficiente" value="É deficiente físico?" />
+											<p:selectOneButton
+												value="#{cadastroCandidatoController.candidato.deficienteFisico}"
+												id="deficiente" required="true"
+												requiredMessage="O campo deficiente físico é obrigatório">
+												<f:selectItem itemLabel="Sim" itemValue="Sim" />
+												<f:selectItem itemLabel="Não" itemValue="Não" />
+											</p:selectOneButton>
+
+										</div>
+
+
+
+									</div>
+
+								</div>
+
+								<br /> <span class="text-green-500 font-medium">O que
+									você busca: </span> <span class="text-500">tamanho empresa,
+									tipo de contrato, salário, status de busca remotamente e
+									deficiente físico.</span>
+
+							</div>
+						</div>
+
+
+						<div style="display: flex; width: 100%;">
+							<div style="width: 90%">
+								<p:messages id="msgs" />
+							</div>
+							<div>
+								<p:commandButton icon="pi pi-save" value="Salvar"
+									styleClass="btn-primary transition-colors transition-duration-500  hover:bg-blue-1000"
+									style="font-size: 14px; margin-top: 10px;"
+									title="Salvar os dados" process="@form" update="@form"
+									action="#{cadastroCandidatoController.salvar}" />
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<div
+			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center; margin-top: 30px;">
+
+			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
+
+			<span style="margin-right: 10px;">Versão: 1.0.0</span>
+
+		</div>
+
+	</h:form>
+
+</h:body>
+</html>

@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Empresa;
 import br.com.tijobs.repository.EmpresaRepository;
-import br.com.tijobs.security.SecurityService;
 import br.com.tijobs.util.UtilService;
 
 @Named
@@ -35,9 +34,6 @@ public class CadastroEmpresaController {
 	private List<String> distritos;
 
 	private UploadedFile file;
-
-	@Autowired
-	private SecurityService securityService;
 	
 	@Autowired
 	private UtilService utilService;
@@ -99,7 +95,7 @@ public class CadastroEmpresaController {
 
 	public void salvar() throws IOException {
 
-		empresa.setUsuario(securityService.getLogado());
+		empresa.setUsuario(utilService.usuarioLogado());
 
 		empresaRepository.save(empresa);
 

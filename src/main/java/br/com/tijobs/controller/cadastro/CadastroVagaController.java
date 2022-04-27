@@ -17,7 +17,7 @@ import br.com.tijobs.model.Vaga;
 import br.com.tijobs.repository.EmpresaRepository;
 import br.com.tijobs.repository.HabilidadeRepository;
 import br.com.tijobs.repository.VagaRepository;
-import br.com.tijobs.security.SecurityService;
+import br.com.tijobs.util.UtilService;
 
 @Named
 @ViewScoped
@@ -43,7 +43,7 @@ public class CadastroVagaController {
 	private HabilidadeRepository habilidadeRepository;
 
 	@Autowired
-	private SecurityService securityService;
+	private UtilService utilService;
 
 	@PostConstruct
 	public void init() {
@@ -78,7 +78,7 @@ public class CadastroVagaController {
 	}
 
 	public void cadastrar() throws IOException {
-		Empresa empresa = empresaRepository.findByUsuario(securityService.getLogado());
+		Empresa empresa = empresaRepository.findByUsuario(utilService.usuarioLogado());
 
 		vaga.setEmpresa(empresa);
 
