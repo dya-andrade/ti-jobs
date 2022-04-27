@@ -24,7 +24,7 @@ import br.com.tijobs.model.Vaga;
 import br.com.tijobs.repository.HabilidadeRepository;
 import br.com.tijobs.repository.VagaRepository;
 import br.com.tijobs.util.UtilService;
-import br.com.tijobs.vaga.VagaService;
+import br.com.tijobs.service.VagaService;
 
 @Named
 @ViewScoped
