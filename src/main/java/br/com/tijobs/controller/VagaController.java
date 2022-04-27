@@ -1,5 +1,7 @@
 package br.com.tijobs.controller;
 
+import static br.com.tijobs.util.Message.addDetailMessage;
+
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
@@ -11,6 +13,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.apache.commons.io.IOUtils;
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Candidato;
@@ -21,6 +24,7 @@ import br.com.tijobs.model.Vaga;
 import br.com.tijobs.repository.HabilidadeRepository;
 import br.com.tijobs.repository.VagaRepository;
 import br.com.tijobs.util.UtilService;
+import br.com.tijobs.vaga.VagaService;
 
 @Named
 @ViewScoped
@@ -46,11 +50,16 @@ public class VagaController {
 
 	@Autowired
 	private UtilService utilService;
+	
+	@Autowired
+	private VagaService vagaService;
 
 	@PostConstruct
 	public void init() {
 
-		vagas = vagaRepository.findAll();
+		if(vagas == null) {
+			vagas = vagaRepository.findAll();
+		}
 
 		habilidades = habilidadeRepository.buscaTodasHabilidades();
 
@@ -60,34 +69,86 @@ public class VagaController {
 
 		candidatoLogado = utilService.perfilCandidato();
 	}
+	
+	
+	// ------------ FILTROS ------------------
+	
+	public void filtroTodas() {
+		vagas = vagaRepository.findAll();
+	}
+	
+	public void filtroCLT() {
+		vagas = vagaService.buscaVagasPeloTipoContrato("CLT");
+	}
+	
+	public void filtroPJ() {
+		vagas = vagaService.buscaVagasPeloTipoContrato("PJ");
+	}
+	
+	public void filtroEstagio() {
+		vagas = vagaService.buscaVagasPeloTipoContrato("Estágio");
+	}
+	
+	public void filtroJunior() {
+		vagas = vagaService.buscaVagasPeloNivelExperiencia("Júnior");
+	}
+	
+	public void filtroPleno() {
+		vagas = vagaService.buscaVagasPeloNivelExperiencia("Pleno");
+	}
+
+	public void filtroSenior() {
+		vagas = vagaService.buscaVagasPeloNivelExperiencia("Sênior");
+	}
 
 	public boolean getVerificaCandidatura() {
 		if (vagaSelecionada != null) {
-			List<Candidato> candidados = vagaSelecionada.getCandidados();
 
-			if (!candidados.isEmpty()) {
-				if (candidados.contains(candidatoLogado)) {
-					return true;
-				} 
-			} 
+			Vaga candidatura = vagaRepository.buscaVagaPorIdECandidato(vagaSelecionada.getId(),
+					candidatoLogado.getId());
+
+			if (candidatura != null) {
+				return true;
+			}
 		}
 
 		return false;
 	}
 
 	public void candidatar() {
-		List<Candidato> candidados = vagaSelecionada.getCandidados();
 
-		if (!candidados.contains(candidatoLogado)) {
+		List<Candidato> candidatos = vagaSelecionada.getCandidados();
 
-			candidados.add(candidatoLogado);
-			vagaSelecionada.setCandidados(candidados);
+		if (!getVerificaCandidatura()) {
+
+			candidatos.add(candidatoLogado);
+			vagaSelecionada.setCandidados(candidatos);
 
 			vagaRepository.save(vagaSelecionada);
-
-			utilService.addMessage(FacesMessage.SEVERITY_INFO, "Info", "Candidatura realizada.");
+			
+			addDetailMessage("Candidatura realizada.", FacesMessage.SEVERITY_INFO);
 		}
 
+	}
+
+	public void cancelarCandidatura() {
+
+		List<Candidato> candidatos = vagaSelecionada.getCandidados();
+
+		List<Candidato> candidadosForeach = candidatos;
+
+		for (Candidato candidato : candidadosForeach) {
+			if (candidato.getId() == candidatoLogado.getId()) {
+				candidatos.remove(candidato);
+				break;
+			}
+		}
+
+		vagaSelecionada.setCandidados(candidatos);
+
+		vagaRepository.save(vagaSelecionada);
+
+		addDetailMessage("Candidatura cancelada.", FacesMessage.SEVERITY_INFO);
 	}
 
 	public void cadastrar() throws IOException {
@@ -135,7 +196,16 @@ public class VagaController {
 	}
 
 	public void setVagaSelecionada(Vaga vagaSelecionada) {
-		this.vagaSelecionada = vagaSelecionada;
+		Vaga vaga = vagaRepository.getOne(vagaSelecionada.getId());
+		this.vagaSelecionada = vaga;
+		if(vaga == null) {
+			PrimeFaces current = PrimeFaces.current();
+			
+			current.executeScript("PF('vagaDialogo').hide();");
+			
+			addDetailMessage("Vaga desativada.", FacesMessage.SEVERITY_WARN);
+			current.ajax().update("growl");
+		}
 	}
 
 	public Usuario getUsuarioLogado() {
@@ -145,5 +215,4 @@ public class VagaController {
 	public Candidato getCandidatoLogado() {
 		return candidatoLogado;
 	}
-
 }

@@ -1,6 +1,7 @@
 package br.com.tijobs.controller.cadastro;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,6 +82,8 @@ public class CadastroVagaController {
 		Empresa empresa = empresaRepository.findByUsuario(utilService.usuarioLogado());
 
 		vaga.setEmpresa(empresa);
+		
+		vaga.setDataCriacao(LocalDateTime.now());
 
 		vagaRepository.save(vaga);
 

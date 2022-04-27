@@ -104,10 +104,23 @@
 	#dialogoVaga {
 		width: 90% !important;
 	}
+	.ui-column-title {
+		display: none !important;
+	}
+	.logoEmpresa td:nth-child(1) {
+		margin-top: 10px !important;
+		margin-bottom: 10px !important;
+	}
 }
 
-.ui-column-title {
-	display: none !important;
+@media screen and (max-width: 1175px) {
+	.colunaInfo {
+		display: grid !important;
+	}
+}
+
+.logoEmpresa td:nth-child(1) {
+	width: 30% !important;
 }
 
 .subTituloDescricao {
@@ -130,8 +143,6 @@
 	font-family: system-ui !important;
 }
 </style>
-
-
 
 	<h:form prependId="false" id="vagas">
 
@@ -238,8 +249,9 @@
 										<p:outputLabel for="@next" value="Filtrar:"
 											style="margin-bottom: 2px;" />
 
-										<p:commandButton value="TODAS" styleClass="styleBtn"
-											style="width: fit-content;" />
+										<p:commandButton value="TODAS"
+											action="#{vagaController.filtroTodas}" styleClass="styleBtn"
+											ajax="false" style="width: fit-content;" />
 
 									</div>
 
@@ -249,10 +261,16 @@
 											style="margin-bottom: 2px;" />
 
 										<div>
-											<p:commandButton value="CLT" styleClass="styleBtn" />
+											<p:commandButton value="CLT"
+												action="#{vagaController.filtroCLT}" ajax="false"
+												styleClass="styleBtn" />
 
-											<p:commandButton value="PJ" styleClass="styleBtn" />
-											<p:commandButton value="Estágio" styleClass="styleBtn" />
+											<p:commandButton value="PJ"
+												action="#{vagaController.filtroPJ}" ajax="false"
+												styleClass="styleBtn" />
+											<p:commandButton value="Estágio"
+												action="#{vagaController.filtroEstagio}" ajax="false"
+												styleClass="styleBtn" />
 										</div>
 
 
@@ -264,10 +282,17 @@
 											style="margin-bottom: 2px;" />
 
 										<div>
-											<p:commandButton value="Júnior" styleClass="styleBtn" />
+											<p:commandButton value="Júnior"
+												action="#{vagaController.filtroJunior}" ajax="false"
+												styleClass="styleBtn" />
 
-											<p:commandButton value="Pleno" styleClass="styleBtn" />
-											<p:commandButton value="Sênior" styleClass="styleBtn" />
+											<p:commandButton value="Pleno"
+												action="#{vagaController.filtroPleno}" ajax="false"
+												styleClass="styleBtn" />
+
+											<p:commandButton value="Sênior"
+												action="#{vagaController.filtroSenior}" ajax="false"
+												styleClass="styleBtn" />
 										</div>
 
 									</div>
@@ -317,25 +342,28 @@
 
 
 								</div>
-								
+
 
 								<div id="tabelaVagas" style="width: 75%;">
-									<p:dataTable id="tabela" var="vaga"
-										value="#{vagaController.vagas}" widgetVar="tabelaVagas"
-										multiViewState="true" selectionMode="single" scrollable="true"
-										scrollHeight="500"
+									<p:dataTable id="tabela" styleClass="logoEmpresa" var="vaga"
+										selectionMode="single" value="#{vagaController.vagas}"
+										widgetVar="tabelaVagas"
 										currentPageReportTemplate="[{startRecord} a {endRecord}]"
 										selection="#{vagaController.vagaSelecionada}"
-										rowKey="#{vaga.id}" emptyMessage="Sem vagas." reflow="true">
+										disabledSelection="#{vaga.desativada == true}"
+										rowKey="#{vaga.id}" emptyMessage="Sem vagas." reflow="true"
+										paginator="true" rows="5" paginatorPosition="bottom"
+										paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+										rowsPerPageTemplate="5,10,15">
 
-										<p:ajax event="rowSelect" update=":dialogoVaga"
+										<p:ajax event="rowSelect" update=":dialogoVaga :vagaDetalhes"
 											oncomplete="PF('vagaDialogo').show()" />
 
 										<p:ajaxStatus onstart="PF('statusDialog').show()"
 											onsuccess="PF('statusDialog').hide()" />
 
 
-										<p:column width="25%" style="text-align: center;">
+										<p:column width="30%" style="text-align: center;">
 											<img
 												src="data:image/jpg;base64, #{vagaController.fotoStr(vaga.empresa)}"
 												style="width: 60px;" />
@@ -343,13 +371,20 @@
 
 										<p:column>
 											<div style="margin-bottom: 10px;">
-												<h:outputText style="font-size: 1.5em; font-weight: 600;"
+												<h:outputText
+													style="font-size: 1.5em; font-weight: 600; margin-right: 5px;"
 													value="#{vaga.profissao}" />
-												<span
-													style="background: #FFCDD2; color: #C63737; font-weight: 600; padding: 1px;">NOVA</span>
+
+												<h:outputText
+													style="background: #cdfff3; color: #25a51c; font-weight: 600; padding: 1px;"
+													value="NOVA" rendered="#{!vaga.desativada}" />
+
+												<h:outputText
+													style="background: #FFCDD2; color: #C63737; font-weight: 600; padding: 1px;"
+													value="DESATIVADA" rendered="#{vaga.desativada}" />
 											</div>
 											<div style="margin-bottom: 10px;">
-												<div style="display: flex;">
+												<div class="colunaInfo" style="display: flex;">
 													<div class="styleInfo">
 														<i class="pi pi-briefcase"></i>
 														<h:outputText value=" #{vaga.empresa.nomeEmpresarial}" />
@@ -361,7 +396,7 @@
 														<h:outputText value=" #{vaga.empresa.localidade}" />
 													</div>
 													<div class="styleInfo">
-														<i class="pi pi-building"></i>
+														<i class="fa fa-building"></i>
 														<h:outputText value=" #{vaga.empresa.tamanho}" />
 													</div>
 
@@ -370,7 +405,7 @@
 														<h:outputText value=" #{vaga.nivelExperiencia}" />
 													</div>
 												</div>
-												<div style="display: flex;">
+												<div class="colunaInfo" style="display: flex;">
 
 													<div class="styleInfo">
 														<i class="fa fa-money"></i> <span> Salário: </span>
@@ -411,7 +446,8 @@
 			widgetVar="vagaDialogo" modal="true" showEffect="explode"
 			resizable="false" hideEffect="explode"
 			style="overflow: auto; max-height: 550px;">
-			<p:outputPanel id="vagaDetalhes" style="text-align:center;">
+			<p:outputPanel id="vagaDetalhes" style="text-align:center;"
+				rendered="#{vagaController.vagaSelecionada != null}">
 
 
 				<div id="header">
@@ -441,7 +477,7 @@
 
 								<div>
 									<div style="margin-bottom: 5px">
-										<i class="pi pi-building"></i>
+										<i class="fa fa-building"></i>
 										<h:outputText
 											value=" #{vagaController.vagaSelecionada.empresa.tamanho}" />
 									</div>
@@ -554,22 +590,28 @@
 					</div>
 
 				</div>
-				
+
 				<hr />
-				
-				    <p:commandButton value="CADASTRA-SE" styleClass="btn-success" process="@this"
-				    rendered="#{vagaController.usuarioLogado == null}" action="#{vagaController.cadastrar}" 
-				    style="font-size: 18px;" />
-				
-					<p:commandButton value="CANDIDATAR" styleClass="btn-success" process="@this" 
-					update=":growl dialogoVaga" rendered="#{vagaController.candidatoLogado != null and !vagaController.verificaCandidatura}" 
-					action="#{vagaController.candidatar}" style="font-size: 18px;" />
-					
-					<p:commandButton value="CANCELAR CANDIDATURA" styleClass="btn-danger"
-					update=":growl" rendered="#{vagaController.verificaCandidatura}" style="font-size: 18px;" />
-				
+
+				<p:commandButton value="CADASTRA-SE" styleClass="btn-success"
+					process="@this" rendered="#{vagaController.usuarioLogado == null}"
+					action="#{vagaController.cadastrar}" style="font-size: 16px;" />
+
+				<p:commandButton value="CANDIDATAR" styleClass="btn-success"
+					process="@this" update=":growl"
+					onsuccess="PF('vagaDialogo').hide()"
+					rendered="#{vagaController.candidatoLogado != null and !vagaController.verificaCandidatura}"
+					action="#{vagaController.candidatar}" style="font-size: 16px;" />
+
+				<p:commandButton value="CANCELAR CANDIDATURA"
+					onsuccess="PF('vagaDialogo').hide()" styleClass="btn-danger"
+					update=":growl" process="@this"
+					rendered="#{vagaController.verificaCandidatura}"
+					action="#{vagaController.cancelarCandidatura}"
+					style="font-size: 16px;" />
+
 			</p:outputPanel>
-			
+
 		</p:dialog>
 
 
@@ -579,7 +621,7 @@
 				<i class="pi pi-spin pi-spinner loading-icon" aria-hidden="true"></i>
 			</div>
 		</p:dialog>
-	
+
 
 		<div
 			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center; margin-top: 20px;">

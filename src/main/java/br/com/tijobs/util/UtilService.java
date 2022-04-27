@@ -87,8 +87,5 @@ public class UtilService {
 
 		return distritos;
 	}
-
-	public void addMessage(FacesMessage.Severity severity, String summary, String detail) {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, summary, detail));
-	}
 }
+

@@ -1,9 +1,11 @@
 package br.com.tijobs.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -70,6 +72,11 @@ public class Vaga implements Serializable {
 	inverseJoinColumns = @JoinColumn(name = "id_candidato"))
 	private List<Candidato> candidados;
 
+	private LocalDateTime dataCriacao;
+	
+	@Column(columnDefinition = "0")
+	private Boolean desativada;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -212,5 +219,21 @@ public class Vaga implements Serializable {
 
 	public void setCandidados(List<Candidato> candidados) {
 		this.candidados = candidados;
+	}
+
+	public LocalDateTime getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(LocalDateTime dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Boolean getDesativada() {
+		return desativada;
+	}
+
+	public void setDesativada(Boolean desativada) {
+		this.desativada = desativada;
 	}
 }
