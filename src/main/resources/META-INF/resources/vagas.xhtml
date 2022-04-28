@@ -153,11 +153,11 @@
 					style="display: inline-flex; margin-top: 40px;">
 					<h2 class="text-900" style="margin-right: 8px;">Vagas para</h2>
 					<h2
-						class="text-blue-600 scalein animation-duration-2000 animation-iteration-infinite"
+						class="text-blue-700 scalein animation-duration-2000 animation-iteration-infinite"
 						style="margin-right: 8px;">Desenvolvedores</h2>
 					<h2 class="text-900" style="margin-right: 8px;">e</h2>
 					<h2
-						class="text-blue-600 scalein animation-duration-2000 animation-iteration-infinite">Programadores</h2>
+						class="text-blue-700 scalein animation-duration-2000 animation-iteration-infinite">Programadores</h2>
 
 				</div>
 				<div class="text-700 text-sm mb-6 text-2xl">
@@ -304,11 +304,17 @@
 											style="margin-bottom: 2px;" />
 
 										<div>
-											<p:commandButton value="Startup" styleClass="styleBtn" />
+											<p:commandButton value="Startup"
+												action="#{vagaController.filtroStartup}" ajax="false"
+												styleClass="styleBtn" />
 
 											<p:commandButton value="Pequena/Média Empresa"
+												action="#{vagaController.filtroPequenaMedia}" ajax="false"
 												styleClass="styleBtn" />
-											<p:commandButton value="Grande Empresa" styleClass="styleBtn" />
+
+											<p:commandButton value="Grande Empresa"
+												action="#{vagaController.filtroGrande}" ajax="false"
+												styleClass="styleBtn" />
 										</div>
 
 									</div>
@@ -322,7 +328,12 @@
 												<i class="pi pi-search"></i>
 											</div>
 											<p:selectOneMenu effect="fade" filter="true"
+												value="#{vagaController.distritoSelecionado}"
 												filterMatchMode="startsWith" style="width: fit-content;">
+
+												<p:ajax event="change" update="@form" process="@this"
+													listener="#{vagaController.filtroDistrito}" />
+
 												<f:selectItem itemLabel="selecione --" itemValue="" />
 
 												<f:selectItems value="#{vagaController.distritos}" />
@@ -334,9 +345,13 @@
 									<div class="styleDivFiltro">
 
 										<p:commandButton value="Remoto" styleClass="styleBtn"
+											action="#{vagaController.filtroRemoto}" ajax="false"
 											style="width: fit-content;" />
+
 										<p:commandButton value="Aceita Candidatos de Fora"
-											styleClass="styleBtn" style="width: fit-content;" />
+											action="#{vagaController.filtroAceitaCandidatoFora}"
+											ajax="false" styleClass="styleBtn"
+											style="width: fit-content;" />
 
 									</div>
 
@@ -425,8 +440,12 @@
 												</div>
 											</div>
 											<div>
-												<span
-													style="border-radius: 16px; background-color: #e0f1ff; padding: 0 0.5rem; font-size: 16px;">#{vaga.principaisTecnologias}</span>
+												<p:repeat
+													value="#{vagaController.listaPrincipaisTecnologias(vaga)}"
+													var="tecnologia">
+													<span
+														style="border-radius: 16px; background-color: #cfe6f9; padding: 0 0.5rem; font-size: 15px; font-weight: 600; color: #3477a7;">#{tecnologia}</span>
+												</p:repeat>
 											</div>
 										</p:column>
 
@@ -453,9 +472,16 @@
 				<div id="header">
 					<span style="color: white; font-size: 16px;">#{vagaController.vagaSelecionada.area}</span>
 					<h4 style="color: white; font-size: 28px;">#{vagaController.vagaSelecionada.profissao}</h4>
-					<br /> <span
-						style="border-radius: 16px; padding: 0 0.75rem; font-size: 16px; color: white; border: 1px solid;">
-						#{vagaController.vagaSelecionada.principaisTecnologias}</span>
+					<br />
+
+					<p:repeat
+						value="#{vagaController.listaPrincipaisTecnologias()}"
+						var="tecnologia">
+						<span
+							style="border-radius: 16px; margin-right: 5px; padding: 0 0.75rem; font-size: 16px; color: white; border: 1px solid;">
+							#{tecnologia}</span>
+					</p:repeat>
+
 				</div>
 
 				<div id="body">

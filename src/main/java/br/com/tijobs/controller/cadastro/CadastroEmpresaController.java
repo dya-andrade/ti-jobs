@@ -55,15 +55,10 @@ public class CadastroEmpresaController {
 	private void adicionaTiposGrupo() {
 		tiposGrupo = new ArrayList<>();
 
-		SelectItemGroup tiposStartUp = new SelectItemGroup("Start Up");
-		tiposStartUp.setSelectItems(new SelectItem[] { new SelectItem("Nacional", "Nacional"),
-				new SelectItem("Multinacional", "Multinacional"), new SelectItem("Internacional", "Internacional") });
-
 		SelectItemGroup tiposEmpresa = new SelectItemGroup("Empresa");
 		tiposEmpresa.setSelectItems(new SelectItem[] { new SelectItem("Nacional", "Nacional"),
 				new SelectItem("Multinacional", "Multinacional"), new SelectItem("Internacional", "Internacional") });
 
-		tiposGrupo.add(tiposStartUp);
 		tiposGrupo.add(tiposEmpresa);
 	}
 	

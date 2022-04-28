@@ -3,8 +3,10 @@ package br.com.tijobs.controller;
 import static br.com.tijobs.util.Message.addDetailMessage;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -23,8 +25,8 @@ import br.com.tijobs.model.Usuario;
 import br.com.tijobs.model.Vaga;
 import br.com.tijobs.repository.HabilidadeRepository;
 import br.com.tijobs.repository.VagaRepository;
-import br.com.tijobs.util.UtilService;
 import br.com.tijobs.service.VagaService;
+import br.com.tijobs.util.UtilService;
 
 @Named
 @ViewScoped
@@ -35,6 +37,8 @@ public class VagaController {
 	private Vaga vagaSelecionada;
 
 	private List<String> distritos;
+
+	private String distritoSelecionado;
 
 	private List<Habilidade> habilidades;
 
@@ -50,14 +54,14 @@ public class VagaController {
 
 	@Autowired
 	private UtilService utilService;
-	
+
 	@Autowired
 	private VagaService vagaService;
 
 	@PostConstruct
 	public void init() {
 
-		if(vagas == null) {
+		if (vagas == null) {
 			vagas = vagaRepository.findAll();
 		}
 
@@ -69,36 +73,72 @@ public class VagaController {
 
 		candidatoLogado = utilService.perfilCandidato();
 	}
-	
-	
+
 	// ------------ FILTROS ------------------
-	
+
 	public void filtroTodas() {
 		vagas = vagaRepository.findAll();
 	}
-	
+
 	public void filtroCLT() {
 		vagas = vagaService.buscaVagasPeloTipoContrato("CLT");
 	}
-	
+
 	public void filtroPJ() {
 		vagas = vagaService.buscaVagasPeloTipoContrato("PJ");
 	}
-	
+
 	public void filtroEstagio() {
 		vagas = vagaService.buscaVagasPeloTipoContrato("Estágio");
 	}
-	
+
 	public void filtroJunior() {
 		vagas = vagaService.buscaVagasPeloNivelExperiencia("Júnior");
 	}
-	
+
 	public void filtroPleno() {
 		vagas = vagaService.buscaVagasPeloNivelExperiencia("Pleno");
 	}
 
 	public void filtroSenior() {
 		vagas = vagaService.buscaVagasPeloNivelExperiencia("Sênior");
+	}
+
+	public void filtroStartup() {
+		vagas = vagaService.buscaVagasPeloTamanhoEmpresa("Startup");
+	}
+
+	public void filtroPequenaMedia() {
+		vagas = vagaService.buscaVagasPeloTamanhoEmpresa("Pequeno Porte", "Médio Porte");
+	}
+
+	public void filtroGrande() {
+		vagas = vagaService.buscaVagasPeloTamanhoEmpresa("Grande Empresa");
+	}
+
+	public void filtroRemoto() {
+		vagas = vagaService.buscaVagasPeloTipoTrabalho("Remoto");
+	}
+
+	public void filtroAceitaCandidatoFora() {
+		vagas = vagaService.buscaVagasPeloAceitaCandidatoFora("Sim");
+	}
+
+	public void filtroDistrito() {
+		if (distritoSelecionado != null) {
+			vagas = vagaService.buscaVagasPelaLocalidade(distritoSelecionado);
+		}
+	}
+
+	public List<String> listaPrincipaisTecnologias(Vaga vaga) {
+		return Arrays.stream(vaga.getPrincipaisTecnologias().split(",")).map(String::valueOf)
+				.collect(Collectors.toList());
+	}
+
+	public List<String> listaPrincipaisTecnologias() {
+		return Arrays.stream(vagaSelecionada.getPrincipaisTecnologias().split(",")).map(String::valueOf)
+				.collect(Collectors.toList());
+
 	}
 
 	public boolean getVerificaCandidatura() {
@@ -125,7 +165,7 @@ public class VagaController {
 			vagaSelecionada.setCandidados(candidatos);
 
 			vagaRepository.save(vagaSelecionada);
-			
+
 			addDetailMessage("Candidatura realizada.", FacesMessage.SEVERITY_INFO);
 		}
 
@@ -198,11 +238,11 @@ public class VagaController {
 	public void setVagaSelecionada(Vaga vagaSelecionada) {
 		Vaga vaga = vagaRepository.getOne(vagaSelecionada.getId());
 		this.vagaSelecionada = vaga;
-		if(vaga == null) {
+		if (vaga == null) {
 			PrimeFaces current = PrimeFaces.current();
-			
+
 			current.executeScript("PF('vagaDialogo').hide();");
-			
+
 			addDetailMessage("Vaga desativada.", FacesMessage.SEVERITY_WARN);
 			current.ajax().update("growl");
 		}
@@ -214,5 +254,13 @@ public class VagaController {
 
 	public Candidato getCandidatoLogado() {
 		return candidatoLogado;
+	}
+
+	public String getDistritoSelecionado() {
+		return distritoSelecionado;
+	}
+
+	public void setDistritoSelecionado(String distritoSelecionado) {
+		this.distritoSelecionado = distritoSelecionado;
 	}
 }
