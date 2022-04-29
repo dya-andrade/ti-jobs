@@ -129,6 +129,15 @@ public class VagaController {
 			vagas = vagaService.buscaVagasPelaLocalidade(distritoSelecionado);
 		}
 	}
+	
+	public List<String> listaBeneficios() {
+		return Arrays.stream(vagaSelecionada.getBeneficios().split(",")).map(String::valueOf)
+				.collect(Collectors.toList());
+	}
+	
+	public String iconBeneficio(String beneficio) {
+		return vagaService.iconeDoBenefício(beneficio);
+	}
 
 	public List<String> listaPrincipaisTecnologias(Vaga vaga) {
 		return Arrays.stream(vaga.getPrincipaisTecnologias().split(",")).map(String::valueOf)

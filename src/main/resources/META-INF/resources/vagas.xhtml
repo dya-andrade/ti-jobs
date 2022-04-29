@@ -26,15 +26,34 @@
 }
 
 .styleInfo {
-	margin-right: 10px !important;
-	font-size: 16px !important;
+	margin-right: 10px;
+	font-size: 16px;
 }
 
 .ui-state-highlight, .ui-widget-content .ui-state-highlight {
 	color: black !important;
-	background-color: #9eaccd !important;
-	background-image: linear-gradient(to bottom, #fdfdfd, #9eaccd)
+	background-color: #ffffff !important;
+	background-image: linear-gradient(to bottom, #ffffff, #d7d7d7)
 		!important;
+}
+
+.ui-datatable-odd, ui-treetable-odd {
+	background-color: #ffffff !important;
+}
+
+.trDesativada {
+    background: #c9c5c547 !important;
+    opacity: 0.8 !important;
+}
+
+#tabela_data, #tabela_paginator_bottom {
+	border: none !important;
+	margin-top: 5px !important;
+}
+
+#tabela_data td {
+	border: none !important;
+	border-bottom: 1px solid #c5c2c2 !important;
 }
 
 .styleBtn {
@@ -378,13 +397,13 @@
 											onsuccess="PF('statusDialog').hide()" />
 
 
-										<p:column width="30%" style="text-align: center;">
+										<p:column width="30%" style="text-align: center;" styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
 											<img
 												src="data:image/jpg;base64, #{vagaController.fotoStr(vaga.empresa)}"
 												style="width: 60px;" />
 										</p:column>
 
-										<p:column>
+										<p:column  styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
 											<div style="margin-bottom: 10px;">
 												<h:outputText
 													style="font-size: 1.5em; font-weight: 600; margin-right: 5px;"
@@ -401,40 +420,40 @@
 											<div style="margin-bottom: 10px;">
 												<div class="colunaInfo" style="display: flex;">
 													<div class="styleInfo">
-														<i class="pi pi-briefcase"></i>
+														<i class="pi pi-briefcase" />
 														<h:outputText value=" #{vaga.empresa.nomeEmpresarial}" />
 													</div>
 
 
 													<div class="styleInfo">
-														<i class="pi pi-map-marker"></i>
+														<i class="pi pi-map-marker" />
 														<h:outputText value=" #{vaga.empresa.localidade}" />
 													</div>
 													<div class="styleInfo">
-														<i class="fa fa-building"></i>
+														<i class="fa fa-building" />
 														<h:outputText value=" #{vaga.empresa.tamanho}" />
 													</div>
 
 													<div class="styleInfo">
-														<i class="pi pi-chart-bar"></i>
+														<i class="pi pi-chart-bar" />
 														<h:outputText value=" #{vaga.nivelExperiencia}" />
 													</div>
 												</div>
 												<div class="colunaInfo" style="display: flex;">
 
 													<div class="styleInfo">
-														<i class="fa fa-money"></i> <span> Salário: </span>
+														<i class="fa fa-money" /> <span> Salário: </span>
 
 														<h:outputText value="#{vaga.salario}" />
 													</div>
 
 													<div class="styleInfo">
-														<i class="fa fa-file-text-o"></i>
+														<i class="fa fa-file-text-o" />
 														<h:outputText value=" #{vaga.tipoContrato}" />
 													</div>
 													<div class="styleInfo">
-														<i class="fa fa-plane"></i> <span> Aceita
-															Candidatos de Fora: </span>
+														<i class="fa fa-plane" /> <span> Aceita Candidatos
+															de Fora: </span>
 														<h:outputText value=" #{vaga.aceitaCandidatoFora}" />
 													</div>
 												</div>
@@ -474,8 +493,7 @@
 					<h4 style="color: white; font-size: 28px;">#{vagaController.vagaSelecionada.profissao}</h4>
 					<br />
 
-					<p:repeat
-						value="#{vagaController.listaPrincipaisTecnologias()}"
+					<p:repeat value="#{vagaController.listaPrincipaisTecnologias()}"
 						var="tecnologia">
 						<span
 							style="border-radius: 16px; margin-right: 5px; padding: 0 0.75rem; font-size: 16px; color: white; border: 1px solid;">
@@ -503,22 +521,22 @@
 
 								<div>
 									<div style="margin-bottom: 5px">
-										<i class="fa fa-building"></i>
+										<i class="fa fa-building" />
 										<h:outputText
 											value=" #{vagaController.vagaSelecionada.empresa.tamanho}" />
 									</div>
 									<div style="margin-bottom: 5px">
-										<i class="pi pi-map-marker"></i>
+										<i class="pi pi-map-marker" />
 										<h:outputText
 											value=" #{vagaController.vagaSelecionada.empresa.localidade}" />
 									</div>
 									<div style="margin-bottom: 5px">
-										<i class="pi pi-globe"></i>
+										<i class="pi pi-globe" />
 
 										<h:outputText value=" Remoto" />
 									</div>
 									<div style="margin-bottom: 5px">
-										<i class="fa fa-plane"></i>
+										<i class="fa fa-plane" />
 										<h:outputText
 											value=" Aceita candidatos de fora: #{vagaController.vagaSelecionada.aceitaCandidatoFora}" />
 									</div>
@@ -526,19 +544,19 @@
 
 								<div>
 									<div style="margin-bottom: 5px">
-										<i class="fa fa-file-text-o"></i>
+										<i class="fa fa-file-text-o" />
 
 										<h:outputText
 											value=" #{vagaController.vagaSelecionada.tipoContrato}" />
 									</div>
 									<div style="margin-bottom: 5px">
-										<i class="pi pi-chart-bar"></i>
+										<i class="pi pi-chart-bar" />
 
 										<h:outputText
 											value=" #{vagaController.vagaSelecionada.nivelExperiencia}" />
 									</div>
 									<div style="margin-bottom: 5px">
-										<i class="fa fa-money"></i>
+										<i class="fa fa-money" />
 										<h:outputText
 											value=" Salário: #{vagaController.vagaSelecionada.salario}" />
 									</div>
@@ -606,9 +624,19 @@
 								</div>
 							</p:divider>
 
-							<div style="background-color: #80808038;">
-								<h:outputText styleClass="subTextoDescricao"
-									value="#{vagaController.vagaSelecionada.beneficios}" />
+							<div
+								style="background-color: #80808038; display: grid; padding: 10px;">
+
+								<p:repeat value="#{vagaController.listaBeneficios()}"
+									var="beneficio">
+
+									<div style="margin-bottom: 5px;">
+										<i class="#{vagaController.iconBeneficio(beneficio)}" />
+										<h:outputText styleClass="subTextoDescricao"
+											value=" #{beneficio}" />
+									</div>
+
+								</p:repeat>
 
 							</div>
 						</div>
