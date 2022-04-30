@@ -17,66 +17,73 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.springframework.lang.NonNull;
+
 @Entity(name = "vaga")
-public class Vaga implements Serializable {
+public class Vaga implements Serializable, Comparable<Vaga> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5058507194333298243L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String anonima;
-	
+
 	private String aceitaCandidatoFora;
-	
+
 	@Lob
 	private String apresentacao;
-	
+
 	private String beneficios;
-	
+
 	private String tipoTrabalho;
-	
+
 	private String remoto;
-	
+
 	private String profissao;
-	
+
 	private String nivelExperiencia;
-	
+
 	private String salario;
-	
+
 	private String tipoContrato;
-	
+
 	private String area;
-	
+
 	private String principaisTecnologias;
-	
+
 	@Lob
 	private String responsabilidades;
-	
+
 	@Lob
 	private String skillsDesejaveis;
-	
+
 	@Lob
 	private String skillsObrigatorias;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_empresa")
 	private Empresa empresa;
-	
+
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-	@JoinTable(name = "vaga_candidato", joinColumns = @JoinColumn(name = "id_vaga"), 
-	inverseJoinColumns = @JoinColumn(name = "id_candidato"))
+	@JoinTable(name = "vaga_candidato", joinColumns = @JoinColumn(name = "id_vaga"), inverseJoinColumns = @JoinColumn(name = "id_candidato"))
 	private List<Candidato> candidados;
 
 	private LocalDateTime dataCriacao;
-	
+
 	@Column(columnDefinition = "0")
 	private Boolean desativada;
 	
+	
+	@Override
+	public int compareTo(@NonNull Vaga another) {
+		return another.getDataCriacao().compareTo(getDataCriacao());
+	}
+
 	public Integer getId() {
 		return id;
 	}

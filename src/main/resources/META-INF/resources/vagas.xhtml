@@ -104,9 +104,9 @@
 	#tabelaVagas {
 		width: 100% !important;
 	}
-	#divFiltros {
-		display: flex !important;
-	}
+/* 	#divFiltros { */
+/* 		display: flex !important; */
+/* 	} */
 	#searchBtn {
 		min-width: 250px !important;
 	}
@@ -224,14 +224,27 @@
 										style="height: fit-content; width: fit-content;" />
 									<p:menu overlay="true" trigger="dynaButton" my="left top"
 										at="left bottom">
-										<p:submenu label="Options">
-											<p:menuitem value="Save" ajax="false" icon="pi pi-save" />
-											<p:menuitem value="Update" icon="pi pi-refresh" />
-											<p:menuitem value="Delete" icon="pi pi-times" />
+										<p:submenu label="Filtrar">
+											<p:menuitem value="TODAS" ajax="false" action="#{vagaController.filtroTodas}" />
 										</p:submenu>
-										<p:submenu label="Navigations">
-											<p:menuitem value="Website" icon="pi pi-external-link" />
-											<p:menuitem value="Internal" icon="pi pi-upload" />
+										<p:submenu label="Tipo de Contrato">
+											<p:menuitem value="CLT" ajax="false" action="#{vagaController.filtroCLT}" />
+											<p:menuitem value="PJ" ajax="false" action="#{vagaController.filtroPJ}" />
+											<p:menuitem value="Estágio" ajax="false" action="#{vagaController.filtroEstagio}" />
+										</p:submenu>
+										<p:submenu label="Nível de Experiência">
+											<p:menuitem value="Júnior" ajax="false" action="#{vagaController.filtroJunior}" />
+											<p:menuitem value="Pleno" ajax="false" action="#{vagaController.filtroPleno}" />
+											<p:menuitem value="Sênior" ajax="false" action="#{vagaController.filtroSenior}" />
+										</p:submenu>
+										<p:submenu label="Tamanho da Empresa">
+											<p:menuitem value="Startup" ajax="false" action="#{vagaController.filtroStartup}" />
+											<p:menuitem value="Pequena/Média Empresa" ajax="false" action="#{vagaController.filtroPequenaMedia}" />
+											<p:menuitem value="Grande Empresa" ajax="false" action="#{vagaController.filtroGrande}" />
+										</p:submenu>
+										<p:submenu label="Outros">
+											<p:menuitem value="Remoto" ajax="false" action="#{vagaController.filtroRemoto}" />
+											<p:menuitem value="Aceita Candidatos de Fora" ajax="false" action="#{vagaController.filtroAceitaCandidatoFora}" />
 										</p:submenu>
 									</p:menu>
 
@@ -246,8 +259,14 @@
 												style="font-size: 15px; margin-top: 4px;"></i>
 										</div>
 										<p:selectOneMenu id="searchBtn" filter="true"
-											filterMatchMode="startsWith" effect="fade"
+											filterMatchMode="contains" effect="fade" converter="entityConverter"
+											value="#{vagaController.habilidadeSelecionada}"
 											style="height: 36px; font-size: 16px;min-width: 350px;">
+											
+												<p:ajax event="change" update="@form" process="@this"
+													listener="#{vagaController.filtroHabilidade}" />
+											
+											
 											<f:selectItem itemLabel="Todas as Skills" itemValue="" />
 											<f:selectItems var="habilidade"
 												itemLabel=" #{habilidade.nome}" itemValue="#{habilidade}"

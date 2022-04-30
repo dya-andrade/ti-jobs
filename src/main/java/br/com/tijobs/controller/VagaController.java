@@ -5,6 +5,8 @@ import static br.com.tijobs.util.Message.addDetailMessage;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,16 +33,20 @@ import br.com.tijobs.util.UtilService;
 @Named
 @ViewScoped
 public class VagaController {
-
+	
 	private List<Vaga> vagas;
 
 	private Vaga vagaSelecionada;
+	
+	private static String habilidade;
 
 	private List<String> distritos;
 
 	private String distritoSelecionado;
 
 	private List<Habilidade> habilidades;
+	
+	private Habilidade habilidadeSelecionada;
 
 	private Usuario usuarioLogado;
 
@@ -74,80 +80,41 @@ public class VagaController {
 		candidatoLogado = utilService.perfilCandidato();
 	}
 
-	// ------------ FILTROS ------------------
-
-	public void filtroTodas() {
-		vagas = vagaRepository.findAll();
-	}
-
-	public void filtroCLT() {
-		vagas = vagaService.buscaVagasPeloTipoContrato("CLT");
-	}
-
-	public void filtroPJ() {
-		vagas = vagaService.buscaVagasPeloTipoContrato("PJ");
-	}
-
-	public void filtroEstagio() {
-		vagas = vagaService.buscaVagasPeloTipoContrato("Estágio");
-	}
-
-	public void filtroJunior() {
-		vagas = vagaService.buscaVagasPeloNivelExperiencia("Júnior");
-	}
-
-	public void filtroPleno() {
-		vagas = vagaService.buscaVagasPeloNivelExperiencia("Pleno");
-	}
-
-	public void filtroSenior() {
-		vagas = vagaService.buscaVagasPeloNivelExperiencia("Sênior");
-	}
-
-	public void filtroStartup() {
-		vagas = vagaService.buscaVagasPeloTamanhoEmpresa("Startup");
-	}
-
-	public void filtroPequenaMedia() {
-		vagas = vagaService.buscaVagasPeloTamanhoEmpresa("Pequeno Porte", "Médio Porte");
-	}
-
-	public void filtroGrande() {
-		vagas = vagaService.buscaVagasPeloTamanhoEmpresa("Grande Empresa");
-	}
-
-	public void filtroRemoto() {
-		vagas = vagaService.buscaVagasPeloTipoTrabalho("Remoto");
-	}
-
-	public void filtroAceitaCandidatoFora() {
-		vagas = vagaService.buscaVagasPeloAceitaCandidatoFora("Sim");
-	}
-
-	public void filtroDistrito() {
-		if (distritoSelecionado != null) {
-			vagas = vagaService.buscaVagasPelaLocalidade(distritoSelecionado);
-		}
-	}
-	
 	public List<String> listaBeneficios() {
-		return Arrays.stream(vagaSelecionada.getBeneficios().split(",")).map(String::valueOf)
-				.collect(Collectors.toList());
+		
+		String beneficios = vagaSelecionada.getBeneficios();
+
+		if (beneficios != null) {
+			return Arrays.stream(beneficios.split(",")).map(String::valueOf).collect(Collectors.toList());
+		}
+
+		return null;
 	}
-	
+
 	public String iconBeneficio(String beneficio) {
 		return vagaService.iconeDoBenefício(beneficio);
 	}
 
 	public List<String> listaPrincipaisTecnologias(Vaga vaga) {
-		return Arrays.stream(vaga.getPrincipaisTecnologias().split(",")).map(String::valueOf)
-				.collect(Collectors.toList());
+
+		String tecnologias = vaga.getPrincipaisTecnologias();
+
+		if (tecnologias != null) {
+			return Arrays.stream(tecnologias.split(",")).map(String::valueOf).collect(Collectors.toList());
+		}
+
+		return null;
 	}
 
 	public List<String> listaPrincipaisTecnologias() {
-		return Arrays.stream(vagaSelecionada.getPrincipaisTecnologias().split(",")).map(String::valueOf)
-				.collect(Collectors.toList());
 
+		String tecnologias = vagaSelecionada.getPrincipaisTecnologias();
+
+		if (tecnologias != null) {
+			return Arrays.stream(tecnologias.split(",")).map(String::valueOf).collect(Collectors.toList());
+		}
+
+		return null;
 	}
 
 	public boolean getVerificaCandidatura() {
@@ -227,19 +194,80 @@ public class VagaController {
 		}
 		return null;
 	}
+	
+	// ------------ FILTROS ------------------
 
-	public List<Habilidade> getHabilidades() {
-		return habilidades;
+	public void filtroTodas() {
+		vagas = vagaRepository.findAll();
+		habilidade = null;
 	}
 
-	public List<String> getDistritos() {
-		return distritos;
+	public void filtroCLT() {
+		vagas = vagaService.buscaVagasPeloTipoContrato("CLT", habilidade);
 	}
 
+	public void filtroPJ() {
+		vagas = vagaService.buscaVagasPeloTipoContrato("PJ", habilidade);
+	}
+
+	public void filtroEstagio() {
+		vagas = vagaService.buscaVagasPeloTipoContrato("Estágio", habilidade);
+	}
+
+	public void filtroJunior() {
+		vagas = vagaService.buscaVagasPeloNivelExperiencia("Júnior", habilidade);
+	}
+
+	public void filtroPleno() {
+		vagas = vagaService.buscaVagasPeloNivelExperiencia("Pleno", habilidade);
+	}
+
+	public void filtroSenior() {
+		vagas = vagaService.buscaVagasPeloNivelExperiencia("Sênior", habilidade);
+	}
+
+	public void filtroStartup() {
+		vagas = vagaService.buscaVagasPeloTamanhoEmpresa("Startup", habilidade);
+	}
+
+	public void filtroPequenaMedia() {
+		vagas = vagaService.buscaVagasPeloTamanhoEmpresa("Pequeno Porte", "Médio Porte", habilidade);
+	}
+
+	public void filtroGrande() {
+		vagas = vagaService.buscaVagasPeloTamanhoEmpresa("Grande Empresa", habilidade);
+	}
+
+	public void filtroRemoto() {
+		vagas = vagaService.buscaVagasPeloTipoTrabalho("Remoto", habilidade);
+	}
+
+	public void filtroAceitaCandidatoFora() {
+		vagas = vagaService.buscaVagasPeloAceitaCandidatoFora("Sim", habilidade);
+	}
+
+	public void filtroDistrito() {
+		if (distritoSelecionado != null) {
+			vagas = vagaService.buscaVagasPelaLocalidade(distritoSelecionado, habilidade);
+		}
+	}
+	
+	public void filtroHabilidade() {
+		if (habilidadeSelecionada != null) {
+			habilidade = "%" + habilidadeSelecionada.getNome() + "%";
+			vagas = vagaService.buscaVagasPelaHabilidade(habilidade);
+		} else {
+			habilidade = null;
+		}
+	}
+	
 	public List<Vaga> getVagas() {
+		Collections.sort(vagas);
+
+		vagas = vagas.stream().sorted(Comparator.comparing(Vaga::getDesativada)).collect(Collectors.toList());
 		return vagas;
 	}
-
+	
 	public Vaga getVagaSelecionada() {
 		return vagaSelecionada;
 	}
@@ -257,6 +285,14 @@ public class VagaController {
 		}
 	}
 
+	public List<Habilidade> getHabilidades() {
+		return habilidades;
+	}
+
+	public List<String> getDistritos() {
+		return distritos;
+	}
+
 	public Usuario getUsuarioLogado() {
 		return usuarioLogado;
 	}
@@ -271,5 +307,13 @@ public class VagaController {
 
 	public void setDistritoSelecionado(String distritoSelecionado) {
 		this.distritoSelecionado = distritoSelecionado;
+	}
+
+	public Habilidade getHabilidadeSelecionada() {
+		return habilidadeSelecionada;
+	}
+
+	public void setHabilidadeSelecionada(Habilidade habilidadeSelecionada) {
+		this.habilidadeSelecionada = habilidadeSelecionada;
 	}
 }

@@ -3,9 +3,6 @@ package br.com.tijobs.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
 import org.primefaces.shaded.json.JSONArray;
 import org.primefaces.shaded.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +10,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import br.com.tijobs.controller.LoginController;
 import br.com.tijobs.model.Candidato;
 import br.com.tijobs.model.Empresa;
 import br.com.tijobs.model.Usuario;
 import br.com.tijobs.repository.CandidatoRepository;
 import br.com.tijobs.repository.EmpresaRepository;
-import br.com.tijobs.security.SecurityService;
 
 @Service
 public class UtilService {
 
 	@Autowired
-	private SecurityService securityService;
+	private LoginController loginController;
 
 	@Autowired
 	private CandidatoRepository candidatoRepository;
@@ -33,12 +30,12 @@ public class UtilService {
 	private EmpresaRepository empresaRepository;
 
 	public Usuario usuarioLogado() {
-		return securityService.getLogado();
+		return loginController.getUsuario();
 	}
 
 	public Empresa perfilEmpresa() {
 
-		Usuario usuario = securityService.getLogado();
+		Usuario usuario = usuarioLogado();
 
 		if (usuario != null && usuario.getPerfil() != null) {
 
@@ -54,7 +51,7 @@ public class UtilService {
 
 	public Candidato perfilCandidato() {
 
-		Usuario usuario = securityService.getLogado();
+		Usuario usuario = usuarioLogado();
 
 		if (usuario != null && usuario.getPerfil() != null) {
 

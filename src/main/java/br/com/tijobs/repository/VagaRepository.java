@@ -25,4 +25,23 @@ public interface VagaRepository extends JpaRepository<Vaga, Integer> {
 	List<Vaga> findByTipoTrabalho(String tipoTrabalho);
 
 	List<Vaga> findByAceitaCandidatoFora(String aceitaCandidatoFora);
+	
+	//---------- ------ -----------------------------------------
+
+	List<Vaga> findByPrincipaisTecnologiasLike(String habilidade);
+
+	List<Vaga> findByAceitaCandidatoForaAndPrincipaisTecnologiasLike(String aceitaCandidatoFora, String habilidade);
+
+	List<Vaga> findByTipoTrabalhoAndPrincipaisTecnologiasLike(String tipoTrabalho, String habilidade);
+
+	List<Vaga> findByEmpresaLocalidadeAndPrincipaisTecnologiasLike(String distrito, String habilidade);
+
+	List<Vaga> findByEmpresaTamanhoOrEmpresaTamanhoAndPrincipaisTecnologiasLike(String tamanho1, String tamanho2,
+			String habilidade);
+
+	List<Vaga> findByEmpresaTamanhoAndPrincipaisTecnologiasLike(String tamanho, String habilidade);
+
+	List<Vaga> findByNivelExperienciaAndPrincipaisTecnologiasLike(String nivelExperiencia, String habilidade);
+
+	List<Vaga> findByTipoContratoAndPrincipaisTecnologiasLike(String tipoContrato, String habilidade);
 }
