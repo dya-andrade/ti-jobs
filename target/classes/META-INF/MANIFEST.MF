@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: dyane
+Build-Jdk: 11.0.11
+Implementation-Title: TI Jobs
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: br.com.tijobs
+Implementation-Vendor: JoinFaces
+Implementation-URL: http://persapiens.org/joinfaces-parent/TIJobs
+Created-By: Maven Integration for Eclipse
+

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>TI Jobs - cadastro vaga</title>
+</h:head>
+
+<ui:include src="/WEB-INF/templates/template.xhtml" />
+
+<h:body>
+
+	<style type="text/css">
+#cabecalho {
+	background-image: url("/resources/images/cidade4.jpg") !important;
+}
+</style>
+	<h:form>
+
+		<div id="cabecalho" class="surface-section text-center"
+			style="padding-bottom: 20px; padding-top: 45px; margin-bottom: 20px;">
+
+			<div>
+				<i class="pi pi-briefcase" style="font-size: 30px;"></i>
+
+			</div>
+
+			<div class="mb-3 font-bold text-2xl" style="display: inline-flex;">
+
+				<h2 class="text-900" style="margin-right: 8px; margin-top: 0px;">Cadastro
+					de</h2>
+
+				<h2
+					class="text-blue-700 scalein animation-duration-2000 animation-iteration-infinite"
+					style="margin-top: 0px;">Vagas</h2>
+			</div>
+			<div>
+
+				<span class="text-600 font-medium line-height-3">Os melhores
+					profissionais,</span> <a
+					class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">do
+					mercado!</a>
+			</div>
+		</div>
+
+		<div class="flex align-items-center justify-content-center"
+			style="margin-top: 25px;">
+			<div class="surface-card p-4 shadow-2 border-round w-full lg:w-10">
+
+				<div class="surface-section">
+
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-2,ui-grid-col-6,ui-grid-col-2,ui-grid-col-6"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						style="border:0px none; background-color:transparent;">
+
+						<p:row>
+							<p:divider align="left">
+								<div class="p-d-inline-flex p-ai-center">
+									<i class="fa fa-building p-mr-2" /> <b>Empresa</b>
+								</div>
+							</p:divider>
+						</p:row>
+
+						<p:outputLabel for="@next" value="Deixar como anônima?" />
+						<p:selectOneRadio value="#{cadastroVagaController.vaga.anonima}"
+							unselectable="true" required="true"
+							requiredMessage="O campo anônimo é obrigatório">
+							<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							<f:selectItem itemLabel="Não" itemValue="Não" />
+						</p:selectOneRadio>
+
+
+						<p:outputLabel for="@next" value="Aceita candidatos de fora?" />
+						<p:selectOneRadio required="true"
+							requiredMessage="O campo aceita candidato de fora é obrigatório"
+							value="#{cadastroVagaController.vaga.aceitaCandidatoFora}"
+							unselectable="true">
+							<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							<f:selectItem itemLabel="Não" itemValue="Não" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="@next" value="Tipo de Trabalho:" />
+						<p:selectOneRadio required="true"
+							requiredMessage="O campo tipo de trabalho é obrigatório"
+							value="#{cadastroVagaController.vaga.tipoTrabalho}"
+							unselectable="true">
+							<f:selectItem itemLabel="Presencial" itemValue="Presencial" />
+							<f:selectItem itemLabel="Híbrido" itemValue="Híbrido" />
+							<f:selectItem itemLabel="Remoto" itemValue="Remoto" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="@next" value="Apresentação:" />
+						<p:inputTextarea required="true"
+							requiredMessage="Apresentação é obrigatório"
+							value="#{cadastroVagaController.vaga.apresentacao}"
+							placeholder="Nossa empresa trabalho no ramo..."
+							style="width: 90%;" rows="3" />
+
+						<p:outputLabel for="@next" value="Benefícios:" />
+
+						<p:selectCheckboxMenu required="true"
+							requiredMessage="O campo benefícios é obrigatório"
+							value="#{cadastroVagaController.beneficiosSelecionados}"
+							style="width: 90%;" multiple="true" filter="true"
+							filterMatchMode="startsWith" panelStyle="width: 30rem"
+							scrollHeight="250">
+							<f:selectItems value="#{cadastroVagaController.benefícios}" />
+						</p:selectCheckboxMenu>
+
+						<p:row>
+							<p:divider align="left">
+								<div class="p-d-inline-flex p-ai-center">
+									<i class="pi pi-user p-mr-2" /> <b>Vaga</b>
+								</div>
+							</p:divider>
+						</p:row>
+
+						<p:outputLabel for="@next" value="Profissão:" />
+						<p:inputText value="#{cadastroVagaController.vaga.profissao}"
+							style="width: 90%;" required="true"
+							requiredMessage="A profissão é obrigatório"
+							placeholder="Desenvolvedor Java Jr." />
+
+
+						<p:outputLabel for="@next" value="Salário:" />
+						<p:selectOneMenu value="#{cadastroVagaController.vaga.salario}"
+							style="width: 90%;" effect="fold" editable="true">
+							<f:selectItem itemLabel="Selecione ou Escreva" itemValue="" />
+							<f:selectItem itemLabel="a combinar" itemValue="a combinar" />
+							<f:selectItem itemLabel="entre 1.500,00 - 3.000,00"
+								itemValue="entre 1.500,00 - 3.000,00" />
+							<f:selectItem itemLabel="entre 3.000,00 - 5.000,00"
+								itemValue="entre 3.000,00 - 5.000,00" />
+							<f:selectItem itemLabel="entre 5.000,00 - 7.000,00"
+								itemValue="entre 5.000,00 - 7.000,00" />
+							<f:selectItem itemLabel="entre 7.000,00 - 10.000,00"
+								itemValue="entre 7.000,00 - 10.000,00" />
+							<f:selectItem itemLabel="entre 10.000,00 - 15.000,00"
+								itemValue="entre 10.000,00 - 15.000,00" />
+							<f:selectItem itemLabel="entre 15.000,00 - 20.000,00"
+								itemValue="entre 15.000,00 - 20.000,00" />
+						</p:selectOneMenu>
+
+
+						<p:outputLabel for="@next" value="Tipo de Contrato:" />
+						<p:selectOneRadio required="true"
+							requiredMessage="O campo tipo de contrato é obrigatório"
+							value="#{cadastroVagaController.vaga.tipoContrato}"
+							unselectable="true">
+							<f:selectItem itemLabel="Estágio" itemValue="Estágio" />
+							<f:selectItem itemLabel="CLT" itemValue="CLT" />
+							<f:selectItem itemLabel="PJ" itemValue="PJ" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="@next" value="Nível de Experiênica:" />
+						<p:selectOneRadio required="true"
+							requiredMessage="O nível de experiência é obrigatório"
+							value="#{cadastroVagaController.vaga.nivelExperiencia}"
+							unselectable="true">
+							<f:selectItem itemLabel="Estagiário" itemValue="Estagiário" />
+							<f:selectItem itemLabel="Júnior" itemValue="Júnior" />
+							<f:selectItem itemLabel="Pleno" itemValue="Pleno" />
+							<f:selectItem itemLabel="Sênior" itemValue="Sênior" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="@next" value="Principal Área:" />
+						<p:selectOneMenu required="true" style="width: 90%;"
+							value="#{cadastroVagaController.vaga.area}"
+							requiredMessage="O campo carreira é obrigatório">
+							<f:selectItem itemLabel="Selecione --" itemValue="" />
+							<f:selectItem itemLabel="Full Stack" itemValue="Full Stack" />
+							<f:selectItem itemLabel="Back-End" itemValue="Back-End" />
+							<f:selectItem itemLabel="Front-End" itemValue="Front-End" />
+							<f:selectItem itemLabel="Mobile" itemValue="Mobile" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="@next" value="Principais Tecnologias:" />
+
+						<p:selectCheckboxMenu required="true"
+							requiredMessage="O campo principais tecnologias é obrigatório"
+							value="#{cadastroVagaController.tecnologiasSelecionadas}"
+							style="width: 90%;" multiple="true" filter="true"
+							filterMatchMode="startsWith" panelStyle="width: 30rem"
+							scrollHeight="250">
+							<f:selectItems var="habilidade" itemLabel=" #{habilidade.nome}"
+								itemValue="#{habilidade}"
+								value="#{cadastroVagaController.habilidades}" />
+						</p:selectCheckboxMenu>
+						
+					<p:outputLabel for="@next" value="Trabalho Remoto?" />
+						<p:selectOneRadio required="true"
+							requiredMessage="O campo remoto é obrigatório"
+							value="#{cadastroVagaController.vaga.remoto}"
+							unselectable="true">
+							<f:selectItem itemLabel="Sim" itemValue="Sim" />
+							<f:selectItem itemLabel="Não" itemValue="Não" />
+						</p:selectOneRadio>
+
+
+						<p:row style="margin-top: 15px;">
+							<p:divider align="left">
+								<div class="p-d-inline-flex p-ai-center">
+									<i class="pi pi-align-left p-mr-2" /> <b>Detalhes</b>
+								</div>
+							</p:divider>
+						</p:row>
+
+
+						<p:outputLabel for="@next" value="Responsibilidades:" />
+						<p:inputTextarea
+							value="#{cadastroVagaController.vaga.responsabilidades}"
+							placeholder="O funcionário terá responsabilidade de realizar..."
+							style="width: 90%;" rows="3" />
+
+						<p:outputLabel for="@next" value="Skills Obrigatórias:" />
+						<p:inputTextarea required="true"
+							requiredMessage="Informe as skills obrigatórias"
+							value="#{cadastroVagaController.vaga.skillsObrigatorias}"
+							placeholder="O candidato precisa ter as skills..."
+							style="width: 90%;" rows="3" />
+
+						<p:outputLabel for="@next" value="Skills Desejáveis:" />
+						<p:inputTextarea
+							value="#{cadastroVagaController.vaga.skillsDesejaveis}"
+							placeholder="Será um diferencial se o candidato tiver as skills..."
+							style="width: 90%;" rows="3" />
+
+
+
+					</p:panelGrid>
+
+					<hr />
+
+					<div>
+
+						<div>
+							<p:messages id="msgs" />
+						</div>
+						<div class="flex align-items-center justify-content-between mb-6">
+							<a style="width: 50%;"
+								class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Verifique
+								se os dados estão corretos antes de cadastrar a vaga!</a>
+
+
+
+							<p:commandButton icon="pi pi-save" value="Cadastrar"
+								styleClass="btn-primary transition-colors transition-duration-500  hover:bg-blue-1000"
+								style="font-size: 14px;" title="Cadastrar a vaga"
+								process="@form" update="@form"
+								action="#{cadastroVagaController.cadastrar}" />
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<div
+			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center; margin-top: 30px;">
+
+			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
+
+			<span style="margin-right: 10px;">Versão: 1.0.0</span>
+
+		</div>
+
+	</h:form>
+
+
+	<style type="text/css">
+.ui-divider {
+	color: #2972bd !important;
+	opacity: 0.4 !important;
+}
+
+#j_idt15:j_idt18 .ui-panelgrid-cell {
+	width: 100% !important;
+}
+
+.ui-divider-content {
+	background-color: #ffffff !important;
+	padding: 0 0.5rem !important;
+	margin-left: 25px !important;
+}
+
+.ui-divider.ui-divider-solid.ui-divider-horizontal:before {
+	border-top-style: dotted !important;
+}
+
+.ui-messages-error {
+	background: #FFCDD2 !important;
+	border: 1px solid #EF5350 !important;
+	border-width: 0 0 0 6px !important;
+	color: #B71C1C !important;
+	width: 100% !important;
+	font-size: 12px !important;
+}
+
+.ui-messages-error ul {
+	display: inline-flex !important;
+}
+
+.ui-messages-error ul li {
+	display: flex !important;
+	justify-content: flex-start !important;
+}
+
+.ui-messages-error ul {
+	text-align: initial !important;
+}
+
+@media screen and (max-width: 650px) {
+	.ui-messages-error ul {
+		display: grid !important;
+	}
+}
+</style>
+
+</h:body>
+</html>

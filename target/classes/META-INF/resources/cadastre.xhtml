@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Cadastre-se</title>
+</h:head>
+
+<ui:include src="/WEB-INF/templates/template.xhtml" />
+
+<h:body>
+
+	<style type="text/css">
+.ui-tabs-nav {
+	border: none !important;
+}
+
+.card {
+	background-image: url("/resources/images/cidade.jpg") !important;
+}
+
+.ui-tabs-nav {
+	font-size: 16px !important;
+}
+</style>
+
+
+	<f:metadata>
+		<f:viewParam name="index" value="#{cadastreController.index}"
+			converter="javax.faces.Long" />
+		<f:event type="preRenderView" listener="#{cadastreController.init}" />
+	</f:metadata>
+
+
+	<h:form prependId="false">
+
+		<div class="card"
+			style="height: 550px; display: flex; justify-content: center; align-items: center; background-repeat: no-repeat; background: center;">
+
+
+			<p:tabView style="width: 50%; height: auto;"
+				activeIndex="#{cadastreController.index}">
+				<p:tab title="Candidato" id="candidato">
+					<div class="text-center mb-5" style="font-size: 20px;">
+
+
+							<i class="pi pi-user" /> 
+
+
+						<div class="text-900 text-3xl font-medium mb-3">Seja bem
+							vindo(a)!</div>
+						<span class="text-600 text-3xl font-medium line-height-3">Já
+							possui uma conta?</span>
+
+						<p:link
+							class="font-medium text-3xl no-underline ml-2 text-blue-500 cursor-pointer"
+							value="Faça login agora!" outcome="/login.xhtml">
+						</p:link>
+
+					</div>
+
+					<div>
+						<label for="emailCandidato"
+							class="block text-900 font-medium mb-2">E-mail</label>
+						<p:inputText id="emailCandidato" styleClass="w-full mb-4"
+							value="#{cadastreController.usuarioCandidato.email}" />
+
+						<label for="novaSenhaCandidato"
+							class="block text-900 font-medium mb-2">Senha</label>
+						<p:inputText id="novaSenhaCandidato" type="password"
+							styleClass="w-full mb-3"
+							value="#{cadastreController.usuarioCandidato.senha}" />
+
+
+						<label for="novaSenhaConfirmeCandidato"
+							class="block text-900 font-medium mb-2">Confirme a senha</label>
+						<p:inputText id="novaSenhaConfirmeCandidato" type="password"
+							styleClass="w-full mb-6"
+							value="#{cadastreController.usuarioCandidato.confirmeSenha}">
+							<p:ajax event="keyup" delay="1000"
+								listener="#{cadastreController.senhasIguaisCandidato}"
+								process="@this novaSenhaCandidato emailCandidato" update="@form" />
+
+						</p:inputText>
+
+						<p:staticMessage id="avisoCandidato" styleClass="mb-6" severity="error"
+							summary="Atenção: " detail="As senhas não são iguais"
+							rendered="#{cadastreController.avisoCandidato}">
+						</p:staticMessage>
+
+
+						<p:commandButton id="criarCandidato" ajax="false" value="Criar"
+							process="@this candidato" update="@form" icon="pi pi-id-card"
+							styleClass="btn-primary"
+							action="#{cadastreController.criarCadastroUsuario}" />
+					</div>
+
+
+				</p:tab>
+				<p:tab title="Empresa" id="empresa">
+					<div class="text-center mb-5" style="font-size: 20px;">
+
+							<i class="fa fa-building" /> 
+
+						<div class="text-900 text-3xl font-medium mb-3">Seja bem
+							vindo(a)!</div>
+						<span class="text-600 text-3xl font-medium line-height-3">Já
+							possui uma conta?</span>
+
+						<p:link
+							class="font-medium text-3xl no-underline ml-2 text-blue-500 cursor-pointer"
+							value="Faça login agora!" outcome="/login.xhtml">
+						</p:link>
+					</div>
+
+					<div>
+						<label for="emailEmpresa" class="block text-900 font-medium mb-2">E-mail</label>
+						<p:inputText id="emailEmpresa" styleClass="w-full mb-4"
+							value="#{cadastreController.usuarioEmpresa.email}" />
+
+						<label for="novaSenhaEmpresa"
+							class="block text-900 font-medium mb-2">Senha</label>
+						<p:inputText id="novaSenhaEmpresa" type="password"
+							styleClass="w-full mb-3"
+							value="#{cadastreController.usuarioEmpresa.senha}" />
+
+
+						<label for="novaSenhaConfirmeEmpresa"
+							class="block text-900 font-medium mb-2">Confirme a senha</label>
+						<p:inputText id="novaSenhaConfirmeEmpresa" type="password"
+							styleClass="w-full mb-6"
+							value="#{cadastreController.usuarioEmpresa.confirmeSenha}">
+								<p:ajax event="keyup" delay="1000"
+								listener="#{cadastreController.senhasIguaisEmpresa}"
+								process="@this novaSenhaEmpresa emailEmpresa" update="@form" />
+						</p:inputText>
+						
+							<p:staticMessage id="avisoEmpresa" styleClass="mb-6" severity="error"
+							summary="Atenção: " detail="As senhas não são iguais"
+							rendered="#{cadastreController.avisoEmpresa}">
+						</p:staticMessage>
+
+						<p:commandButton id="criarEmpresa" ajax="false" value="Criar"
+							process="@this empresa" update="@form" icon="pi pi-id-card"
+							styleClass="btn-primary"
+							action="#{cadastreController.criarCadastroEmpresa}" />
+					</div>
+
+
+				</p:tab>
+
+			</p:tabView>
+
+		</div>
+
+
+		<div
+			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">
+
+			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
+
+			<span style="margin-right: 10px;">Versão: 1.0.0</span>
+
+
+		</div>
+
+	</h:form>
+
+</h:body>
+</html>

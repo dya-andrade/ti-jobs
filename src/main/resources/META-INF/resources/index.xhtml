@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>index</title>
+</h:head>
+
+<ui:include src="/WEB-INF/templates/template.xhtml" />
+
+<h:body>
+
+	<style type="text/css">
+@media screen and (max-width: 770px) {
+	.texto {
+		margin-top: 25% !important;
+	}
+}
+
+@media screen and (max-width: 545px) {
+	.texto {
+		margin-top: 30% !important;
+	}
+	.texto-btn {
+		font-size: 12px !important;
+	}
+}
+</style>
+
+
+
+	<h:form>
+
+		<div class="grid grid-nogutter surface-section text-800"
+			style="height: 538px;">
+			<div
+				class="col-6 md:col-6 p-6 text-center md:text-left flex align-items-center texto"
+				style="height: 32%; margin-top: 10%;">
+				<section>
+					<span class="block text-6xl font-bold mb-1">Realize o seu
+						cadastro,</span>
+					<div class="text-6xl text-primary font-bold mb-3">E tenha
+						acesso as melhores oportunidades</div>
+					<p class="mt-0 mb-4 text-700 line-height-3">Lembrete: A única
+						coisa impossível é aquilo que você não tenta.</p>
+
+					<p:commandButton value="Ver vagas" type="button"
+						class="mr-3 texto-btn" />
+					<p:commandButton value="Cadastra-se" type="button"
+						styleClass="btn-primary texto-btn" />
+				</section>
+			</div>
+			<div class="col-6 md:col-6 overflow-hidden">
+				<p:graphicImage name="/resources/images/cidade.jpg" alt="Image"
+					style="clip-path: polygon(8% 0, 50% 0%, 100% 100%, 0 109%);  height: 32.4%;" />
+			</div>
+		</div>
+
+
+		<div
+			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">
+
+			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
+
+			<span style="margin-right: 10px;">Versão: 1.0.0</span>
+
+
+		</div>
+
+
+	</h:form>
+
+</h:body>
+</html>

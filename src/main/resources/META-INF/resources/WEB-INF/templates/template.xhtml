@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:p="http://primefaces.org/ui" style="overflow: auto;">
+
+<h:head>
+
+
+	<link rel="stylesheet"
+		href="https://unpkg.com/primeflex@3.1.0/primeflex.css" />
+	<link rel="stylesheet"
+		href="https://unpkg.com/primeflex@3.1.0/themes/saga-blue.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/all.min-jsf.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+
+	<h:outputStylesheet name="primeflex/primeflex.css" />
+	<h:outputStylesheet name="primeflex/saga-blue.css" />
+
+
+	<link rel="shortcut icon" href="" />
+
+</h:head>
+
+<h:body style="height: auto;overflow: hidden;">
+
+	<style type="text/css">
+@media screen and (max-width: 770px) {
+	.principalItem {
+		font-size: 28px !important;
+	}
+	.menuItem {
+		font-size: 15px !important;
+	}
+}
+
+@media screen and (max-width: 673px) {
+	.menu {
+		display: none !important;
+	}
+	.principal {
+		width: 60% !important;
+	}
+}
+
+.menuItemStyle {
+	font-family: monospace !important;
+	font-weight: 600 !important;
+	color: #0e6fb3 !important;
+	font-size: 18px !important;
+	height: 43px !important;
+}
+
+#cadastre .ui-menuitem-link {
+	font-size: 15px !important;
+}
+
+#cadastre .ui-submenu-link {
+	background-color: #00c0ef40 !important;
+	font-family: monospace !important;
+	font-size: 18px !important;
+	color: midnightblue !important;
+	font-weight: 600 !important;
+}
+
+#empresa .ui-menuitem-link, #candidato .ui-menuitem-link {
+	font-size: 15px !important;
+}
+
+#empresa .ui-submenu-link, #candidato .ui-submenu-link {
+	font-family: monospace !important;
+	width: max-content !important;
+}
+
+.ui-menuitem-active, .ui-state-hover {
+	background-color: white !important;
+}
+</style>
+
+	<h:form prependId="false">
+
+		<div style="display: flex; align-items: flex-end;">
+			<p:menubar
+				style="width: 50%; border-right: none; border-right: none; border-top: none;"
+				styleClass="principal">
+				<p:menuitem outcome="/index.html" styleClass="principalItem"
+					style="font-family: monospace; font-size: 28px; font-weight: 700; color: #000000a6; border-left: none;">
+						#{indexController.tijobsTexto1}
+						<i class="fa fa-fw fa-coffee"></i>
+						#{indexController.tijobsTexto2}
+						
+				</p:menuitem>
+
+			</p:menubar>
+
+			<p:menubar id="menu"
+				style="display: flex; justify-content: flex-end; width: 50%; border-left: none; border-right: none; border-top: none; align-items: center;"
+				styleClass="menu">
+
+				<sec:authorize access="hasRole('CANDIDATO') or hasRole('EMPRESA')">
+
+					<p:menuitem value="VAGAS" outcome="/vagas.xhtml"
+						icon="pi pi-fw pi-briefcase" styleClass="menuItem menuItemStyle" />
+
+				</sec:authorize>
+
+
+				<sec:authorize
+					access="!hasRole('CANDIDATO') and !hasRole('EMPRESA')">
+
+					<p:menuitem value="VAGAS" outcome="/vagas.xhtml"
+						icon="pi pi-fw pi-briefcase" styleClass="menuItem menuItemStyle" />
+
+
+					<p:menuitem value="LOGIN" icon="pi pi-fw pi-sign-in"
+						styleClass="menuItem menuItemStyle" outcome="/login.xhtml" />
+
+
+					<p:submenu id="cadastre" label="CADASTRA-SE"
+						icon="pi pi-fw pi-id-card" styleClass="menuItem">
+						<p:menuitem value="Candidato" icon="pi pi-fw pi-user"
+							outcome="/cadastre.xhtml">
+							<f:param name="index" value="0" />
+						</p:menuitem>
+						<p:menuitem value="Empresa" icon="fa fa-building"
+							outcome="/cadastre.xhtml">
+							<f:param name="index" value="1" />
+						</p:menuitem>
+					</p:submenu>
+
+				</sec:authorize>
+
+			</p:menubar>
+
+			<sec:authorize access="hasRole('CANDIDATO') or hasRole('EMPRESA')">
+
+				<div
+					style="display: flex; align-items: center; width: 22%; border-bottom: 1px solid #e2e2e2;">
+
+
+
+					<sec:authorize access="hasRole('CANDIDATO')">
+
+						<img src="data:image/jpg;base64, #{indexController.fotoStr}"
+							id="userImage"
+							style="width: 60px; border-radius: 50%; border: inset; margin-left: 50px;" />
+
+						<p:menubar style="border: none">
+							<p:submenu id="candidato" label="Candidato"
+								icon="pi pi-fw pi-cog">
+								<p:menuitem value="Dashboard" icon="pi pi-fw pi-desktop" />
+								<p:menuitem value="Editar Perfil"
+									outcome="/cadastro/candidato.xhtml"
+									icon="pi pi-fw pi-user-edit" />
+								<p:menuitem url="/logout" value="Sair" icon="pi pi-fw pi-sign-out" />
+							</p:submenu>
+
+						</p:menubar>
+						
+						
+
+					</sec:authorize>
+
+
+					<sec:authorize access="hasRole('EMPRESA')">
+
+						<img src="data:image/jpg;base64, #{indexController.fotoStr}"
+							id="userImage"
+							style="width: 50px; border-radius: 50%; border: inset; margin-left: 50px; margin-bottom: 4px;" />
+
+						<p:menubar style="border: none">
+							<p:submenu id="empresa" label="Empresa" icon="pi pi-fw pi-cog">
+								<p:menuitem value="Dashboard" icon="pi pi-fw pi-desktop" />
+								<p:menuitem value="Cadastrar Vagas"
+									outcome="/cadastro/vaga.xhtml" icon="pi pi-fw pi-briefcase" />
+								<p:menuitem value="Editar Perfil"
+									outcome="/cadastro/empresa.xhtml" icon="pi pi-fw pi-user-edit" />
+								<p:menuitem url="/logout" value="Sair" icon="pi pi-fw pi-sign-out" />
+							</p:submenu>
+
+						</p:menubar>
+
+					</sec:authorize>
+
+				</div>
+
+			</sec:authorize>
+
+		</div>
+
+	</h:form>
+	
+			 <p:growl id="growl" showDetail="true" />
+	
+</h:body>
+</html>

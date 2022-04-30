@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>TI Jobs - cadastro empresa</title>
+</h:head>
+
+<ui:include src="/WEB-INF/templates/template.xhtml" />
+
+<h:body>
+
+	<h:form enctype="multipart/form-data">
+
+		<div class="surface-section text-center" style="margin-top: 40px;">
+			<div class="mb-3 font-bold text-2xl" style="display: inline-flex;">
+				<h1 class="text-900" style="margin-right: 8px;">Sobre a</h1>
+				<h1
+					class="text-blue-600 scalein animation-duration-2000 animation-iteration-infinite">empresa</h1>
+			</div>
+			<div class="text-700 text-sm mb-6 text-2xl">
+				<p>O cadastro será utilizado para apresentação da empresa nas
+					vagas de emprego.</p>
+			</div>
+		</div>
+		<div class="flex align-items-center justify-content-center">
+			<div class="surface-card p-4 shadow-2 border-round w-full lg:w-10">
+
+				<div class="surface-section">
+					<div class="font-medium text-3xl text-900 mb-3">
+						<i class="fa fa-building" style="font-size: 20px;"></i>
+						Informações
+					</div>
+					<div class="text-500 mb-5">Escolha o logotipo como marca e
+						identidade visual da empresa.</div>
+					<div class="ui-g ui-fluid"
+						style="display: flex; justify-content: space-around;">
+
+						<ul class="list-none p-0 m-0" style="width: 100%;">
+							<li
+								class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+								<div class="text-500 w-6 md:w-2 font-medium">Nome
+									Empresarial</div>
+								<div style="display: flex;"
+									class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+
+									<p:inputText id="nome" required="true"
+										requiredMessage="Nome empresarial é obrigatório"
+										value="#{cadastroEmpresaController.empresa.nomeEmpresarial}"
+										style="width: 47%;" />
+
+									<p:message for="nome" display="icon" />
+
+								</div>
+							</li>
+							<li
+								class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+								<div class="text-500 w-6 md:w-2 font-medium">Ramo</div>
+								<div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+									<p:selectOneMenu
+										value="#{cadastroEmpresaController.empresa.ramo}"
+										style="width: 47%;" effect="fade" filter="true"
+										filterMatchMode="startsWith">
+										<f:selectItems value="#{cadastroEmpresaController.ramos}" />
+									</p:selectOneMenu>
+								</div>
+							</li>
+							<li
+								class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+								<div class="text-500 w-6 md:w-2 font-medium">Localidade</div>
+								<div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+									<p:selectOneMenu
+										value="#{cadastroEmpresaController.empresa.localidade}"
+										style="width: 47%;" effect="fade" filter="true"
+										filterMatchMode="startsWith">
+										<f:selectItems value="#{cadastroEmpresaController.distritos}" />
+									</p:selectOneMenu>
+								</div>
+							</li>
+							<li
+								class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+								<div class="text-500 w-6 md:w-2 font-medium">Telefone</div>
+								<div style="display: flex;"
+									class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+									<p:inputMask id="telefone" required="true"
+										requiredMessage="Telefone é obrigatório"
+										value="#{cadastroEmpresaController.empresa.telefone}"
+										mask="(99)9999-9999" validateMask="true" style="width: 47%;" />
+									<p:message for="telefone" display="icon" />
+
+								</div>
+							</li>
+							<li
+								class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+								<div class="text-500 w-6 md:w-2 font-medium">Descrição</div>
+								<div style="display: flex;"
+									class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">
+									<p:inputTextarea id="descricao" rows="4" required="true"
+										requiredMessage="Descrição é obrigatório"
+										value="#{cadastroEmpresaController.empresa.descricao}"
+										placeholder="Sobre a empresa e suas atividades." cols="35" />
+									<p:message for="descricao" display="icon" />
+								</div>
+							</li>
+						</ul>
+
+
+						<ul class="list-none p-0 m-0" style="width: 100%;">
+							<li
+								class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+								<div class="text-500 w-6 md:w-2 font-medium">CNPJ</div>
+								<div style="display: flex;"
+									class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+									<p:inputMask id="cnpj" requiredMessage="CNPJ é obrigatório"
+										value="#{cadastroEmpresaController.empresa.cnpj}"
+										mask="99.999.999/9999-99" validateMask="true" required="true" />
+									<p:message for="cnpj" display="icon" />
+								</div>
+							</li>
+							<li
+								class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+								<div class="text-500 w-6 md:w-2 font-medium">Tipo</div>
+								<div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+									<p:selectOneMenu
+										value="#{cadastroEmpresaController.empresa.tipo}"
+										style="width: 47%;">
+										<f:selectItems value="#{cadastroEmpresaController.tiposGrupo}" />
+									</p:selectOneMenu>
+								</div>
+							</li>
+							<li
+								class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+								<div class="text-500 w-6 md:w-2 font-medium">Tamanho</div>
+								<div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1"
+									style="display: contents; font-size: 14px;">
+									<p:selectOneRadio id="tamanho" required="true"
+										requiredMessage="Tamanho é obrigatório"
+										value="#{cadastroEmpresaController.empresa.tamanho}"
+										unselectable="true">
+										<f:selectItem itemLabel="Startup"
+											itemValue="Startup" />
+										<f:selectItem itemLabel="Pequeno Porte"
+											itemValue="Pequeno Porte" />
+										<f:selectItem itemLabel="Médio Porte" itemValue="Médio Porte" />
+										<f:selectItem itemLabel="Grande Empresa"
+											itemValue="Grande Empresa" />
+									</p:selectOneRadio>
+									<p:message for="tamanho" display="icon" />
+								</div>
+							</li>
+							<li
+								class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+								<div class="text-500 w-6 md:w-2 font-medium">Site</div>
+								<div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+									<p:inputText value="#{cadastroEmpresaController.empresa.site}"
+										placeholder="https://www.site.com.br" style="width: 47%;" />
+								</div>
+							</li>
+							<li style="height: 100px;"
+								class="flex align-items-center py-3 px-2 border-top-1 border-bottom-2 surface-border flex-wrap">
+								<div class="text-500 w-6 md:w-2 font-medium">Logotipo</div>
+								<div
+									class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">
+
+									<p:fileUpload value="#{cadastroEmpresaController.file}"
+										sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+										invalidSizeMessage="Tamanho máximo permitido: 1MB"
+										invalidFileMessage="Formato não suportado"
+										chooseIcon="pi pi-camera" mode="simple" skinSimple="true"
+										label="Escolher" />
+
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="flex justify-content-around">
+						<div style="width: 85%;">
+							<p:messages id="msgs" />
+						</div>
+						<div>
+							<p:commandButton icon="pi pi-save" value="Salvar"
+								styleClass="btn-primary transition-colors transition-duration-500  hover:bg-blue-1000"
+								style="font-size: 15px; margin-right: 20px; margin-top: 20px;"
+								title="Salvar o cadastro" process="@form" update="@form"
+								action="#{cadastroEmpresaController.salvar}" />
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div
+			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center; margin-top: 30px;">
+
+			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
+
+			<span style="margin-right: 10px;">Versão: 1.0.0</span>
+
+		</div>
+
+
+	</h:form>
+
+	<style type="text/css">
+.ui-fluid .ui-inputmask {
+	width: auto !important;
+}
+
+.ui-fileupload-simple .ui-button {
+	width: 100px !important;
+}
+
+.ui-messages-error {
+	background: #FFCDD2 !important;
+	border: 1px solid #EF5350 !important;
+	border-width: 0 0 0 6px !important;
+	color: #B71C1C !important;
+	width: 50% !important;
+	font-size: 12px !important;
+}
+
+.ui-messages-error ul {
+	text-align: initial !important;
+}
+</style>
+
+</h:body>
+</html>
