@@ -16,12 +16,16 @@ import br.com.tijobs.model.Empresa;
 import br.com.tijobs.model.Usuario;
 import br.com.tijobs.repository.CandidatoRepository;
 import br.com.tijobs.repository.EmpresaRepository;
+import br.com.tijobs.security.SecurityService;
 
 @Service
 public class UtilService {
 
+	//@Autowired
+	//private LoginController loginController;
+	
 	@Autowired
-	private LoginController loginController;
+	private SecurityService securityService;
 
 	@Autowired
 	private CandidatoRepository candidatoRepository;
@@ -30,7 +34,8 @@ public class UtilService {
 	private EmpresaRepository empresaRepository;
 
 	public Usuario usuarioLogado() {
-		return loginController.getUsuario();
+		//return loginController.getUsuario();
+		return securityService.getLogado();
 	}
 
 	public Empresa perfilEmpresa() {

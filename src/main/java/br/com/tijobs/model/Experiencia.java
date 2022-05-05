@@ -40,7 +40,7 @@ public class Experiencia implements Serializable {
 	private String descricao;
 
 	@ManyToOne
-	@JoinColumn(name = "id_usuario", referencedColumnName = "id")
+	@JoinColumn(name = "id_candidato", referencedColumnName = "id")
 	private Candidato candidato;
 
 	//-------

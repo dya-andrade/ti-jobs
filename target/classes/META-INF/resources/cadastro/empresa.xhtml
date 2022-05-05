@@ -18,13 +18,18 @@
 
 	<h:form enctype="multipart/form-data">
 
+		<div id="banner"
+			style="padding-bottom: 20px; padding-top: 45px; margin-bottom: 20px; background: top; background-size: cover; height: 200px;">
+
+		</div>
+
 		<div class="surface-section text-center" style="margin-top: 40px;">
 			<div class="mb-3 font-bold text-2xl" style="display: inline-flex;">
 				<h1 class="text-900" style="margin-right: 8px;">Sobre a</h1>
 				<h1
-					class="text-blue-600 scalein animation-duration-2000 animation-iteration-infinite">empresa</h1>
+					class="text-blue-700 scalein animation-duration-2000 animation-iteration-infinite">empresa</h1>
 			</div>
-			<div class="text-700 text-sm mb-6 text-2xl">
+			<div class="text-600 text-sm mb-6 text-2xl">
 				<p>O cadastro será utilizado para apresentação da empresa nas
 					vagas de emprego.</p>
 			</div>
@@ -143,8 +148,7 @@
 										requiredMessage="Tamanho é obrigatório"
 										value="#{cadastroEmpresaController.empresa.tamanho}"
 										unselectable="true">
-										<f:selectItem itemLabel="Startup"
-											itemValue="Startup" />
+										<f:selectItem itemLabel="Startup" itemValue="Startup" />
 										<f:selectItem itemLabel="Pequeno Porte"
 											itemValue="Pequeno Porte" />
 										<f:selectItem itemLabel="Médio Porte" itemValue="Médio Porte" />
@@ -228,6 +232,10 @@
 
 .ui-messages-error ul {
 	text-align: initial !important;
+}
+
+#banner {
+	background-image: url("/resources/images/cidade6.jpeg") !important;
 }
 </style>
 

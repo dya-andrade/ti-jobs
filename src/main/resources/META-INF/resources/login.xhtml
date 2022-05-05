@@ -9,7 +9,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-	<title>Login</title>
+	<title>TI Jobs - login</title>
 </h:head>
 
 <ui:include src="/WEB-INF/templates/template.xhtml" />
@@ -28,6 +28,12 @@
 .ui-tabs-nav {
 	font-size: 16px !important;
 }
+
+@media screen and (max-width: 770px) {
+	#login {
+		width: 90% !important;
+	}
+}
 </style>
 
 
@@ -37,7 +43,7 @@
 			style="height: 537px; display: flex; justify-content: center; align-items: center; background-repeat: no-repeat; background: left;">
 
 
-			<p:tabView style="width: 50%; height: auto;" prependId="false">
+			<p:tabView id="login" style="width: 50%; height: auto;" prependId="false">
 				<p:tab title="Login">
 
 					<div class="text-center mb-5" style="font-size: 20px;">

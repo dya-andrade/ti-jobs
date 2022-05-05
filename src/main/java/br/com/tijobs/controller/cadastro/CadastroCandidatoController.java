@@ -1,5 +1,6 @@
 package br.com.tijobs.controller.cadastro;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,9 +22,9 @@ import br.com.tijobs.util.UtilService;
 public class CadastroCandidatoController {
 
 	private List<String> distritos;
-	
+
 	private Candidato candidato;
-	
+
 	@Autowired
 	private CandidatoRepository candidatoRepository;
 
@@ -35,11 +36,7 @@ public class CadastroCandidatoController {
 	private UploadedFile foto;
 
 	private UploadedFile curriculo;
-	
-	private List<String> tamanhoEmpresa;
 
-	private List<String> tipoContrato;
-	
 	@Autowired
 	private UtilService utilService;
 
@@ -49,9 +46,14 @@ public class CadastroCandidatoController {
 		habilidades = habilidadeRepository.buscaTodasHabilidades();
 
 		if (candidato == null) {
-			candidato = new Candidato();
+			Candidato candidatoLogado = utilService.perfilCandidato();
+			if (candidatoLogado != null) {
+				candidato = candidatoLogado;
+			} else {
+				candidato = new Candidato();
+			}
 		}
-		
+
 		distritos = utilService.buscaDistritosSP();
 	}
 
@@ -90,28 +92,35 @@ public class CadastroCandidatoController {
 	}
 
 	public List<String> getTamanhoEmpresa() {
-		return tamanhoEmpresa;
+
+		String tamanhoEmpresa = candidato.getTamanhoEmpresa();
+
+		if (tamanhoEmpresa != null) {
+			return Arrays.stream(tamanhoEmpresa.split(",")).map(String::valueOf).collect(Collectors.toList());
+		}
+
+		return null;
 	}
 
 	public void setTamanhoEmpresa(List<String> tamanhoEmpresa) {
-		this.tamanhoEmpresa = tamanhoEmpresa;
-		if(tamanhoEmpresa != null && !tamanhoEmpresa.isEmpty()) {
-			candidato.setTamanhoEmpresa(tamanhoEmpresa.stream()
-			        .map(String::valueOf)
-			        .collect(Collectors.joining(",")));
-		}	
+		if (tamanhoEmpresa != null && !tamanhoEmpresa.isEmpty()) {
+			candidato.setTamanhoEmpresa(tamanhoEmpresa.stream().map(String::valueOf).collect(Collectors.joining(",")));
+		}
 	}
-	
+
 	public List<String> getTipoContrato() {
-		return tipoContrato;
+		String tipoContrato = candidato.getTipoContrato();
+
+		if (tipoContrato != null) {
+			return Arrays.stream(tipoContrato.split(",")).map(String::valueOf).collect(Collectors.toList());
+		}
+
+		return null;
 	}
 
 	public void setTipoContrato(List<String> tipoContrato) {
-		this.tipoContrato = tipoContrato;
-		if(tipoContrato != null && !tipoContrato.isEmpty()) {
-			candidato.setTipoContrato(tipoContrato.stream()
-			        .map(String::valueOf)
-			        .collect(Collectors.joining(",")));
+		if (tipoContrato != null && !tipoContrato.isEmpty()) {
+			candidato.setTipoContrato(tipoContrato.stream().map(String::valueOf).collect(Collectors.joining(",")));
 		}
 	}
 

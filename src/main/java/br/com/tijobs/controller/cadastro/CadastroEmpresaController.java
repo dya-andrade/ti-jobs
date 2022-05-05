@@ -34,7 +34,7 @@ public class CadastroEmpresaController {
 	private List<String> distritos;
 
 	private UploadedFile file;
-	
+
 	@Autowired
 	private UtilService utilService;
 
@@ -42,16 +42,21 @@ public class CadastroEmpresaController {
 	public void init() {
 
 		if (empresa == null) {
-			empresa = new Empresa();
+			Empresa empresaLogada = utilService.perfilEmpresa();
+			if (empresaLogada != null) {
+				empresa = empresaLogada;
+			} else {
+				empresa = new Empresa();
+			}
 		}
 
 		adicionaTiposGrupo();
-		
+
 		adicionaRamos();
 
 		distritos = utilService.buscaDistritosSP();
 	}
-	
+
 	private void adicionaTiposGrupo() {
 		tiposGrupo = new ArrayList<>();
 
@@ -61,7 +66,7 @@ public class CadastroEmpresaController {
 
 		tiposGrupo.add(tiposEmpresa);
 	}
-	
+
 	private void adicionaRamos() {
 		ramos = new ArrayList<>();
 
@@ -87,7 +92,6 @@ public class CadastroEmpresaController {
 		ramos.add("Outros");
 	}
 
-
 	public void salvar() throws IOException {
 
 		empresa.setUsuario(utilService.usuarioLogado());
@@ -97,7 +101,7 @@ public class CadastroEmpresaController {
 		FacesContext.getCurrentInstance().getExternalContext().redirect("/index.xhtml");
 
 	}
-	
+
 	public UploadedFile getFile() {
 		return file;
 	}
