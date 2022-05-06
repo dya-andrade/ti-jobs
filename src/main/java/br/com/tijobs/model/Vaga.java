@@ -2,7 +2,9 @@ package br.com.tijobs.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -71,7 +73,7 @@ public class Vaga implements Serializable, Comparable<Vaga> {
 
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinTable(name = "vaga_candidato", joinColumns = @JoinColumn(name = "id_vaga"), inverseJoinColumns = @JoinColumn(name = "id_candidato"))
-	private List<Candidato> candidados;
+	private List<Candidato> candidatos;
 
 	private LocalDateTime dataCriacao;
 
@@ -82,6 +84,30 @@ public class Vaga implements Serializable, Comparable<Vaga> {
 	@Override
 	public int compareTo(@NonNull Vaga another) {
 		return another.getDataCriacao().compareTo(getDataCriacao());
+	}
+	
+	public void setDesativada(Boolean desativada) {
+		this.desativada = desativada;
+	}
+	
+	public List<String> listaPrincipaisTecnologias() {
+		String tecnologias = this.principaisTecnologias;
+
+		if (tecnologias != null) {
+			return Arrays.stream(tecnologias.split(",")).map(String::valueOf).collect(Collectors.toList());
+		}
+
+		return null;
+	}
+	
+	public List<String> listaBeneficios() {	
+		String beneficios = this.beneficios;
+
+		if (beneficios != null) {
+			return Arrays.stream(beneficios.split(",")).map(String::valueOf).collect(Collectors.toList());
+		}
+
+		return null;
 	}
 
 	public Integer getId() {
@@ -220,12 +246,12 @@ public class Vaga implements Serializable, Comparable<Vaga> {
 		this.empresa = empresa;
 	}
 
-	public List<Candidato> getCandidados() {
-		return candidados;
+	public List<Candidato> getCandidatos() {
+		return candidatos;
 	}
 
-	public void setCandidados(List<Candidato> candidados) {
-		this.candidados = candidados;
+	public void setCandidatos(List<Candidato> candidatos) {
+		this.candidatos = candidatos;
 	}
 
 	public LocalDateTime getDataCriacao() {
@@ -238,9 +264,5 @@ public class Vaga implements Serializable, Comparable<Vaga> {
 
 	public Boolean getDesativada() {
 		return desativada;
-	}
-
-	public void setDesativada(Boolean desativada) {
-		this.desativada = desativada;
 	}
 }

@@ -3,8 +3,6 @@ package br.com.tijobs.controller;
 import static br.com.tijobs.util.Message.addDetailMessage;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -16,12 +14,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import org.apache.commons.io.IOUtils;
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Candidato;
-import br.com.tijobs.model.Empresa;
 import br.com.tijobs.model.Habilidade;
 import br.com.tijobs.model.Usuario;
 import br.com.tijobs.model.Vaga;
@@ -80,41 +76,8 @@ public class VagaController {
 		candidatoLogado = utilService.perfilCandidato();
 	}
 
-	public List<String> listaBeneficios() {
-		
-		String beneficios = vagaSelecionada.getBeneficios();
-
-		if (beneficios != null) {
-			return Arrays.stream(beneficios.split(",")).map(String::valueOf).collect(Collectors.toList());
-		}
-
-		return null;
-	}
-
 	public String iconBeneficio(String beneficio) {
 		return vagaService.iconeDoBenefício(beneficio);
-	}
-
-	public List<String> listaPrincipaisTecnologias(Vaga vaga) {
-
-		String tecnologias = vaga.getPrincipaisTecnologias();
-
-		if (tecnologias != null) {
-			return Arrays.stream(tecnologias.split(",")).map(String::valueOf).collect(Collectors.toList());
-		}
-
-		return null;
-	}
-
-	public List<String> listaPrincipaisTecnologias() {
-
-		String tecnologias = vagaSelecionada.getPrincipaisTecnologias();
-
-		if (tecnologias != null) {
-			return Arrays.stream(tecnologias.split(",")).map(String::valueOf).collect(Collectors.toList());
-		}
-
-		return null;
 	}
 
 	public boolean getVerificaCandidatura() {
@@ -133,12 +96,12 @@ public class VagaController {
 
 	public void candidatar() {
 
-		List<Candidato> candidatos = vagaSelecionada.getCandidados();
+		List<Candidato> candidatos = vagaSelecionada.getCandidatos();
 
 		if (!getVerificaCandidatura()) {
 
 			candidatos.add(candidatoLogado);
-			vagaSelecionada.setCandidados(candidatos);
+			vagaSelecionada.setCandidatos(candidatos);
 
 			vagaRepository.save(vagaSelecionada);
 
@@ -149,7 +112,7 @@ public class VagaController {
 
 	public void cancelarCandidatura() {
 
-		List<Candidato> candidatos = vagaSelecionada.getCandidados();
+		List<Candidato> candidatos = vagaSelecionada.getCandidatos();
 
 		List<Candidato> candidadosForeach = candidatos;
 
@@ -160,7 +123,7 @@ public class VagaController {
 			}
 		}
 
-		vagaSelecionada.setCandidados(candidatos);
+		vagaSelecionada.setCandidatos(candidatos);
 
 		vagaRepository.save(vagaSelecionada);
 
@@ -169,30 +132,6 @@ public class VagaController {
 
 	public void cadastrar() throws IOException {
 		FacesContext.getCurrentInstance().getExternalContext().redirect("/cadastre.xhtml");
-	}
-
-	public String fotoStr(Empresa empresa) throws IOException {
-
-		if (empresa.getLogotipo() != null) {
-			return new String(Base64.getEncoder().encode(empresa.getLogotipo()));
-		} else {
-
-			return new String(Base64.getEncoder()
-					.encode(IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream("profile.jpg"))));
-		}
-	}
-
-	public String fotoEmpresa() throws IOException {
-		if (vagaSelecionada != null) {
-			if (vagaSelecionada.getEmpresa().getLogotipo() != null) {
-				return new String(Base64.getEncoder().encode(vagaSelecionada.getEmpresa().getLogotipo()));
-			} else {
-
-				return new String(Base64.getEncoder()
-						.encode(IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream("profile.jpg"))));
-			}
-		}
-		return null;
 	}
 	
 	// ------------ FILTROS ------------------

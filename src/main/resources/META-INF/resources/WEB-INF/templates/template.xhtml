@@ -177,7 +177,7 @@
 			<sec:authorize access="hasRole('CANDIDATO') or hasRole('EMPRESA')">
 
 				<div
-					style="display: flex; align-items: center; border-bottom: 1px solid #e2e2e2;">
+					style="display: flex; align-items: center;">
 
 
 
@@ -187,15 +187,12 @@
 							class="userImage"
 							style="width: 60px; border-radius: 50%; border: inset; margin-left: 50px;" />
 
-						<p:menubar style="border: none">
+						<p:menubar style="border: none; margin-bottom: 10px;">
 							<p:submenu id="candidato" label="Candidato"
 								icon="pi pi-fw pi-cog">
 								<p:menuitem value="Ver Vagas" outcome="/vagas.xhtml"
 									icon="pi pi-fw pi-briefcase" />
-								<p:menuitem value="Dashboard" icon="pi pi-fw pi-desktop" />
-								<p:menuitem value="Editar Perfil"
-									outcome="/cadastro/candidato.xhtml"
-									icon="pi pi-fw pi-user-edit" />
+								<p:menuitem value="Dashboard" outcome="/perfil/candidato.xhtml" icon="pi pi-fw pi-desktop" />
 								<p:menuitem url="/logout" value="Sair"
 									icon="pi pi-fw pi-sign-out" />
 							</p:submenu>
@@ -211,15 +208,11 @@
 							class="userImage"
 							style="width: 50px; border-radius: 50%; border: inset; margin-left: 50px; margin-bottom: 4px;" />
 
-						<p:menubar style="border: none">
+						<p:menubar style="border: none; margin-bottom: 10px;">
 							<p:submenu id="empresa" label="Empresa" icon="pi pi-fw pi-cog">
 								<p:menuitem value="Ver Vagas" outcome="/vagas.xhtml"
 									icon="pi pi-fw pi-briefcase" />
-								<p:menuitem value="Dashboard" icon="pi pi-fw pi-desktop" />
-								<p:menuitem value="Cadastrar Vagas"
-									outcome="/cadastro/vaga.xhtml" icon="pi pi-fw pi-briefcase" />
-								<p:menuitem value="Editar Perfil"
-									outcome="/cadastro/empresa.xhtml" icon="pi pi-fw pi-user-edit" />
+								<p:menuitem value="Dashboard" outcome="/perfil/empresa.xhtml" icon="pi pi-fw pi-desktop" />
 								<p:menuitem url="/logout" value="Sair"
 									icon="pi pi-fw pi-sign-out" />
 							</p:submenu>

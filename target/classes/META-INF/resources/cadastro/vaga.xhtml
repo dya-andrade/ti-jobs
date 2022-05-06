@@ -16,47 +16,65 @@
 
 <h:body>
 
-	<style type="text/css">
-#banner {
-	background-image: url("/resources/images/cidade4.jpg") !important;
-}
-</style>
 	<h:form>
-	
-		<div id="banner"
-			style="padding-bottom: 20px; padding-top: 45px; margin-bottom: 20px; background: top; background-size: cover; height: 200px;">
-
-		</div>
-
-		<div class="surface-section text-center"
-			style="margin-top: 40px;">
-
-			<div>
-				<i class="pi pi-briefcase" style="font-size: 30px;"></i>
-
-			</div>
-
-			<div class="mb-3 font-bold text-2xl" style="display: inline-flex;">
-
-				<h2 class="text-900" style="margin-right: 8px; margin-top: 0px;">Cadastro
-					de</h2>
-
-				<h2
-					class="text-blue-700 scalein animation-duration-2000 animation-iteration-infinite"
-					style="margin-top: 0px;">Vagas</h2>
-			</div>
-			<div>
-
-				<span class="text-600 font-medium line-height-3">Os melhores
-					profissionais,</span> <a
-					class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">do
-					mercado!</a>
-			</div>
-		</div>
 
 		<div class="flex align-items-center justify-content-center"
-			style="margin-top: 25px;">
-			<div class="surface-card p-4 shadow-2 border-round w-full lg:w-10">
+			style="height: 540px;">
+
+			<div class="surface-card p-4 shadow-2 border-round"
+				style="height: 100%; width: 20%;">
+
+				<div style="display: grid; justify-items: center; height: 45%;">
+					<img
+						src="data:image/jpg;base64, #{perfilEmpresaController.fotoStr}"
+						style="width: 100px; border-radius: 50%; border: inset;" />
+
+					<p:outputLabel
+						value="#{perfilEmpresaController.empresa.nomeEmpresarial}" />
+					<p:outputLabel value="#{perfilEmpresaController.empresa.cnpj}" />
+
+					<p:linkButton value="EDITAR PERFIL" icon="pi pi-fw pi-user-edit"
+						outcome="/cadastro/empresa.xhtml" styleClass="btn-success"
+						style="height: fit-content;" />
+
+				</div>
+
+				<p:separator />
+
+				<div style="display: grid; justify-items: center;">
+
+					<p:linkButton value="DASHBOARD" icon="pi pi-fw pi-desktop"
+						style="height: fit-content; width: 120px;"
+						styleClass="btn-primary" outcome="/perfil/empresa.xhtml" />
+
+				</div>
+
+
+			</div>
+
+
+			<div class="surface-card p-4 shadow-2 border-round"
+				style="max-height: 540px; width: 80%; overflow: auto; height: 100%;">
+
+				<div class="surface-section text-center">
+
+					<div class="mb-3 font-bold text-2xl"
+						style="display: inline-flex; margin-top: 10px;">
+
+						<h2 class="text-900" style="margin-right: 8px; margin-top: 0px;">CADASTRO</h2>
+
+						<h2
+							class="text-blue-700 scalein animation-duration-2000 animation-iteration-infinite"
+							style="margin-top: 0px;"> + VAGAS</h2>
+					</div>
+					<div>
+
+						<span class="text-600 font-medium line-height-3">Os
+							melhores profissionais,</span> <a
+							class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">do
+							mercado!</a>
+					</div>
+				</div>
 
 				<div class="surface-section">
 
@@ -198,12 +216,11 @@
 								itemValue="#{habilidade}"
 								value="#{cadastroVagaController.habilidades}" />
 						</p:selectCheckboxMenu>
-						
-					<p:outputLabel for="@next" value="Trabalho Remoto?" />
+
+						<p:outputLabel for="@next" value="Trabalho Remoto?" />
 						<p:selectOneRadio required="true"
 							requiredMessage="O campo remoto é obrigatório"
-							value="#{cadastroVagaController.vaga.remoto}"
-							unselectable="true">
+							value="#{cadastroVagaController.vaga.remoto}" unselectable="true">
 							<f:selectItem itemLabel="Sim" itemValue="Sim" />
 							<f:selectItem itemLabel="Não" itemValue="Não" />
 						</p:selectOneRadio>
@@ -270,7 +287,7 @@
 		</div>
 
 		<div
-			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center; margin-top: 30px;">
+			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">
 
 			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
 
@@ -327,6 +344,13 @@
 	.ui-messages-error ul {
 		display: grid !important;
 	}
+}
+
+html {
+	overflow: hidden !important;
+}
+.userImage {
+	display: none !important;
 }
 </style>
 

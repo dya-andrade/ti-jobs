@@ -13,6 +13,11 @@ public class VagaService {
 
 	@Autowired
 	private VagaRepository vagaRepository;
+	
+	
+	public List<Vaga> buscaVagasPeloIdCandidato(Integer id) {
+		return vagaRepository.buscaVagasPorIdCandidato(id);
+	}
 
 	public List<Vaga> buscaVagasPeloTipoContrato(String tipoContrato, String habilidade) {
 		if (habilidade != null) {

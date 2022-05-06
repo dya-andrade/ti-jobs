@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import br.com.tijobs.model.Vaga;
 
 public interface VagaRepository extends JpaRepository<Vaga, Integer> {
-	
+
 	@Query(value = "select * from vaga v join vaga_candidato vc on v.id = vc.id_vaga where vc.id_candidato = :idCandidato and vc.id_vaga = :idVaga", nativeQuery = true)
 	Vaga buscaVagaPorIdECandidato(int idVaga, int idCandidato);
 
@@ -25,8 +25,8 @@ public interface VagaRepository extends JpaRepository<Vaga, Integer> {
 	List<Vaga> findByTipoTrabalho(String tipoTrabalho);
 
 	List<Vaga> findByAceitaCandidatoFora(String aceitaCandidatoFora);
-	
-	//---------- ------ -----------------------------------------
+
+	// ---------- ------ -----------------------------------------
 
 	List<Vaga> findByPrincipaisTecnologiasLike(String habilidade);
 
@@ -44,4 +44,7 @@ public interface VagaRepository extends JpaRepository<Vaga, Integer> {
 	List<Vaga> findByNivelExperienciaAndPrincipaisTecnologiasLike(String nivelExperiencia, String habilidade);
 
 	List<Vaga> findByTipoContratoAndPrincipaisTecnologiasLike(String tipoContrato, String habilidade);
+
+	@Query(value = "select * from vaga v join vaga_candidato vc on v.id = vc.id_vaga where vc.id_candidato = :idCandidato", nativeQuery = true)
+	List<Vaga> buscaVagasPorIdCandidato(int idCandidato);
 }
