@@ -81,7 +81,7 @@ public class VagaController {
 	}
 
 	public boolean getVerificaCandidatura() {
-		if (vagaSelecionada != null) {
+		if (vagaSelecionada != null && candidatoLogado != null) {
 
 			Vaga candidatura = vagaRepository.buscaVagaPorIdECandidato(vagaSelecionada.getId(),
 					candidatoLogado.getId());
