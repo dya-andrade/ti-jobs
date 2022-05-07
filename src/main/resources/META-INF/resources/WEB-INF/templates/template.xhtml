@@ -96,10 +96,7 @@
 			<p:menubar style="width: 50%; border: none;" styleClass="principal">
 				<p:menuitem outcome="/index.html" styleClass="principalItem"
 					style="font-family: monospace; font-size: 28px; font-weight: 700; color: #000000a6; border-left: none;">
-						#{indexController.tijobsTexto1}
-						<i class="fa fa-fw fa-coffee"></i>
-						#{indexController.tijobsTexto2}
-						
+						#{indexController.tijobsTexto}			
 				</p:menuitem>
 
 			</p:menubar>
@@ -185,9 +182,9 @@
 
 						<img src="data:image/jpg;base64, #{indexController.fotoStr}"
 							class="userImage"
-							style="width: 60px; border-radius: 50%; border: inset; margin-left: 50px;" />
+							style="width: 50px; border-radius: 50%; border: inset; margin-left: 50px;" />
 
-						<p:menubar style="border: none; margin-bottom: 10px;">
+						<p:menubar style="border: none; margin-bottom: 5px;">
 							<p:submenu id="candidato" label="Candidato"
 								icon="pi pi-fw pi-cog">
 								<p:menuitem value="Ver Vagas" outcome="/vagas.xhtml"
@@ -206,9 +203,9 @@
 
 						<img src="data:image/jpg;base64, #{indexController.fotoStr}"
 							class="userImage"
-							style="width: 50px; border-radius: 50%; border: inset; margin-left: 50px; margin-bottom: 4px;" />
+							style="width: 50px; border-radius: 50%; border: inset; margin-left: 50px;" />
 
-						<p:menubar style="border: none; margin-bottom: 10px;">
+						<p:menubar style="border: none; margin-bottom: 5px;">
 							<p:submenu id="empresa" label="Empresa" icon="pi pi-fw pi-cog">
 								<p:menuitem value="Ver Vagas" outcome="/vagas.xhtml"
 									icon="pi pi-fw pi-briefcase" />

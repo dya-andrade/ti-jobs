@@ -1,7 +1,10 @@
 package br.com.tijobs.controller.perfil;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -19,6 +22,8 @@ import br.com.tijobs.util.UtilService;
 public class PerfilCandidatoController {
 	
 	private List<Vaga> vagas;
+	
+	private Vaga vagaSelecionada;
 	
 	private Candidato candidato;
 	
@@ -47,10 +52,25 @@ public class PerfilCandidatoController {
 	}
 
 	public List<Vaga> getVagas() {
+		Collections.sort(vagas);
+
+		vagas = vagas.stream().sorted(Comparator.comparing(Vaga::getDesativada)).collect(Collectors.toList());
 		return vagas;
+	}
+
+	public Vaga getVagaSelecionada() {
+		return vagaSelecionada;
+	}
+
+	public void setVagaSelecionada(Vaga vagaSelecionada) {
+		this.vagaSelecionada = vagaSelecionada;
 	}
 
 	public Candidato getCandidato() {
 		return candidato;
+	}
+	
+	public String iconBeneficio(String beneficio) {
+		return vagaService.iconeDoBenefício(beneficio);
 	}
 }

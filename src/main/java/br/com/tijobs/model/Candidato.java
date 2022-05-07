@@ -1,7 +1,9 @@
 package br.com.tijobs.model;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import org.apache.commons.io.IOUtils;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -111,7 +114,18 @@ public class Candidato implements Serializable {
 	@Transient
 	private Experiencia terceiraExperiencia = new Experiencia();
 	
+	
+	public String fotoStr() throws IOException {
+		byte[] foto = this.foto;
 
+		if (foto != null) {
+			return new String(Base64.getEncoder().encode(foto));
+		} else {
+			return new String(Base64.getEncoder()
+					.encode(IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream("profile.jpg"))));
+		}
+	}
+	
 	public Habilidade getPrimeiraHabilidade() {
 		return primeiraHabilidade;
 	}

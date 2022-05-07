@@ -64,7 +64,7 @@ public class VagaController {
 	public void init() {
 
 		if (vagas == null) {
-			vagas = vagaRepository.findAll();
+			vagas = vagaService.buscaTodasVagas();
 		}
 
 		habilidades = habilidadeRepository.buscaTodasHabilidades();

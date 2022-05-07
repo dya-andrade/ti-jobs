@@ -2,6 +2,7 @@ package br.com.tijobs.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +29,8 @@ public class Vaga implements Serializable, Comparable<Vaga> {
 	 * 
 	 */
 	private static final long serialVersionUID = -5058507194333298243L;
+	
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -254,8 +257,8 @@ public class Vaga implements Serializable, Comparable<Vaga> {
 		this.candidatos = candidatos;
 	}
 
-	public LocalDateTime getDataCriacao() {
-		return dataCriacao;
+	public String getDataCriacao() {
+		return dataCriacao.format(formatter);
 	}
 
 	public void setDataCriacao(LocalDateTime dataCriacao) {

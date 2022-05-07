@@ -12,9 +12,7 @@ import br.com.tijobs.util.UtilService;
 @ViewScoped
 public class IndexController {
 
-	private String tijobsTexto1 = "< TI JOBS";
-
-	private String tijobsTexto2 = "/>";
+	private String tijobsTexto = "<TI JOBS/>";
 
 	@Autowired
 	private UtilService utilService;
@@ -29,11 +27,7 @@ public class IndexController {
 		return utilService.fotoUsuarioLogado();
 	}
 
-	public String getTijobsTexto1() {
-		return tijobsTexto1;
-	}
-
-	public String getTijobsTexto2() {
-		return tijobsTexto2;
+	public String getTijobsTexto() {
+		return tijobsTexto;
 	}
 }
