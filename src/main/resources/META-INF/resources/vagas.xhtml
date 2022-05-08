@@ -18,7 +18,7 @@
 
 	<style type="text/css">
 #cabecalho, #cabecalhoMobile {
-	background-image: url("/resources/images/cidade3.jpg") !important;
+	background-image: url("/resources/images/cidade.jpg") !important;
 }
 
 #tabela_head {
@@ -217,7 +217,7 @@
 
 							<div id="divFiltros">
 
-								<div id="menuFiltrosMobile" style="display: none; width: 25%;">
+								<div id="menuFiltrosMobile" style="display: none; width: 25%; margin-bottom: 10px;">
 
 									<p:commandButton id="dynaButton" value="Filtros" type="button"
 										icon="pi pi-bars"
@@ -418,7 +418,7 @@
 
 										<p:column width="30%" style="text-align: center;" styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
 											<img
-												src="data:image/jpg;base64, #{vagaController.fotoStr(vaga.empresa)}"
+												src="data:image/jpg;base64, #{vaga.empresa.fotoStr()}"
 												style="width: 60px;" />
 										</p:column>
 
@@ -479,10 +479,10 @@
 											</div>
 											<div>
 												<p:repeat
-													value="#{vagaController.listaPrincipaisTecnologias(vaga)}"
+													value="#{vaga.listaPrincipaisTecnologias()}"
 													var="tecnologia">
 													<span
-														style="border-radius: 16px; background-color: #cfe6f9; padding: 0 0.5rem; font-size: 15px; font-weight: 600; color: #3477a7;">#{tecnologia}</span>
+														style="#{vagaController.tecnologiasCores()}">#{tecnologia}</span>
 												</p:repeat>
 											</div>
 										</p:column>
@@ -503,6 +503,7 @@
 			widgetVar="vagaDialogo" modal="true" showEffect="explode"
 			resizable="false" hideEffect="explode"
 			style="overflow: auto; max-height: 550px;">
+			
 			<p:outputPanel id="vagaDetalhes" style="text-align:center;"
 				rendered="#{vagaController.vagaSelecionada != null}">
 
@@ -512,7 +513,7 @@
 					<h4 style="color: white; font-size: 28px;">#{vagaController.vagaSelecionada.profissao}</h4>
 					<br />
 
-					<p:repeat value="#{vagaController.listaPrincipaisTecnologias()}"
+					<p:repeat value="#{vagaController.vagaSelecionada.listaPrincipaisTecnologias()}"
 						var="tecnologia">
 						<span
 							style="border-radius: 16px; margin-right: 5px; padding: 0 0.75rem; font-size: 16px; color: white; border: 1px solid;">
@@ -532,7 +533,7 @@
 							<div
 								style="width: 30%; display: flex; justify-content: center; align-items: center;">
 								<img
-									src="data:image/jpg;base64, #{vagaController.fotoEmpresa()}"
+									src="data:image/jpg;base64, #{vagaController.vagaSelecionada.empresa.fotoStr()}"
 									style="width: 60px;" />
 							</div>
 							<div id="resumoVaga"
@@ -646,7 +647,7 @@
 							<div
 								style="background-color: #80808038; display: grid; padding: 10px;">
 
-								<p:repeat value="#{vagaController.listaBeneficios()}"
+								<p:repeat value="#{vagaController.vagaSelecionada.listaBeneficios()}"
 									var="beneficio">
 
 									<div style="margin-bottom: 5px;">

@@ -28,6 +28,12 @@
 .ui-tabs-nav {
 	font-size: 16px !important;
 }
+
+@media screen and (max-width: 770px) {
+	#cadastro {
+		width: 90% !important;
+	}
+}
 </style>
 
 
@@ -44,7 +50,7 @@
 			style="height: 550px; display: flex; justify-content: center; align-items: center; background-repeat: no-repeat; background: center;">
 
 
-			<p:tabView style="width: 50%; height: auto;"
+			<p:tabView id="cadastro" style="width: 50%; height: auto;"
 				activeIndex="#{cadastreController.index}">
 				<p:tab title="Candidato" id="candidato">
 					<div class="text-center mb-5" style="font-size: 20px;">

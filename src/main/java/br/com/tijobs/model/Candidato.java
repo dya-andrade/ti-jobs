@@ -1,7 +1,9 @@
 package br.com.tijobs.model;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,13 +13,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import org.apache.commons.io.IOUtils;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -62,17 +63,17 @@ public class Candidato implements Serializable {
 
 	private String experiencia;
 
-	//---
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-	@JoinTable(name = "candidato_habilidade", joinColumns = @JoinColumn(name = "id_candidato"), inverseJoinColumns = @JoinColumn(name = "id_habilidade"))
-	private List<Habilidade> habilidades = new ArrayList<Habilidade>();
-
 	private Boolean semExperiencia;
 
 	//---
+	
 	@OneToMany(mappedBy = "candidato", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Experiencia> experiencias = new ArrayList<Experiencia>();
+	private List<Habilidade> habilidades;
+	
+	@OneToMany(mappedBy = "candidato", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Experiencia> experiencias;
 
 	private String tamanhoEmpresa;
 
@@ -87,107 +88,20 @@ public class Candidato implements Serializable {
 	private String deficienteFisico;
 	
 	//-------
-	@Transient
-	private Habilidade primeiraHabilidade;
 	
-	@Transient
-	private Habilidade segundaHabilidade;
 	
-	@Transient
-	private Habilidade terceiraHabilidade;
 	
-	@Transient
-	private Habilidade quartaHabilidade;
+	public String fotoStr() throws IOException {
+		byte[] foto = this.foto;
+
+		if (foto != null) {
+			return new String(Base64.getEncoder().encode(foto));
+		} else {
+			return new String(Base64.getEncoder()
+					.encode(IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream("profile.jpg"))));
+		}
+	}
 	
-	@Transient
-	private Habilidade quintaHabilidade;
-	
-	@Transient
-	private Experiencia primeiraExperiencia = new Experiencia();
-
-	@Transient
-	private Experiencia segundaExperiencia = new Experiencia();
-
-	@Transient
-	private Experiencia terceiraExperiencia = new Experiencia();
-	
-
-	public Habilidade getPrimeiraHabilidade() {
-		return primeiraHabilidade;
-	}
-
-	public void setPrimeiraHabilidade(Habilidade primeiraHabilidade) {
-		this.primeiraHabilidade = primeiraHabilidade;
-		habilidades.add(primeiraHabilidade);
-	}
-
-	public Habilidade getSegundaHabilidade() {
-		return segundaHabilidade;
-	}
-
-	public void setSegundaHabilidade(Habilidade segundaHabilidade) {
-		this.segundaHabilidade = segundaHabilidade;
-		habilidades.add(segundaHabilidade);
-
-	}
-
-	public Habilidade getTerceiraHabilidade() {
-		return terceiraHabilidade;
-	}
-
-	public void setTerceiraHabilidade(Habilidade terceiraHabilidade) {
-		this.terceiraHabilidade = terceiraHabilidade;
-		habilidades.add(terceiraHabilidade);
-	}
-
-	public Habilidade getQuartaHabilidade() {
-		return quartaHabilidade;
-	}
-
-	public void setQuartaHabilidade(Habilidade quartaHabilidade) {
-		this.quartaHabilidade = quartaHabilidade;
-		habilidades.add(quartaHabilidade);
-	}
-
-	public Habilidade getQuintaHabilidade() {
-		return quintaHabilidade;
-	}
-
-	public void setQuintaHabilidade(Habilidade quintaHabilidade) {
-		this.quintaHabilidade = quintaHabilidade;
-		habilidades.add(quintaHabilidade);
-	}
-
-	public Experiencia getPrimeiraExperiencia() {
-		return primeiraExperiencia;
-	}
-
-	public void setPrimeiraExperiencia(Experiencia primeiraExperiencia) {
-		this.primeiraExperiencia = primeiraExperiencia;
-		primeiraExperiencia.setCandidato(this);
-		experiencias.add(primeiraExperiencia);
-	}
-
-	public Experiencia getSegundaExperiencia() {
-		return segundaExperiencia;
-	}
-
-	public void setSegundaExperiencia(Experiencia segundaExperiencia) {
-		this.segundaExperiencia = segundaExperiencia;
-		segundaExperiencia.setCandidato(this);
-		experiencias.add(segundaExperiencia);
-	}
-
-	public Experiencia getTerceiraExperiencia() {
-		return terceiraExperiencia;
-	}
-
-	public void setTerceiraExperiencia(Experiencia terceiraExperiencia) {
-		this.terceiraExperiencia = terceiraExperiencia;
-		terceiraExperiencia.setCandidato(this);
-		experiencias.add(terceiraExperiencia);
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -300,20 +214,20 @@ public class Candidato implements Serializable {
 		this.experiencia = experiencia;
 	}
 
-	public List<Habilidade> getHabilidades() {
-		return habilidades;
-	}
-
-	public void setHabilidades(List<Habilidade> habilidades) {
-		this.habilidades = habilidades;
-	}
-
 	public Boolean getSemExperiencia() {
 		return semExperiencia;
 	}
 
 	public void setSemExperiencia(Boolean semExperiencia) {
 		this.semExperiencia = semExperiencia;
+	}
+
+	public List<Habilidade> getHabilidades() {
+		return habilidades;
+	}
+
+	public void setHabilidades(List<Habilidade> habilidades) {
+		this.habilidades = habilidades;
 	}
 
 	public List<Experiencia> getExperiencias() {

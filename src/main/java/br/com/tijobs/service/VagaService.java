@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.tijobs.model.Empresa;
 import br.com.tijobs.model.Vaga;
 import br.com.tijobs.repository.VagaRepository;
 
@@ -13,6 +14,19 @@ public class VagaService {
 
 	@Autowired
 	private VagaRepository vagaRepository;
+	
+	
+	public List<Vaga> buscaTodasVagas() {
+		return vagaRepository.findAll();
+	}
+	
+	public List<Vaga> buscaVagasPeloIdCandidato(Integer id) {
+		return vagaRepository.buscaVagasPorIdCandidato(id);
+	}
+	
+	public List<Vaga> buscaVagasPeloIdEmpresa(Empresa empresa) {
+		return vagaRepository.findByEmpresa(empresa);
+	}
 
 	public List<Vaga> buscaVagasPeloTipoContrato(String tipoContrato, String habilidade) {
 		if (habilidade != null) {

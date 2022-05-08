@@ -3,11 +3,11 @@ package br.com.tijobs.controller;
 import static br.com.tijobs.util.Message.addDetailMessage;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Base64;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -16,16 +16,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import org.apache.commons.io.IOUtils;
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Candidato;
-import br.com.tijobs.model.Empresa;
-import br.com.tijobs.model.Habilidade;
+import br.com.tijobs.model.ListaHabilidade;
 import br.com.tijobs.model.Usuario;
 import br.com.tijobs.model.Vaga;
-import br.com.tijobs.repository.HabilidadeRepository;
+import br.com.tijobs.repository.ListaHabilidadeRepository;
 import br.com.tijobs.repository.VagaRepository;
 import br.com.tijobs.service.VagaService;
 import br.com.tijobs.util.UtilService;
@@ -44,9 +42,9 @@ public class VagaController {
 
 	private String distritoSelecionado;
 
-	private List<Habilidade> habilidades;
+	private List<ListaHabilidade> habilidades;
 	
-	private Habilidade habilidadeSelecionada;
+	private ListaHabilidade habilidadeSelecionada;
 
 	private Usuario usuarioLogado;
 
@@ -56,69 +54,68 @@ public class VagaController {
 	private VagaRepository vagaRepository;
 
 	@Autowired
-	private HabilidadeRepository habilidadeRepository;
+	private ListaHabilidadeRepository habilidadeRepository;
 
 	@Autowired
 	private UtilService utilService;
 
 	@Autowired
 	private VagaService vagaService;
+	
+	private List<String> colors;
+	
+	private List<String> backgroundColors;
 
 	@PostConstruct
 	public void init() {
 
 		if (vagas == null) {
-			vagas = vagaRepository.findAll();
+			vagas = vagaService.buscaTodasVagas();
 		}
 
-		habilidades = habilidadeRepository.buscaTodasHabilidades();
+		habilidades = habilidadeRepository.findAll();
 
 		distritos = utilService.buscaDistritosSP();
 
 		usuarioLogado = utilService.usuarioLogado();
 
 		candidatoLogado = utilService.perfilCandidato();
-	}
-
-	public List<String> listaBeneficios() {
 		
-		String beneficios = vagaSelecionada.getBeneficios();
-
-		if (beneficios != null) {
-			return Arrays.stream(beneficios.split(",")).map(String::valueOf).collect(Collectors.toList());
-		}
-
-		return null;
+		colors = new ArrayList<String>();
+		backgroundColors = new ArrayList<String>();
+		
+		colors.add(0, "#eb60c");
+		backgroundColors.add(0, "#fddbff");
+		
+		colors.add(1, "#3ad738");
+		backgroundColors.add(1, "#d9f7de");
+		
+		colors.add(2, "#3477a7");
+		backgroundColors.add(2, "#cfe6f9");
+		
+		colors.add(3, "#d1df5c");
+		backgroundColors.add(2, "#f6ffc5");
+		
+		colors.add(4, "#e53d3d");
+		backgroundColors.add(4, "#ffd1db");
 	}
 
+	public String tecnologiasCores() {
+		
+        Random random = new Random();
+
+        int numero = random.nextInt(5);
+		
+		return "border-radius: 16px; background-color: " + backgroundColors.get(numero) + 
+				"; padding: 0 0.5rem; font-size: 15px; color: " + colors.get(numero) + "; font-weight: 600;";
+	}
+	
 	public String iconBeneficio(String beneficio) {
 		return vagaService.iconeDoBenefício(beneficio);
 	}
 
-	public List<String> listaPrincipaisTecnologias(Vaga vaga) {
-
-		String tecnologias = vaga.getPrincipaisTecnologias();
-
-		if (tecnologias != null) {
-			return Arrays.stream(tecnologias.split(",")).map(String::valueOf).collect(Collectors.toList());
-		}
-
-		return null;
-	}
-
-	public List<String> listaPrincipaisTecnologias() {
-
-		String tecnologias = vagaSelecionada.getPrincipaisTecnologias();
-
-		if (tecnologias != null) {
-			return Arrays.stream(tecnologias.split(",")).map(String::valueOf).collect(Collectors.toList());
-		}
-
-		return null;
-	}
-
 	public boolean getVerificaCandidatura() {
-		if (vagaSelecionada != null) {
+		if (vagaSelecionada != null && candidatoLogado != null) {
 
 			Vaga candidatura = vagaRepository.buscaVagaPorIdECandidato(vagaSelecionada.getId(),
 					candidatoLogado.getId());
@@ -133,12 +130,12 @@ public class VagaController {
 
 	public void candidatar() {
 
-		List<Candidato> candidatos = vagaSelecionada.getCandidados();
+		List<Candidato> candidatos = vagaSelecionada.getCandidatos();
 
 		if (!getVerificaCandidatura()) {
 
 			candidatos.add(candidatoLogado);
-			vagaSelecionada.setCandidados(candidatos);
+			vagaSelecionada.setCandidatos(candidatos);
 
 			vagaRepository.save(vagaSelecionada);
 
@@ -149,7 +146,7 @@ public class VagaController {
 
 	public void cancelarCandidatura() {
 
-		List<Candidato> candidatos = vagaSelecionada.getCandidados();
+		List<Candidato> candidatos = vagaSelecionada.getCandidatos();
 
 		List<Candidato> candidadosForeach = candidatos;
 
@@ -160,7 +157,7 @@ public class VagaController {
 			}
 		}
 
-		vagaSelecionada.setCandidados(candidatos);
+		vagaSelecionada.setCandidatos(candidatos);
 
 		vagaRepository.save(vagaSelecionada);
 
@@ -169,30 +166,6 @@ public class VagaController {
 
 	public void cadastrar() throws IOException {
 		FacesContext.getCurrentInstance().getExternalContext().redirect("/cadastre.xhtml");
-	}
-
-	public String fotoStr(Empresa empresa) throws IOException {
-
-		if (empresa.getLogotipo() != null) {
-			return new String(Base64.getEncoder().encode(empresa.getLogotipo()));
-		} else {
-
-			return new String(Base64.getEncoder()
-					.encode(IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream("profile.jpg"))));
-		}
-	}
-
-	public String fotoEmpresa() throws IOException {
-		if (vagaSelecionada != null) {
-			if (vagaSelecionada.getEmpresa().getLogotipo() != null) {
-				return new String(Base64.getEncoder().encode(vagaSelecionada.getEmpresa().getLogotipo()));
-			} else {
-
-				return new String(Base64.getEncoder()
-						.encode(IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream("profile.jpg"))));
-			}
-		}
-		return null;
 	}
 	
 	// ------------ FILTROS ------------------
@@ -285,7 +258,7 @@ public class VagaController {
 		}
 	}
 
-	public List<Habilidade> getHabilidades() {
+	public List<ListaHabilidade> getHabilidades() {
 		return habilidades;
 	}
 
@@ -309,11 +282,11 @@ public class VagaController {
 		this.distritoSelecionado = distritoSelecionado;
 	}
 
-	public Habilidade getHabilidadeSelecionada() {
+	public ListaHabilidade getHabilidadeSelecionada() {
 		return habilidadeSelecionada;
 	}
 
-	public void setHabilidadeSelecionada(Habilidade habilidadeSelecionada) {
+	public void setHabilidadeSelecionada(ListaHabilidade habilidadeSelecionada) {
 		this.habilidadeSelecionada = habilidadeSelecionada;
 	}
 }

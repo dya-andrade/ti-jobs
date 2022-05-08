@@ -1,8 +1,11 @@
 package br.com.tijobs.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.primefaces.shaded.json.JSONArray;
 import org.primefaces.shaded.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,27 +13,32 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.tijobs.controller.LoginController;
 import br.com.tijobs.model.Candidato;
 import br.com.tijobs.model.Empresa;
+import br.com.tijobs.model.ListaHabilidade;
 import br.com.tijobs.model.Usuario;
 import br.com.tijobs.repository.CandidatoRepository;
 import br.com.tijobs.repository.EmpresaRepository;
+import br.com.tijobs.repository.ListaHabilidadeRepository;
+import br.com.tijobs.security.SecurityService;
 
 @Service
 public class UtilService {
 
 	@Autowired
-	private LoginController loginController;
+	private SecurityService securityService;
 
 	@Autowired
 	private CandidatoRepository candidatoRepository;
 
 	@Autowired
 	private EmpresaRepository empresaRepository;
+	
+	@Autowired
+	private ListaHabilidadeRepository habilidadeRepository;
 
 	public Usuario usuarioLogado() {
-		return loginController.getUsuario();
+		return securityService.getLogado();
 	}
 
 	public Empresa perfilEmpresa() {
@@ -84,5 +92,39 @@ public class UtilService {
 
 		return distritos;
 	}
-}
 
+	public String fotoUsuarioLogado() {
+
+		if (perfilCandidato() != null && perfilCandidato().getFoto() != null) {
+			
+			return new String(Base64.getEncoder().encode(perfilCandidato().getFoto()));
+			
+		} else if (perfilEmpresa() != null && perfilEmpresa().getLogotipo() != null) {
+			
+			return new String(Base64.getEncoder().encode(perfilEmpresa().getLogotipo()));
+			
+		} else {
+			
+			try {
+				return new String(Base64.getEncoder()
+						.encode(IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream("profile.jpg"))));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	public List<String> habilidades() {
+		
+		List<ListaHabilidade> todasHabilidades = habilidadeRepository.findAll();
+		
+		List<String> habilidades = new ArrayList<String>();
+		
+		for (ListaHabilidade habilidade : todasHabilidades) {
+			habilidades.add(habilidade.getNome());
+		}
+		
+		return habilidades;
+	}
+}

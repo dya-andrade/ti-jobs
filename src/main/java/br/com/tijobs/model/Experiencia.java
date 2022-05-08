@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
 @Entity(name = "experiencia")
 public class Experiencia implements Serializable {
@@ -40,58 +39,9 @@ public class Experiencia implements Serializable {
 	private String descricao;
 
 	@ManyToOne
-	@JoinColumn(name = "id_usuario", referencedColumnName = "id")
+	@JoinColumn(name = "id_candidato", referencedColumnName = "id")
 	private Candidato candidato;
 
-	//-------
-	@Transient
-	private Habilidade primeiraHabilidade;
-	
-	@Transient
-	private Habilidade segundaHabilidade;
-	
-	@Transient
-	private Habilidade terceiraHabilidade;
-	
-	@Transient
-	private Habilidade quartaHabilidade;
-	
-
-	public Habilidade getPrimeiraHabilidade() {
-		return primeiraHabilidade;
-	}
-
-	public void setPrimeiraHabilidade(Habilidade primeiraHabilidade) {
-		this.primeiraHabilidade = primeiraHabilidade;
-		habilidades = habilidades + "," + primeiraHabilidade.getNome();
-	}
-
-	public Habilidade getSegundaHabilidade() {
-		return segundaHabilidade;
-	}
-
-	public void setSegundaHabilidade(Habilidade segundaHabilidade) {
-		this.segundaHabilidade = segundaHabilidade;
-		habilidades = habilidades + "," + segundaHabilidade.getNome();
-	}
-
-	public Habilidade getTerceiraHabilidade() {
-		return terceiraHabilidade;
-	}
-
-	public void setTerceiraHabilidade(Habilidade terceiraHabilidade) {
-		this.terceiraHabilidade = terceiraHabilidade;
-		habilidades = habilidades + "," + terceiraHabilidade.getNome();
-	}
-
-	public Habilidade getQuartaHabilidade() {
-		return quartaHabilidade;
-	}
-
-	public void setQuartaHabilidade(Habilidade quartaHabilidade) {
-		this.quartaHabilidade = quartaHabilidade;
-		habilidades = habilidades + "," + quartaHabilidade.getNome();
-	}
 
 	public Integer getId() {
 		return id;
@@ -158,7 +108,7 @@ public class Experiencia implements Serializable {
 	}
 
 	public void setHabilidades(String habilidades) {
-		this.habilidades = habilidades;
+		this.habilidades = this.habilidades + "," + habilidades;
 	}
 
 	public void setDescricao(String descricao) {

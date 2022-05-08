@@ -14,9 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Empresa;
 import br.com.tijobs.model.Habilidade;
+import br.com.tijobs.model.ListaHabilidade;
 import br.com.tijobs.model.Vaga;
 import br.com.tijobs.repository.EmpresaRepository;
-import br.com.tijobs.repository.HabilidadeRepository;
+import br.com.tijobs.repository.ListaHabilidadeRepository;
 import br.com.tijobs.repository.VagaRepository;
 import br.com.tijobs.util.UtilService;
 
@@ -30,9 +31,9 @@ public class CadastroVagaController {
 
 	private List<String> beneficiosSelecionados;
 
-	private List<Habilidade> habilidades;
+	private List<ListaHabilidade> habilidades;
 
-	private List<Habilidade> tecnologiasSelecionadas;
+	private List<ListaHabilidade> tecnologiasSelecionadas;
 
 	@Autowired
 	private VagaRepository vagaRepository;
@@ -41,7 +42,7 @@ public class CadastroVagaController {
 	private EmpresaRepository empresaRepository;
 
 	@Autowired
-	private HabilidadeRepository habilidadeRepository;
+	private ListaHabilidadeRepository habilidadeRepository;
 
 	@Autowired
 	private UtilService utilService;
@@ -53,7 +54,7 @@ public class CadastroVagaController {
 			vaga = new Vaga();
 		}
 
-		habilidades = habilidadeRepository.buscaTodasHabilidades();
+		habilidades = habilidadeRepository.findAll();
 
 		adicionaBeneficios();
 	}
@@ -118,20 +119,20 @@ public class CadastroVagaController {
 		return benefícios;
 	}
 
-	public List<Habilidade> getHabilidades() {
+	public List<ListaHabilidade> getHabilidades() {
 		return habilidades;
 	}
 
-	public List<Habilidade> getTecnologiasSelecionadas() {
+	public List<ListaHabilidade> getTecnologiasSelecionadas() {
 		return tecnologiasSelecionadas;
 	}
 
-	public void setTecnologiasSelecionadas(List<Habilidade> tecnologiasSelecionadas) {
+	public void setTecnologiasSelecionadas(List<ListaHabilidade> tecnologiasSelecionadas) {
 		this.tecnologiasSelecionadas = tecnologiasSelecionadas;
 
 		String habilidades = null;
 
-		for (Habilidade habilidade : tecnologiasSelecionadas) {
+		for (ListaHabilidade habilidade : tecnologiasSelecionadas) {
 			habilidades = habilidades + "," + habilidade.getNome();
 		}
 

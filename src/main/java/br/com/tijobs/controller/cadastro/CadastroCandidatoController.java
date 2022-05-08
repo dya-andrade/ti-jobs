@@ -1,5 +1,6 @@
 package br.com.tijobs.controller.cadastro;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,9 +12,9 @@ import org.primefaces.model.file.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Candidato;
+import br.com.tijobs.model.Experiencia;
 import br.com.tijobs.model.Habilidade;
 import br.com.tijobs.repository.CandidatoRepository;
-import br.com.tijobs.repository.HabilidadeRepository;
 import br.com.tijobs.util.UtilService;
 
 @Named
@@ -21,41 +22,58 @@ import br.com.tijobs.util.UtilService;
 public class CadastroCandidatoController {
 
 	private List<String> distritos;
-	
+
 	private Candidato candidato;
-	
+
 	@Autowired
 	private CandidatoRepository candidatoRepository;
-
-	private List<Habilidade> habilidades;
-
-	@Autowired
-	private HabilidadeRepository habilidadeRepository;
 
 	private UploadedFile foto;
 
 	private UploadedFile curriculo;
-	
-	private List<String> tamanhoEmpresa;
 
-	private List<String> tipoContrato;
-	
 	@Autowired
 	private UtilService utilService;
 
 	@PostConstruct
 	public void init() {
 
-		habilidades = habilidadeRepository.buscaTodasHabilidades();
-
 		if (candidato == null) {
-			candidato = new Candidato();
+			
+			Candidato candidatoLogado = utilService.perfilCandidato();
+			
+			if (candidatoLogado != null) {
+				candidato = candidatoLogado;
+			} else {
+				candidato = new Candidato();
+			}
+			
+			if(candidato.getExperiencias().isEmpty()) {
+				candidato.getExperiencias().add(new Experiencia());
+				candidato.getExperiencias().add(new Experiencia());
+				candidato.getExperiencias().add(new Experiencia());
+			}
+			
+			if(candidato.getHabilidades().isEmpty()) {
+				candidato.getHabilidades().add(new Habilidade());
+				candidato.getHabilidades().add(new Habilidade());
+				candidato.getHabilidades().add(new Habilidade());
+			}
 		}
-		
-		distritos = utilService.buscaDistritosSP();
+
+		distritos = utilService.buscaDistritosSP();	
 	}
 
 	public void salvar() {
+		
+		for (Habilidade habilidade : candidato.getHabilidades()) {
+			habilidade.setCandidato(candidato);
+		}
+		
+		for (Experiencia experiencia : candidato.getExperiencias()) {
+			experiencia.setCandidato(candidato);	
+		}
+		
 		candidatoRepository.save(candidato);
 	}
 
@@ -90,28 +108,35 @@ public class CadastroCandidatoController {
 	}
 
 	public List<String> getTamanhoEmpresa() {
-		return tamanhoEmpresa;
+
+		String tamanhoEmpresa = candidato.getTamanhoEmpresa();
+
+		if (tamanhoEmpresa != null) {
+			return Arrays.stream(tamanhoEmpresa.split(",")).map(String::valueOf).collect(Collectors.toList());
+		}
+
+		return null;
 	}
 
 	public void setTamanhoEmpresa(List<String> tamanhoEmpresa) {
-		this.tamanhoEmpresa = tamanhoEmpresa;
-		if(tamanhoEmpresa != null && !tamanhoEmpresa.isEmpty()) {
-			candidato.setTamanhoEmpresa(tamanhoEmpresa.stream()
-			        .map(String::valueOf)
-			        .collect(Collectors.joining(",")));
-		}	
+		if (tamanhoEmpresa != null && !tamanhoEmpresa.isEmpty()) {
+			candidato.setTamanhoEmpresa(tamanhoEmpresa.stream().map(String::valueOf).collect(Collectors.joining(",")));
+		}
 	}
-	
+
 	public List<String> getTipoContrato() {
-		return tipoContrato;
+		String tipoContrato = candidato.getTipoContrato();
+
+		if (tipoContrato != null) {
+			return Arrays.stream(tipoContrato.split(",")).map(String::valueOf).collect(Collectors.toList());
+		}
+
+		return null;
 	}
 
 	public void setTipoContrato(List<String> tipoContrato) {
-		this.tipoContrato = tipoContrato;
-		if(tipoContrato != null && !tipoContrato.isEmpty()) {
-			candidato.setTipoContrato(tipoContrato.stream()
-			        .map(String::valueOf)
-			        .collect(Collectors.joining(",")));
+		if (tipoContrato != null && !tipoContrato.isEmpty()) {
+			candidato.setTipoContrato(tipoContrato.stream().map(String::valueOf).collect(Collectors.joining(",")));
 		}
 	}
 
@@ -119,8 +144,7 @@ public class CadastroCandidatoController {
 		return distritos;
 	}
 
-	public List<Habilidade> getHabilidades() {
-		return habilidades;
+	public List<String> getHabilidades() {
+		return utilService.habilidades();
 	}
-
 }

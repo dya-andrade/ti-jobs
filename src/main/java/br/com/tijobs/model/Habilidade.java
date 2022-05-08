@@ -1,27 +1,26 @@
 package br.com.tijobs.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "habilidade")
-public class Habilidade implements Serializable {
+public class Habilidade {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1333153647428684317L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String nome;
+	private String habilidade;
 	
-	private Integer ano;
+	private int ano;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_candidato", referencedColumnName = "id")
+	private Candidato candidato;
 
 	public Integer getId() {
 		return id;
@@ -31,19 +30,27 @@ public class Habilidade implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getHabilidade() {
+		return habilidade;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setHabilidade(String habilidade) {
+		this.habilidade = habilidade;
 	}
 
-	public Integer getAno() {
+	public int getAno() {
 		return ano;
 	}
 
-	public void setAno(Integer ano) {
+	public void setAno(int ano) {
 		this.ano = ano;
+	}
+
+	public Candidato getCandidato() {
+		return candidato;
+	}
+
+	public void setCandidato(Candidato candidato) {
+		this.candidato = candidato;
 	}
 }

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>TI Jobs - perfil empresa</title>
+</h:head>
+
+<ui:include src="/WEB-INF/templates/template.xhtml" />
+
+<h:body>
+
+	<script type="text/javascript">
+		
+	</script>
+
+	<style type="text/css">
+.userImage {
+	display: none !important;
+}
+
+.styleInfo {
+	margin-right: 10px;
+	font-size: 14px;
+}
+
+.trDesativada {
+	background: #c9c5c547 !important;
+	opacity: 0.8 !important;
+}
+
+.empresa td:nth-child(1) {
+	width: 55% !important;
+}
+
+.empresa td:nth-child(3) {
+	width: 17% !important;
+}
+
+#tabela_head {
+	display: table-column !important;
+}
+
+#tabela_data, #tabela_paginator_bottom {
+	border: none !important;
+	margin-top: 5px !important;
+}
+
+#tabela_data td {
+	border: none !important;
+	border-bottom: 1px solid #c5c2c2 !important;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight {
+	color: black !important;
+	background-color: #ffffff !important;
+	background-image: linear-gradient(to bottom, #ffffff, #d7eaf1)
+		!important;
+}
+
+.ui-datatable-odd, ui-treetable-odd {
+	background-color: #ffffff !important;
+}
+
+#dialogoVaga {
+	width: 80% !important;
+	height: 80% !important;
+}
+</style>
+
+
+	<h:form prependId="false">
+
+
+
+		<div class="flex align-items-center justify-content-center">
+
+
+			<div class="surface-card p-4 shadow-2 border-round"
+				style="width: 100%; min-height: 550px;">
+
+				<h2 style="text-align: center;">DASHBOARD</h2>
+
+
+				<div class="surface-card p-4 shadow-2 border-round"
+					style="width: 20%; position: fixed; right: 20px; top: 100px;">
+
+					<div style="display: grid; justify-items: center; height: 5%;">
+						<img
+							src="data:image/jpg;base64, #{perfilEmpresaController.fotoStr}"
+							style="width: 100px; border-radius: 50%; border: inset;" />
+
+						<p:outputLabel
+							value="#{perfilEmpresaController.empresa.nomeEmpresarial}" />
+						<p:outputLabel value="#{perfilEmpresaController.empresa.cnpj}" />
+
+						<p:linkButton value="EDITAR PERFIL" icon="pi pi-fw pi-user-edit"
+							outcome="/cadastro/empresa.xhtml" style="height: fit-content;"
+							styleClass="btn-primary" />
+
+					</div>
+
+					<p:separator />
+
+					<div style="display: grid; justify-items: center;">
+
+						<p:linkButton value="CADASTRAR VAGAS"
+							outcome="/cadastro/vaga.xhtml" icon="pi pi-fw pi-briefcase"
+							style="height: fit-content;" />
+
+					</div>
+
+
+				</div>
+
+				<div class="surface-section" style="width: 100%; display: flex;">
+
+
+					<div style="width: 45%;">
+
+						<h3 style="margin-bottom: 20px; margin-top: 0px;">SUAS VAGAS</h3>
+
+
+						<p:dataTable id="tabela" styleClass="empresa" var="vaga"
+							value="#{perfilEmpresaController.vagas}" widgetVar="tabelaVagas"
+							currentPageReportTemplate="[{startRecord} a {endRecord}]"
+							disabledSelection="#{vaga.desativada == true}"
+							rowKey="#{vaga.id}" emptyMessage="Sem vagas." reflow="true"
+							paginator="true" rows="3" paginatorPosition="bottom"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+							rowsPerPageTemplate="3,6,9" selectionMode="single"
+							selection="#{perfilEmpresaController.vagaSelecionada}">
+
+							<p:ajax event="rowSelect"
+								update=":dialogoVaga :candidatosDetalhes"
+								oncomplete="PF('vagaDialogo').show()" />
+
+							<p:column styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
+								<div style="margin-bottom: 10px;">
+									<h:outputText
+										style="font-size: 1.5em; font-weight: 600; margin-right: 5px;"
+										value="#{vaga.profissao}" />
+
+									<h:outputText
+										style="background: #cdefff; color: #254bd3; font-weight: 600; padding: 1px;"
+										value="NOVA" rendered="#{!vaga.desativada}" />
+
+									<h:outputText
+										style="background: #FFCDD2; color: #C63737; font-weight: 600; padding: 1px;"
+										value="DESATIVADA" rendered="#{vaga.desativada}" />
+								</div>
+								<div style="margin-bottom: 10px;">
+									<div class="colunaInfo" style="display: flex;">
+
+										<div class="styleInfo">
+											<i class="pi pi-chart-bar" />
+											<h:outputText value=" #{vaga.nivelExperiencia}" />
+										</div>
+
+										<div class="styleInfo">
+											<i class="fa fa-money" /> <span> Salário: </span>
+
+											<h:outputText value="#{vaga.salario}" />
+										</div>
+									</div>
+									<div class="colunaInfo" style="display: flex;">
+
+
+
+										<div class="styleInfo">
+											<i class="fa fa-file-text-o" />
+											<h:outputText value=" #{vaga.tipoContrato}" />
+										</div>
+										<div class="styleInfo">
+											<i class="fa fa-plane" /> <span> Aceita Candidatos de
+												Fora: </span>
+											<h:outputText value=" #{vaga.aceitaCandidatoFora}" />
+										</div>
+									</div>
+								</div>
+								<div>
+									<p:repeat value="#{vaga.listaPrincipaisTecnologias()}"
+										var="tecnologia">
+										<span style="#{perfilEmpresaController.tecnologiasCores()}">#{tecnologia}</span>
+									</p:repeat>
+								</div>
+							</p:column>
+
+							<p:column style="font-size: 14px;"
+								styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
+
+								<h:outputText value="Candidaturas: " />
+								<h:outputText
+									style="color: #3ae12f; font-weight: 600; font-size: 16px;"
+									value=" #{vaga.candidatos.size()}" />
+								<br />
+								<h:outputText value="Data: " />
+								<h:outputText value=" #{vaga.dataCriacao}" />
+
+							</p:column>
+
+							<p:column styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
+
+								<p:button style="font-size: 12px;"
+									rendered="#{!vaga.desativada}" value="DESATIVAR" />
+
+								<p:button style="font-size: 12px;" rendered="#{vaga.desativada}"
+									value="ATIVAR" styleClass="btn-info" />
+
+
+							</p:column>
+
+						</p:dataTable>
+
+					</div>
+					<div
+						style="width: 50%; display: flex; justify-content: flex-start; align-items: center; margin-left: 25px;">
+						<p:chart type="pie" model="#{chartView.pieModel}"
+							style="width:400px;height:300px" />
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+
+		<p:dialog id="dialogoVaga" responsive="true"
+			header="VAGA: ID# #{perfilEmpresaController.vagaSelecionada.id}"
+			widgetVar="vagaDialogo" modal="true" showEffect="explode"
+			resizable="false" hideEffect="explode"
+			style="overflow: auto; max-height: 550px;">
+
+			<p:dataTable id="candidatosDetalhes" var="candidato"
+				value="#{perfilEmpresaController.vagaSelecionada.candidatos}"
+				sortBy="#{candidato.nome}" reflow="true"
+				emptyMessage="Sem candidatos.">
+
+				<p:headerRow field="nome" expandable="true">
+
+					<p:column>
+						<div class="p-d-inline-flex p-ai-center"
+							style="vertical-align: middle">
+
+							<img src="data:image/jpg;base64, #{candidato.fotoStr()}"
+								style="vertical-align: middle" width="42" />
+
+							<h:outputText styleClass="p-ml-2" value="#{candidato.nome}" />
+						</div>
+					</p:column>
+
+				</p:headerRow>
+
+
+				<p:column width="20%" headerText="Título">
+					<h:outputText value="#{candidato.titulo}" />
+				</p:column>
+
+				<p:column headerText="Experiência">
+					<span>#{candidato.experiencia}</span>
+				</p:column>
+
+				<p:column width="25%" headerText="Habilidades">
+					<p:progressBar value="10" labelTemplate="{value} ano's"
+						displayOnly="true" />
+				</p:column>
+
+				<p:column width="25%" headerText="GitHub">
+					<h:outputText value="#{candidato.github}" />
+				</p:column>
+
+				<p:summaryRow>
+					<p:column colspan="5" style="text-align:right">
+						<h:outputText value="Total de Candidatos:" />
+					</p:column>
+					<p:column>
+						<h:outputText
+							value="#{perfilEmpresaController.vagaSelecionada.candidatos.size()}" />
+					</p:column>
+				</p:summaryRow>
+
+			</p:dataTable>
+
+
+		</p:dialog>
+
+
+
+
+		<div
+			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">
+
+			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
+
+			<span style="margin-right: 10px;">Versão: 1.0.0</span>
+
+		</div>
+
+	</h:form>
+
+</h:body>
+</html>
