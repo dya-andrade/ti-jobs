@@ -108,7 +108,11 @@ public class Experiencia implements Serializable {
 	}
 
 	public void setHabilidades(String habilidades) {
-		this.habilidades = this.habilidades + "," + habilidades;
+		this.habilidades = habilidades;
+	}
+	
+	public void habilidades(String habilidade) {
+		this.habilidades = this.habilidades + "," + habilidade;
 	}
 
 	public void setDescricao(String descricao) {

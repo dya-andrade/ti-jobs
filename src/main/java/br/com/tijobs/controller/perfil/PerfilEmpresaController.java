@@ -50,6 +50,9 @@ public class PerfilEmpresaController {
 			vagas = new ArrayList<Vaga>();
 		}
 		
+		colors = new ArrayList<String>();
+		backgroundColors = new ArrayList<String>();
+		
 		colors.add(0, "#eb60c");
 		backgroundColors.add(0, "#fddbff");
 		

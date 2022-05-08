@@ -2,7 +2,6 @@ package br.com.tijobs.model;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -16,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
 import org.apache.commons.io.IOUtils;
 import org.hibernate.annotations.Fetch;

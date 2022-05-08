@@ -1,6 +1,8 @@
 package br.com.tijobs.model;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.Base64;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
+
+import org.apache.commons.io.IOUtils;
 
 @Entity(name = "empresa")
 public class Empresa implements Serializable {
@@ -22,30 +26,30 @@ public class Empresa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;
-	
+
 	private String nomeEmpresarial;
-	
+
 	private String ramo;
-	
+
 	private String localidade;
-	
+
 	private String telefone;
-	
+
 	@Lob
 	private String descricao;
-	
+
 	private String cnpj;
-	
+
 	private String tipo;
-	
+
 	private String tamanho;
-	
+
 	private String site;
-	
+
 	@Lob
 	private byte[] logotipo;
 
@@ -143,5 +147,16 @@ public class Empresa implements Serializable {
 
 	public void setLogotipo(byte[] logotipo) {
 		this.logotipo = logotipo;
+	}
+
+	public String fotoStr() throws IOException {
+		byte[] logotipo = this.logotipo;
+
+		if (logotipo != null) {
+			return new String(Base64.getEncoder().encode(logotipo));
+		} else {
+			return new String(Base64.getEncoder()
+					.encode(IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream("profile.jpg"))));
+		}
 	}
 }

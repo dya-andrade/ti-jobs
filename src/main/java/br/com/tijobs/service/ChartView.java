@@ -37,10 +37,7 @@ public class ChartView implements Serializable {
         pieModel.set("Brand 2", 325);
         pieModel.set("Brand 3", 702);
         pieModel.set("Brand 4", 421);
-        
-  
-        pieModel.setSeriesColors("rgb(255, 99, 132)");
- 
+         
         pieModel.setTitle("Custom Pie");
         pieModel.setLegendPosition("e");
         pieModel.setFill(false);

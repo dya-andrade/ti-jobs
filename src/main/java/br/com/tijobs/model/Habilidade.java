@@ -16,7 +16,7 @@ public class Habilidade {
 	
 	private String habilidade;
 	
-	private int ano;
+	private Integer ano;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_candidato", referencedColumnName = "id")
@@ -37,12 +37,12 @@ public class Habilidade {
 	public void setHabilidade(String habilidade) {
 		this.habilidade = habilidade;
 	}
-
-	public int getAno() {
+	
+	public Integer getAno() {
 		return ano;
 	}
 
-	public void setAno(int ano) {
+	public void setAno(Integer ano) {
 		this.ano = ano;
 	}
 

@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:sec="http://www.springframework.org/security/tags"
-	xmlns:p="http://primefaces.org/ui" style="overflow: auto;">
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 
@@ -23,25 +23,32 @@
 	<h:outputStylesheet name="primeflex/saga-blue.css" />
 
 
-	<link rel="shortcut icon" href="" />
+	<link rel="shortcut icon" href="/resources/images/icon.png" />
 
 </h:head>
 
-<h:body style="height: auto;overflow: hidden;">
+<h:body>
 
 	<style type="text/css">
 @media screen and (max-width: 770px) {
 	.principalItem {
-		font-size: 28px !important;
+		font-size: 26px !important;
 	}
 	.menuItem {
 		font-size: 15px !important;
+	}
+	.userImage {
+		width: 50px !important;
+		margin-left: 0px !important;
 	}
 }
 
 @media screen and (max-width: 673px) {
 	.menu {
 		display: none !important;
+	}
+	#menuMobile {
+		display: grid !important;
 	}
 	.principal {
 		width: 60% !important;
@@ -54,6 +61,7 @@
 	color: #0e6fb3 !important;
 	font-size: 18px !important;
 	height: 43px !important;
+	padding-top: 10px !important;
 }
 
 #cadastre .ui-menuitem-link {
@@ -66,6 +74,7 @@
 	font-size: 18px !important;
 	color: midnightblue !important;
 	font-weight: 600 !important;
+	padding-top: 10px !important;
 }
 
 #empresa .ui-menuitem-link, #candidato .ui-menuitem-link {
@@ -84,34 +93,25 @@
 
 	<h:form prependId="false">
 
-		<div style="display: flex; align-items: flex-end;">
-			<p:menubar
-				style="width: 50%; border-right: none; border-right: none; border-top: none;"
-				styleClass="principal">
+		<div id="top-menu"
+			style="display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 1px solid #e2e2e2;">
+			<p:menubar style="width: 50%; border: none;" styleClass="principal">
 				<p:menuitem outcome="/index.html" styleClass="principalItem"
 					style="font-family: monospace; font-size: 28px; font-weight: 700; color: #000000a6; border-left: none;">
-						#{indexController.tijobsTexto1}
-						<i class="fa fa-fw fa-coffee"></i>
-						#{indexController.tijobsTexto2}
-						
+						#{indexController.tijobsTexto}			
 				</p:menuitem>
 
 			</p:menubar>
 
-			<p:menubar id="menu"
-				style="display: flex; justify-content: flex-end; width: 50%; border-left: none; border-right: none; border-top: none; align-items: center;"
-				styleClass="menu">
 
-				<sec:authorize access="hasRole('CANDIDATO') or hasRole('EMPRESA')">
+			<sec:authorize access="!hasRole('CANDIDATO') and !hasRole('EMPRESA')">
 
-					<p:menuitem value="VAGAS" outcome="/vagas.xhtml"
-						icon="pi pi-fw pi-briefcase" styleClass="menuItem menuItemStyle" />
-
-				</sec:authorize>
+				<p:menubar id="menu"
+					style="border: none;
+				    width: 80%; justify-content: flex-end; display: flex;"
+					styleClass="menu">
 
 
-				<sec:authorize
-					access="!hasRole('CANDIDATO') and !hasRole('EMPRESA')">
 
 					<p:menuitem value="VAGAS" outcome="/vagas.xhtml"
 						icon="pi pi-fw pi-briefcase" styleClass="menuItem menuItemStyle" />
@@ -123,46 +123,80 @@
 
 					<p:submenu id="cadastre" label="CADASTRA-SE"
 						icon="pi pi-fw pi-id-card" styleClass="menuItem">
-						<p:menuitem value="Candidato" icon="pi pi-fw pi-user"
+						<p:menuitem value="CANDIDATO" icon="pi pi-fw pi-user"
 							outcome="/cadastre.xhtml">
 							<f:param name="index" value="0" />
 						</p:menuitem>
-						<p:menuitem value="Empresa" icon="fa fa-building"
+						<p:menuitem value="EMPRESA" icon="fa fa-building"
 							outcome="/cadastre.xhtml">
 							<f:param name="index" value="1" />
 						</p:menuitem>
 					</p:submenu>
 
-				</sec:authorize>
 
-			</p:menubar>
+				</p:menubar>
+
+			</sec:authorize>
+
+
+			<sec:authorize access="!hasRole('CANDIDATO') and !hasRole('EMPRESA')">
+
+				<div id="menuMobile"
+					style="display: none; margin-bottom: 10px; margin-right: 5px;">
+
+					<p:commandButton id="responsivoButton" value="MENU" type="button"
+						icon="pi pi-bars" style="height: fit-content; width: fit-content;" />
+					<p:menu overlay="true" trigger="responsivoButton" my="left top"
+						at="left bottom">
+						<p:submenu label="VAGAS">
+							<p:menuitem value="VER VAGAS" outcome="/vagas.xhtml"
+								icon="pi pi-fw pi-briefcase" />
+						</p:submenu>
+						<p:submenu label="LOGIN">
+							<p:menuitem value="FAÇA LOGIN" icon="pi pi-fw pi-sign-in"
+								outcome="/login.xhtml" />
+						</p:submenu>
+						<p:submenu label="CADASTRA-SE">
+							<p:menuitem value="CANDIDATO" icon="pi pi-fw pi-user"
+								outcome="/cadastre.xhtml">
+								<f:param name="index" value="0" />
+							</p:menuitem>
+							<p:menuitem value="EMPRESA" icon="fa fa-building"
+								outcome="/cadastre.xhtml">
+								<f:param name="index" value="1" />
+							</p:menuitem>
+						</p:submenu>
+
+					</p:menu>
+
+				</div>
+
+			</sec:authorize>
 
 			<sec:authorize access="hasRole('CANDIDATO') or hasRole('EMPRESA')">
 
 				<div
-					style="display: flex; align-items: center; width: 22%; border-bottom: 1px solid #e2e2e2;">
+					style="display: flex; align-items: center;">
 
 
 
 					<sec:authorize access="hasRole('CANDIDATO')">
 
 						<img src="data:image/jpg;base64, #{indexController.fotoStr}"
-							id="userImage"
-							style="width: 60px; border-radius: 50%; border: inset; margin-left: 50px;" />
+							class="userImage"
+							style="width: 50px; border-radius: 50%; border: inset; margin-left: 50px;" />
 
-						<p:menubar style="border: none">
+						<p:menubar style="border: none; margin-bottom: 5px;">
 							<p:submenu id="candidato" label="Candidato"
 								icon="pi pi-fw pi-cog">
-								<p:menuitem value="Dashboard" icon="pi pi-fw pi-desktop" />
-								<p:menuitem value="Editar Perfil"
-									outcome="/cadastro/candidato.xhtml"
-									icon="pi pi-fw pi-user-edit" />
-								<p:menuitem url="/logout" value="Sair" icon="pi pi-fw pi-sign-out" />
+								<p:menuitem value="Ver Vagas" outcome="/vagas.xhtml"
+									icon="pi pi-fw pi-briefcase" />
+								<p:menuitem value="Dashboard" outcome="/perfil/candidato.xhtml" icon="pi pi-fw pi-desktop" />
+								<p:menuitem url="/logout" value="Sair"
+									icon="pi pi-fw pi-sign-out" />
 							</p:submenu>
 
 						</p:menubar>
-						
-						
 
 					</sec:authorize>
 
@@ -170,17 +204,16 @@
 					<sec:authorize access="hasRole('EMPRESA')">
 
 						<img src="data:image/jpg;base64, #{indexController.fotoStr}"
-							id="userImage"
-							style="width: 50px; border-radius: 50%; border: inset; margin-left: 50px; margin-bottom: 4px;" />
+							class="userImage"
+							style="width: 50px; border-radius: 50%; border: inset; margin-left: 50px;" />
 
-						<p:menubar style="border: none">
+						<p:menubar style="border: none; margin-bottom: 5px;">
 							<p:submenu id="empresa" label="Empresa" icon="pi pi-fw pi-cog">
-								<p:menuitem value="Dashboard" icon="pi pi-fw pi-desktop" />
-								<p:menuitem value="Cadastrar Vagas"
-									outcome="/cadastro/vaga.xhtml" icon="pi pi-fw pi-briefcase" />
-								<p:menuitem value="Editar Perfil"
-									outcome="/cadastro/empresa.xhtml" icon="pi pi-fw pi-user-edit" />
-								<p:menuitem url="/logout" value="Sair" icon="pi pi-fw pi-sign-out" />
+								<p:menuitem value="Ver Vagas" outcome="/vagas.xhtml"
+									icon="pi pi-fw pi-briefcase" />
+								<p:menuitem value="Dashboard" outcome="/perfil/empresa.xhtml" icon="pi pi-fw pi-desktop" />
+								<p:menuitem url="/logout" value="Sair"
+									icon="pi pi-fw pi-sign-out" />
 							</p:submenu>
 
 						</p:menubar>
@@ -194,8 +227,8 @@
 		</div>
 
 	</h:form>
-	
-			 <p:growl id="growl" showDetail="true" />
-	
+
+	<p:growl id="growl" showDetail="true" />
+
 </h:body>
 </html>

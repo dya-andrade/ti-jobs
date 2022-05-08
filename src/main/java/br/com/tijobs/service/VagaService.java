@@ -29,7 +29,7 @@ public class VagaService {
 	}
 
 	public List<Vaga> buscaVagasPeloTipoContrato(String tipoContrato, String habilidade) {
-		if (habilidade != null) {
+		if (habilidade == null) {
 			return vagaRepository.findByTipoContrato(tipoContrato);
 		} else {
 			return vagaRepository.findByTipoContratoAndPrincipaisTecnologiasLike(tipoContrato, habilidade);
@@ -37,7 +37,7 @@ public class VagaService {
 	}
 
 	public List<Vaga> buscaVagasPeloNivelExperiencia(String nivelExperiencia, String habilidade) {
-		if (habilidade != null) {
+		if (habilidade == null) {
 			return vagaRepository.findByNivelExperiencia(nivelExperiencia);
 		} else {
 			return vagaRepository.findByNivelExperienciaAndPrincipaisTecnologiasLike(nivelExperiencia, habilidade);
@@ -45,7 +45,7 @@ public class VagaService {
 	}
 
 	public List<Vaga> buscaVagasPeloTamanhoEmpresa(String tamanho, String habilidade) {
-		if (habilidade != null) {
+		if (habilidade == null) {
 			return vagaRepository.findByEmpresaTamanho(tamanho);
 		} else {
 			return vagaRepository.findByEmpresaTamanhoAndPrincipaisTecnologiasLike(tamanho, habilidade);
@@ -53,7 +53,7 @@ public class VagaService {
 	}
 
 	public List<Vaga> buscaVagasPeloTamanhoEmpresa(String tamanho1, String tamanho2, String habilidade) {
-		if (habilidade != null) {
+		if (habilidade == null) {
 			return vagaRepository.findByEmpresaTamanhoOrEmpresaTamanho(tamanho1, tamanho2);
 		} else {
 			return vagaRepository.findByEmpresaTamanhoOrEmpresaTamanhoAndPrincipaisTecnologiasLike(tamanho1, tamanho2,
@@ -62,7 +62,7 @@ public class VagaService {
 	}
 
 	public List<Vaga> buscaVagasPelaLocalidade(String distrito, String habilidade) {
-		if (habilidade != null) {
+		if (habilidade == null) {
 			return vagaRepository.findByEmpresaLocalidade(distrito);
 		} else {
 			return vagaRepository.findByEmpresaLocalidadeAndPrincipaisTecnologiasLike(distrito, habilidade);
@@ -70,7 +70,7 @@ public class VagaService {
 	}
 
 	public List<Vaga> buscaVagasPeloTipoTrabalho(String tipoTrabalho, String habilidade) {
-		if (habilidade != null) {
+		if (habilidade == null) {
 			return vagaRepository.findByTipoTrabalho(tipoTrabalho);
 		} else {
 			return vagaRepository.findByTipoTrabalhoAndPrincipaisTecnologiasLike(tipoTrabalho, habilidade);
@@ -78,7 +78,7 @@ public class VagaService {
 	}
 
 	public List<Vaga> buscaVagasPeloAceitaCandidatoFora(String aceitaCandidatoFora, String habilidade) {
-		if (habilidade != null) {
+		if (habilidade == null) {
 			return vagaRepository.findByAceitaCandidatoFora(aceitaCandidatoFora);
 		} else {
 			return vagaRepository.findByAceitaCandidatoForaAndPrincipaisTecnologiasLike(aceitaCandidatoFora,
