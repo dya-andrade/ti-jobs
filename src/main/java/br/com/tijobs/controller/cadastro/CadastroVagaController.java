@@ -1,5 +1,7 @@
 package br.com.tijobs.controller.cadastro;
 
+import static com.github.adminfaces.template.util.Assert.has;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,7 +15,6 @@ import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Empresa;
-import br.com.tijobs.model.Habilidade;
 import br.com.tijobs.model.ListaHabilidade;
 import br.com.tijobs.model.Vaga;
 import br.com.tijobs.repository.EmpresaRepository;
@@ -26,6 +27,8 @@ import br.com.tijobs.util.UtilService;
 public class CadastroVagaController {
 
 	private Vaga vaga;
+	
+	private Integer idVaga;
 
 	private List<String> benefícios;
 
@@ -49,8 +52,10 @@ public class CadastroVagaController {
 
 	@PostConstruct
 	public void init() {
-
-		if (vaga == null) {
+		
+		if (has(idVaga)) {
+			vaga = vagaRepository.findById(idVaga).get();
+		}else if (vaga == null) {
 			vaga = new Vaga();
 		}
 
@@ -59,6 +64,14 @@ public class CadastroVagaController {
 		adicionaBeneficios();
 	}
 	
+	public Integer getIdVaga() {
+		return idVaga;
+	}
+
+	public void setIdVaga(Integer idVaga) {
+		this.idVaga = idVaga;
+	}
+
 	private void adicionaBeneficios() {
 		benefícios = new ArrayList<>();
 		benefícios.add("Vale Alimentação");
