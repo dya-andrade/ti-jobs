@@ -38,7 +38,7 @@ public class ChartView implements Serializable {
         pieModel.set("Brand 3", 702);
         pieModel.set("Brand 4", 421);
          
-        pieModel.setTitle("Custom Pie");
+        //pieModel.setTitle("Custom Pie");
         pieModel.setLegendPosition("e");
         pieModel.setFill(false);
         pieModel.setShowDataLabels(true);

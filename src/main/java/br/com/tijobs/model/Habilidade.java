@@ -22,6 +22,19 @@ public class Habilidade {
 	@JoinColumn(name = "id_candidato", referencedColumnName = "id")
 	private Candidato candidato;
 
+	
+	public String textoHabilidade() {
+		if(ano == null) {
+			return "";
+		} else {
+			if(ano > 1) {
+				return this.habilidade + ": " + this.ano + " anos";
+			}else {
+				return this.habilidade + ": " + this.ano + " ano";
+			}
+		}
+	}
+	
 	public Integer getId() {
 		return id;
 	}

@@ -16,6 +16,13 @@
 
 <h:body>
 
+			<f:metadata>
+				<f:viewParam name="idVaga" value="#{cadastroVagaController.idVaga}"
+					converter="javax.faces.Long" />
+				<f:event type="preRenderView" listener="#{cadastroVagaController.init}" />
+			</f:metadata>
+
+
 	<h:form>
 
 		<div class="flex align-items-center justify-content-center">
@@ -75,7 +82,7 @@
 						</div>
 					</div>
 
-					<div class="surface-section" style="margin-left: 30px;">
+					<div class="surface-section" style="margin-left: 150px;">
 
 						<p:panelGrid columns="2"
 							columnClasses="ui-grid-col-2,ui-grid-col-6,ui-grid-col-2,ui-grid-col-6"
