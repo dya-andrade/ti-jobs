@@ -1,5 +1,6 @@
 package br.com.tijobs.controller.cadastro;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,41 +40,66 @@ public class CadastroCandidatoController {
 	public void init() {
 
 		if (candidato == null) {
-			
+
 			Candidato candidatoLogado = utilService.perfilCandidato();
-			
+
 			if (candidatoLogado != null) {
 				candidato = candidatoLogado;
 			} else {
 				candidato = new Candidato();
 			}
-			
-			if(candidato.getExperiencias().isEmpty()) {
+
+			if (candidato.getExperiencias() == null) {
+				candidato.setExperiencias(new ArrayList<Experiencia>());
 				candidato.getExperiencias().add(new Experiencia());
 				candidato.getExperiencias().add(new Experiencia());
 				candidato.getExperiencias().add(new Experiencia());
 			}
-			
-			if(candidato.getHabilidades().isEmpty()) {
+
+			if (candidato.getExperiencias() == null) {
+
+				for (Experiencia experiencia : candidato.getExperiencias()) {
+
+					experiencia.setHabilidades(new ArrayList<Habilidade>());
+
+					experiencia.getHabilidades().add(new Habilidade());
+					experiencia.getHabilidades().add(new Habilidade());
+					experiencia.getHabilidades().add(new Habilidade());
+					experiencia.getHabilidades().add(new Habilidade());
+				}
+			}
+
+			if (candidato.getHabilidades() == null) {
+
+				candidato.setHabilidades(new ArrayList<Habilidade>());
+
 				candidato.getHabilidades().add(new Habilidade());
 				candidato.getHabilidades().add(new Habilidade());
 				candidato.getHabilidades().add(new Habilidade());
+				candidato.getHabilidades().add(new Habilidade());
+				candidato.getHabilidades().add(new Habilidade());
+				candidato.getHabilidades().add(new Habilidade());
+
 			}
 		}
 
-		distritos = utilService.buscaDistritosSP();	
+		distritos = utilService.buscaDistritosSP();
 	}
 
 	public void salvar() {
-		
+
 		for (Habilidade habilidade : candidato.getHabilidades()) {
 			habilidade.setCandidato(candidato);
 		}
-		
+
 		for (Experiencia experiencia : candidato.getExperiencias()) {
-			experiencia.setCandidato(candidato);	
+			experiencia.setCandidato(candidato);
+
+			for (Habilidade habilidade : experiencia.getHabilidades()) {
+				habilidade.setExperiencia(experiencia);
+			}
 		}
-		
+
 		candidatoRepository.save(candidato);
 	}
 

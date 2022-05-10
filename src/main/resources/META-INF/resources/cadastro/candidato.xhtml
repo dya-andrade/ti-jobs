@@ -679,18 +679,18 @@
 													<div style="width: 25%; margin-right: 10px;">
 
 														<p:outputLabel for="@next" value="Data de ínicio" />
-														<p:datePicker
+														<p:datePicker  showTime="false"  
 															value="#{cadastroCandidatoController.candidato.experiencias.get(0).dataInicio}"
 															view="month" pattern="MM/yyyy"
 															style="width: fit-content;" yearNavigator="true"
 															yearRange="1990:2022" locale="pt" />
-
+															
 													</div>
 
 													<div style="width: 25%; margin-right: 10px;">
 
 														<p:outputLabel for="@next" value="Data de término" />
-														<p:datePicker
+														<p:datePicker  showTime="false"
 															value="#{cadastroCandidatoController.candidato.experiencias.get(0).dataTermino}"
 															view="month" pattern="MM/yyyy"
 															style="width: fit-content;" yearNavigator="true"
@@ -717,7 +717,7 @@
 
 														<p:selectOneMenu filter="true" filterMatchMode="contains"
 															class="responsivoDivchild" effect="fade"
-															value="#{cadastroCandidatoController.candidato.experiencias.get(0).habilidades(habilidade)}"
+															value="#{cadastroCandidatoController.candidato.experiencias.get(0).habilidades.get(0).habilidade}"
 															style="margin-right: 10px; width: fit-content;">
 															<f:selectItem itemLabel="selecione --" itemValue="" />
 															<f:selectItems var="habilidade"
@@ -726,7 +726,7 @@
 
 														<p:selectOneMenu filter="true" filterMatchMode="contains"
 															class="responsivoDivchild" effect="fade"
-															value="#{cadastroCandidatoController.candidato.experiencias.get(0).habilidades(habilidade)}"
+															value="#{cadastroCandidatoController.candidato.experiencias.get(0).habilidades.get(1).habilidade}"
 															style="margin-right: 10px; width: fit-content;">
 															<f:selectItem itemLabel="selecione --" itemValue="" />
 															<f:selectItems var="habilidade"
@@ -735,7 +735,7 @@
 
 														<p:selectOneMenu filter="true" filterMatchMode="contains"
 															class="responsivoDivchild" effect="fade"
-															value="#{cadastroCandidatoController.candidato.experiencias.get(0).habilidades(habilidade)}"
+															value="#{cadastroCandidatoController.candidato.experiencias.get(0).habilidades.get(2).habilidade}"
 															style="margin-right: 10px; width: fit-content;">
 															<f:selectItem itemLabel="selecione --" itemValue="" />
 															<f:selectItems var="habilidade"
@@ -744,7 +744,7 @@
 
 														<p:selectOneMenu filter="true" filterMatchMode="contains"
 															class="responsivoDivchild" effect="fade"
-															value="#{cadastroCandidatoController.candidato.experiencias.get(0).habilidades(habilidade)}"
+															value="#{cadastroCandidatoController.candidato.experiencias.get(0).habilidades.get(3).habilidade}"
 															style="width: fit-content;">
 															<f:selectItem itemLabel="selecione --" itemValue="" />
 															<f:selectItems var="habilidade"
@@ -847,7 +847,7 @@
 													<div style="width: 25%; margin-right: 10px;">
 
 														<p:outputLabel for="@next" value="Data de ínicio" />
-														<p:datePicker
+														<p:datePicker  showTime="false"
 															value="#{cadastroCandidatoController.candidato.experiencias.get(1).dataInicio}"
 															view="month" pattern="MM/yyyy"
 															style="width: fit-content;" yearNavigator="true"
@@ -858,7 +858,7 @@
 													<div style="width: 25%; margin-right: 10px;">
 
 														<p:outputLabel for="@next" value="Data de término" />
-														<p:datePicker
+														<p:datePicker  showTime="false"
 															value="#{cadastroCandidatoController.candidato.experiencias.get(1).dataTermino}"
 															view="month" pattern="MM/yyyy"
 															style="width: fit-content;" yearNavigator="true"
@@ -885,7 +885,7 @@
 
 														<p:selectOneMenu filter="true" filterMatchMode="contains"
 															class="responsivoDivchild" effect="fade"
-															value="#{cadastroCandidatoController.candidato.experiencias.get(1).habilidades(habilidade)}"
+															value="#{cadastroCandidatoController.candidato.experiencias.get(1).habilidades.get(0).habilidade}"
 															style="margin-right: 10px; width: fit-content;">
 															<f:selectItem itemLabel="selecione --" itemValue="" />
 															<f:selectItems var="habilidade"
@@ -894,7 +894,7 @@
 
 														<p:selectOneMenu filter="true" filterMatchMode="contains"
 															class="responsivoDivchild" effect="fade"
-															value="#{cadastroCandidatoController.candidato.experiencias.get(1).habilidades(habilidade)}"
+															value="#{cadastroCandidatoController.candidato.experiencias.get(1).habilidades.get(1).habilidade}"
 															style="margin-right: 10px; width: fit-content;">
 															<f:selectItem itemLabel="selecione --" itemValue="" />
 															<f:selectItems var="habilidade"
@@ -903,7 +903,7 @@
 
 														<p:selectOneMenu filter="true" filterMatchMode="contains"
 															class="responsivoDivchild" effect="fade"
-															value="#{cadastroCandidatoController.candidato.experiencias.get(1).habilidades(habilidade)}"
+															value="#{cadastroCandidatoController.candidato.experiencias.get(1).habilidades.get(2).habilidade}"
 															style="margin-right: 10px; width: fit-content;">
 															<f:selectItem itemLabel="selecione --" itemValue="" />
 															<f:selectItems var="habilidade"
@@ -912,7 +912,7 @@
 
 														<p:selectOneMenu filter="true" filterMatchMode="contains"
 															class="responsivoDivchild" effect="fade"
-															value="#{cadastroCandidatoController.candidato.experiencias.get(1).habilidades(habilidade)}"
+															value="#{cadastroCandidatoController.candidato.experiencias.get(1).habilidades.get(3).habilidade}"
 															style="width: fit-content;">
 															<f:selectItem itemLabel="selecione --" itemValue="" />
 															<f:selectItems var="habilidade"
@@ -1015,7 +1015,7 @@
 													<div style="width: 25%; margin-right: 10px;">
 
 														<p:outputLabel for="@next" value="Data de ínicio" />
-														<p:datePicker
+														<p:datePicker  showTime="false" 
 															value="#{cadastroCandidatoController.candidato.experiencias.get(2).dataInicio}"
 															view="month" pattern="MM/yyyy"
 															style="width: fit-content;" yearNavigator="true"
@@ -1026,7 +1026,7 @@
 													<div style="width: 25%; margin-right: 10px;">
 
 														<p:outputLabel for="@next" value="Data de término" />
-														<p:datePicker
+														<p:datePicker  showTime="false" 
 															value="#{cadastroCandidatoController.candidato.experiencias.get(2).dataTermino}"
 															view="month" pattern="MM/yyyy"
 															style="width: fit-content;" yearNavigator="true"
@@ -1053,7 +1053,7 @@
 
 														<p:selectOneMenu filter="true" filterMatchMode="contains"
 															class="responsivoDivchild" effect="fade"
-															value="#{cadastroCandidatoController.candidato.experiencias.get(2).habilidades(habilidade)}"
+															value="#{cadastroCandidatoController.candidato.experiencias.get(2).habilidades.get(0).habilidade}"
 															style="margin-right: 10px; width: fit-content;">
 															<f:selectItem itemLabel="selecione --" itemValue="" />
 															<f:selectItems var="habilidade"
@@ -1062,7 +1062,7 @@
 
 														<p:selectOneMenu filter="true" filterMatchMode="contains"
 															class="responsivoDivchild" effect="fade"
-															value="#{cadastroCandidatoController.candidato.experiencias.get(2).habilidades(habilidade)}"
+															value="#{cadastroCandidatoController.candidato.experiencias.get(2).habilidades.get(1).habilidade}"
 															style="margin-right: 10px; width: fit-content;">
 															<f:selectItem itemLabel="selecione --" itemValue="" />
 															<f:selectItems var="habilidade"
@@ -1071,7 +1071,7 @@
 
 														<p:selectOneMenu filter="true" filterMatchMode="contains"
 															class="responsivoDivchild" effect="fade"
-															value="#{cadastroCandidatoController.candidato.experiencias.get(2).habilidades(habilidade)}"
+															value="#{cadastroCandidatoController.candidato.experiencias.get(2).habilidades.get(2).habilidade}"
 															style="margin-right: 10px; width: fit-content;">
 															<f:selectItem itemLabel="selecione --" itemValue="" />
 															<f:selectItems var="habilidade"
@@ -1080,7 +1080,7 @@
 
 														<p:selectOneMenu filter="true" filterMatchMode="contains"
 															class="responsivoDivchild" effect="fade"
-															value="#{cadastroCandidatoController.candidato.experiencias.get(2).habilidades(habilidade)}"
+															value="#{cadastroCandidatoController.candidato.experiencias.get(2).habilidades.get(3).habilidade}"
 															style="width: fit-content;">
 															<f:selectItem itemLabel="selecione --" itemValue="" />
 															<f:selectItems var="habilidade"

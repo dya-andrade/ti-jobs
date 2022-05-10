@@ -87,9 +87,28 @@ public class Candidato implements Serializable {
 	
 	//-------
 	
+	public String tamanhoEmpresaFormatada() {
+		
+		String tamanhoEmpresa = this.tamanhoEmpresa;
+		
+		tamanhoEmpresa = tamanhoEmpresa.replaceAll(",", ", ");
+		tamanhoEmpresa = tamanhoEmpresa.replaceFirst("(\\,+)(?!.*\\,)", " ou");
+		
+		return tamanhoEmpresa + " - empresa";
+	}
+	
+	public String tipoContratoFormatado() {
+		
+		String tipoContrato = this.tipoContrato;
+		
+		tipoContrato = tipoContrato.replaceAll(",", ", ");
+		tipoContrato = tipoContrato.replaceFirst("(\\,+)(?!.*\\,)", " ou");
+		
+		return tipoContrato;
+	}
 	
 	
-	public String fotoStr() throws IOException {
+	public String fotoStr() throws IOException {		
 		byte[] foto = this.foto;
 
 		if (foto != null) {

@@ -21,6 +21,10 @@ public class Habilidade {
 	@ManyToOne
 	@JoinColumn(name = "id_candidato", referencedColumnName = "id")
 	private Candidato candidato;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_experiencia", referencedColumnName = "id")
+	private Experiencia experiencia;
 
 	
 	public String textoHabilidade() {
@@ -66,4 +70,13 @@ public class Habilidade {
 	public void setCandidato(Candidato candidato) {
 		this.candidato = candidato;
 	}
+
+	public Experiencia getExperiencia() {
+		return experiencia;
+	}
+
+	public void setExperiencia(Experiencia experiencia) {
+		this.experiencia = experiencia;
+	}
+	
 }

@@ -1,14 +1,26 @@
 package br.com.tijobs.model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.Locale;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity(name = "experiencia")
 public class Experiencia implements Serializable {
@@ -17,6 +29,8 @@ public class Experiencia implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM - yyyy", new Locale("pt", "BR"));
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,20 +42,58 @@ public class Experiencia implements Serializable {
 
 	private String cargo;
 
-	private LocalDateTime dataInicio;
+	private LocalDate dataInicio;
 
-	private LocalDateTime dataTermino;
+	private LocalDate dataTermino;
 
 	private Boolean atual;
 
-	private String habilidades;
-	
 	private String descricao;
 
 	@ManyToOne
 	@JoinColumn(name = "id_candidato", referencedColumnName = "id")
 	private Candidato candidato;
 
+	@OneToMany(mappedBy = "experiencia", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Habilidade> habilidades;
+
+	public String duracaoTrabalho() {
+
+		LocalDate dataTermino;
+
+		if (this.dataTermino == null) {
+			dataTermino = LocalDate.now();
+		} else {
+			dataTermino = this.dataTermino;
+		}
+
+		Long meses = this.dataInicio.until(dataTermino, ChronoUnit.MONTHS);
+
+		double anos = meses.doubleValue() / 12;
+
+		BigDecimal bd = new BigDecimal(anos).setScale(1, RoundingMode.HALF_UP);
+
+		double duracaoDouble = bd.doubleValue();
+
+		String duracao = String.valueOf(duracaoDouble);
+
+		if (duracaoDouble < 1) {
+			duracao = duracao.replaceAll("[\\d].", " ");
+			return duracao + " meses";
+		} else if (duracaoDouble == 1) {
+			duracao = duracao.replaceAll(".[\\d]", " ano");
+			return duracao;
+		} else {
+
+			if (duracao.contains(".")) {
+				duracao = duracao.replaceAll("[.]", " ano(s) e ");
+				return duracao + " meses";
+			} else {
+				return duracao + " anos(s)";
+			}
+		}
+	}
 
 	public Integer getId() {
 		return id;
@@ -75,19 +127,33 @@ public class Experiencia implements Serializable {
 		this.cargo = cargo;
 	}
 
-	public LocalDateTime getDataInicio() {
+	public LocalDate getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(LocalDateTime dataInicio) {
+	public String dataInicioFormatada() {
+		if (dataInicio != null) {
+			return dataInicio.format(formatter);
+		}
+		return null;
+	}
+
+	public void setDataInicio(LocalDate dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public LocalDateTime getDataTermino() {
+	public LocalDate getDataTermino() {
 		return dataTermino;
 	}
 
-	public void setDataTermino(LocalDateTime dataTermino) {
+	public String dataTerminoFormatada() {
+		if (dataTermino != null) {
+			return dataTermino.format(formatter);
+		}
+		return null;
+	}
+
+	public void setDataTermino(LocalDate dataTermino) {
 		this.dataTermino = dataTermino;
 	}
 
@@ -103,16 +169,25 @@ public class Experiencia implements Serializable {
 		return descricao;
 	}
 
-	public String getHabilidades() {
+	public List<Habilidade> getHabilidades() {
 		return habilidades;
 	}
 
-	public void setHabilidades(String habilidades) {
+	public void setHabilidades(List<Habilidade> habilidades) {
 		this.habilidades = habilidades;
 	}
-	
-	public void habilidades(String habilidade) {
-		this.habilidades = this.habilidades + "," + habilidade;
+
+	public String habilidadesFormatada() {
+
+		String habilidadesTexto = "";
+
+		for (Habilidade habilidade : habilidades) {
+			if(!habilidade.getHabilidade().isBlank()) {
+				habilidadesTexto += habilidade.getHabilidade() + " | ";
+			}
+		}
+
+		return habilidadesTexto;
 	}
 
 	public void setDescricao(String descricao) {
