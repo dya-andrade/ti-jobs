@@ -162,4 +162,12 @@ public class VagaService {
 
 		return icon;
 	}
+
+	public List<Integer> buscaQuantidadeDeCandidatosPorEmpresa(int idEmpresa) {
+		return vagaRepository.buscaQuantidadeDeCandidatosPorEmpresa(idEmpresa);
+	}
+
+	public List<Vaga> buscaVagasPelaEmpresaEPrincipaisTecnologias(Empresa empresa, String tecnologia) {
+		return vagaRepository.findByEmpresaAndPrincipaisTecnologiasLike(empresa, tecnologia);
+	}
 }

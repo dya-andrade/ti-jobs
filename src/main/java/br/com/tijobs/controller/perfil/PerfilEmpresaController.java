@@ -83,8 +83,8 @@ public class PerfilEmpresaController {
 
 		int numero = random.nextInt(5);
 
-		return "vertical-align: middle; border-radius: 50px; border: 2px solid " + colors.get(numero) + 
-				"; margin-right: 5px;";
+		return "vertical-align: middle; border-radius: 50px; border: 2px solid " + colors.get(numero)
+				+ "; margin-right: 5px;";
 	}
 
 	public String getFotoStr() {
@@ -96,6 +96,15 @@ public class PerfilEmpresaController {
 
 		vagas = vagas.stream().sorted(Comparator.comparing(Vaga::getDesativada)).collect(Collectors.toList());
 		return vagas;
+	}
+
+	public Integer quantidadeDeCandidatos() {
+		if (empresa != null) {
+			List<Integer> quantidade = vagaService.buscaQuantidadeDeCandidatosPorEmpresa(empresa.getId());
+			return quantidade.size();
+		} else {
+			return 0;
+		}
 	}
 
 	public Vaga getVagaSelecionada() {
