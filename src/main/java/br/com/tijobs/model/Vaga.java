@@ -192,6 +192,10 @@ public class Vaga implements Serializable, Comparable<Vaga> {
 	public void setSalario(String salario) {
 		this.salario = salario;
 	}
+	
+	public String salarioFormatado() {
+		return this.salario.replaceAll("entre ", "");
+	}
 
 	public String getTipoContrato() {
 		return tipoContrato;

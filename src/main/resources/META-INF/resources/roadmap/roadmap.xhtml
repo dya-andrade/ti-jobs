@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>TI Jobs - roadmaps</title>
+</h:head>
+
+<ui:include src="/WEB-INF/templates/template.xhtml" />
+
+<h:body>
+
+	<style type="text/css">
+* {
+	opacity: 1 !important;
+}
+
+.ui-diagram-element {
+	border: 0.1em dotted #d4e06b;
+	width: 14em;
+	height: auto;
+	line-height: 4em;
+	text-align: center;
+}
+
+.sub {
+	width: 25.5em;
+	line-height: 2.5em;
+	font-size: 12px;
+}
+
+.fontSub {
+	font-size: 12px;
+}
+
+.titulo {
+	font-size: 15px;
+	font-weight: 600;
+}
+</style>
+
+
+	<h:form>
+
+		<h2
+			style="width: 100%; text-align: center; margin-top: 35px; margin-bottom: 35px;">ROADMAP</h2>
+
+		<ul class="list-none p-0 m-0 flex align-items-center font-medium mb-3" style="margin-left: 40px !important;">
+			<li><a href="http://localhost:8080/perfil/candidato.jsf"
+				class="text-500 no-underline line-height-3 cursor-pointer">Dashboard</a>
+			</li>
+			<li class="px-2"><i
+				class="pi pi-angle-right text-500 line-height-3" /></li>
+			<li><span class="text-900 line-height-3">Roadmap Java</span></li>
+		</ul>
+
+		<div class="flex align-items-center justify-content-center">
+
+
+			<div class="surface-card p-4 shadow-2 border-round"
+				style="width: 95%; height: 550px; overflow: auto; margin-bottom: 35px;">
+
+
+
+				<p:diagram value="#{roadmapController.model}"
+					style="height: 1400px; width: 100%; overflow: initial;"
+					styleClass="ui-widget-content" />
+
+			</div>
+		</div>
+
+		<div
+			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">
+
+			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
+
+			<span style="margin-right: 10px;">Versão: 1.0.0</span>
+
+
+		</div>
+
+
+	</h:form>
+
+</h:body>
+</html>
