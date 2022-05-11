@@ -26,13 +26,13 @@
 				style="width: 100%;">
 
 
-				<div class="surface-card p-4 shadow-2 border-round"
+				<div id="perfil" class="surface-card p-4 shadow-2 border-round"
 					style="width: 20%; margin-right: 50px; position: fixed; right: 15px;">
 
 					<div style="display: grid; justify-items: center; height: 5%;">
 						<img
 							src="data:image/jpg;base64, #{perfilEmpresaController.fotoStr}"
-							style="width: 100px; border-radius: 50%; border: inset;" />
+							style="width: 100px; border-radius: 50%; border: inset; margin-bottom: 10px;" />
 
 						<p:outputLabel
 							value="#{perfilEmpresaController.empresa.nomeEmpresarial}" />
@@ -61,14 +61,9 @@
 				</div>
 
 
-
-
-
-
 				<div style="width: 100%;">
 
-
-					<div class="surface-section text-center">
+					<div class="surface-section text-center" style="margin-top: 15px;">
 						<div class="mb-3 font-bold text-2xl" style="display: inline-flex;">
 							<h2 class="text-900" style="margin-right: 8px;">EDITAR
 								PERFIL</h2>
@@ -285,6 +280,22 @@
 
 .userImage {
 	display: none !important;
+}
+
+@media screen and (max-width: 1105px) {
+
+	#perfil {
+		margin-right: 10px !important;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	.userImage {
+		display: grid !important;
+	}
+	#perfil {
+		display: none !important;
+	}
 }
 </style>
 

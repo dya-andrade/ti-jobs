@@ -100,12 +100,16 @@ public class PerfilEmpresaController {
 		vaga.setDesativada(true);
 		vagaRepository.save(vaga);
 		
+		vagas = vagaService.buscaVagasPeloIdEmpresa(empresa);
+		
 		addDetailMessage("Vaga desativada", FacesMessage.SEVERITY_INFO);
 	}
 	
 	public void ativarVaga(Vaga vaga) {
 		vaga.setDesativada(false);
 		vagaRepository.save(vaga);
+		
+		vagas = vagaService.buscaVagasPeloIdEmpresa(empresa);
 		
 		addDetailMessage("Vaga ativada", FacesMessage.SEVERITY_INFO);
 	}

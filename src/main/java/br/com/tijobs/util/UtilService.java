@@ -33,7 +33,7 @@ public class UtilService {
 
 	@Autowired
 	private EmpresaRepository empresaRepository;
-	
+
 	@Autowired
 	private ListaHabilidadeRepository habilidadeRepository;
 
@@ -78,16 +78,20 @@ public class UtilService {
 		String url = "https://servicodados.ibge.gov.br/api/v1/localidades/estados/SP/distritos";
 		RestTemplate rest = new RestTemplate();
 
-		ResponseEntity<String> response = rest.getForEntity(url, String.class);
-		JSONArray array = new JSONArray(response.getBody());
-
 		List<String> distritos = new ArrayList<String>();
 
 		distritos.add("São Paulo - Central");
 
-		for (Object objeto : array) {
-			JSONObject json = (JSONObject) objeto;
-			distritos.add(json.getString("nome"));
+		try {
+			ResponseEntity<String> response = rest.getForEntity(url, String.class);
+			JSONArray array = new JSONArray(response.getBody());
+
+			for (Object objeto : array) {
+				JSONObject json = (JSONObject) objeto;
+				distritos.add(json.getString("nome"));
+			}
+		} catch (Exception e) {
+			System.out.println("Site do IBGE indisponível: " + e.getMessage());
 		}
 
 		return distritos;
@@ -96,15 +100,15 @@ public class UtilService {
 	public String fotoUsuarioLogado() {
 
 		if (perfilCandidato() != null && perfilCandidato().getFoto() != null) {
-			
+
 			return new String(Base64.getEncoder().encode(perfilCandidato().getFoto()));
-			
+
 		} else if (perfilEmpresa() != null && perfilEmpresa().getLogotipo() != null) {
-			
+
 			return new String(Base64.getEncoder().encode(perfilEmpresa().getLogotipo()));
-			
+
 		} else {
-			
+
 			try {
 				return new String(Base64.getEncoder()
 						.encode(IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream("profile.jpg"))));
@@ -116,15 +120,15 @@ public class UtilService {
 	}
 
 	public List<String> habilidades() {
-		
+
 		List<ListaHabilidade> todasHabilidades = habilidadeRepository.findAll();
-		
+
 		List<String> habilidades = new ArrayList<String>();
-		
+
 		for (ListaHabilidade habilidade : todasHabilidades) {
 			habilidades.add(habilidade.getNome());
 		}
-		
+
 		return habilidades;
 	}
 }

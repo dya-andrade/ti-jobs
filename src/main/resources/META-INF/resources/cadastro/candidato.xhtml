@@ -111,6 +111,15 @@
 .userImage {
 	display: none !important;
 }
+
+@media screen and (max-width: 940px) {
+	.userImage {
+		display: grid !important;
+	}
+	#perfil {
+		display: none !important;
+	}
+}
 </style>
 
 
@@ -124,13 +133,13 @@
 				style="width: 100%;">
 
 
-				<div class="surface-card p-4 shadow-2 border-round"
+				<div id="perfil" class="surface-card p-4 shadow-2 border-round"
 					style="width: 20%; margin-right: 50px; position: fixed; right: 15px;">
 
 					<div style="display: grid; justify-items: center; height: 5%;">
 						<img
 							src="data:image/jpg;base64, #{perfilCandidatoController.fotoStr}"
-							style="width: 100px; border-radius: 50%; border: inset;" />
+							style="width: 100px; border-radius: 50%; border: inset; margin-bottom: 10px;" />
 
 						<p:outputLabel value="#{perfilCandidatoController.candidato.nome}" />
 						<p:outputLabel
@@ -158,7 +167,7 @@
 
 				<div style="width: 100%;">
 
-					<div class="surface-section text-center" style="margin-top: 15px;">
+					<div class="surface-section text-center" style="margin-top: 25px;">
 
 						<div class="mb-3 font-bold text-2xl" style="display: inline-flex;">
 
@@ -679,18 +688,18 @@
 													<div style="width: 25%; margin-right: 10px;">
 
 														<p:outputLabel for="@next" value="Data de ínicio" />
-														<p:datePicker  showTime="false"  
+														<p:datePicker showTime="false"
 															value="#{cadastroCandidatoController.candidato.experiencias.get(0).dataInicio}"
 															view="month" pattern="MM/yyyy"
 															style="width: fit-content;" yearNavigator="true"
 															yearRange="1990:2022" locale="pt" />
-															
+
 													</div>
 
 													<div style="width: 25%; margin-right: 10px;">
 
 														<p:outputLabel for="@next" value="Data de término" />
-														<p:datePicker  showTime="false"
+														<p:datePicker showTime="false"
 															value="#{cadastroCandidatoController.candidato.experiencias.get(0).dataTermino}"
 															view="month" pattern="MM/yyyy"
 															style="width: fit-content;" yearNavigator="true"
@@ -847,7 +856,7 @@
 													<div style="width: 25%; margin-right: 10px;">
 
 														<p:outputLabel for="@next" value="Data de ínicio" />
-														<p:datePicker  showTime="false"
+														<p:datePicker showTime="false"
 															value="#{cadastroCandidatoController.candidato.experiencias.get(1).dataInicio}"
 															view="month" pattern="MM/yyyy"
 															style="width: fit-content;" yearNavigator="true"
@@ -858,7 +867,7 @@
 													<div style="width: 25%; margin-right: 10px;">
 
 														<p:outputLabel for="@next" value="Data de término" />
-														<p:datePicker  showTime="false"
+														<p:datePicker showTime="false"
 															value="#{cadastroCandidatoController.candidato.experiencias.get(1).dataTermino}"
 															view="month" pattern="MM/yyyy"
 															style="width: fit-content;" yearNavigator="true"
@@ -1015,7 +1024,7 @@
 													<div style="width: 25%; margin-right: 10px;">
 
 														<p:outputLabel for="@next" value="Data de ínicio" />
-														<p:datePicker  showTime="false" 
+														<p:datePicker showTime="false"
 															value="#{cadastroCandidatoController.candidato.experiencias.get(2).dataInicio}"
 															view="month" pattern="MM/yyyy"
 															style="width: fit-content;" yearNavigator="true"
@@ -1026,7 +1035,7 @@
 													<div style="width: 25%; margin-right: 10px;">
 
 														<p:outputLabel for="@next" value="Data de término" />
-														<p:datePicker  showTime="false" 
+														<p:datePicker showTime="false"
 															value="#{cadastroCandidatoController.candidato.experiencias.get(2).dataTermino}"
 															view="month" pattern="MM/yyyy"
 															style="width: fit-content;" yearNavigator="true"

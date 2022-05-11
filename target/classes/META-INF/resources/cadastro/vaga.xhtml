@@ -16,11 +16,12 @@
 
 <h:body>
 
-			<f:metadata>
-				<f:viewParam name="idVaga" value="#{cadastroVagaController.idVaga}"
-					converter="javax.faces.Long" />
-				<f:event type="preRenderView" listener="#{cadastroVagaController.init}" />
-			</f:metadata>
+	<f:metadata>
+		<f:viewParam name="idVaga" value="#{cadastroVagaController.idVaga}"
+			converter="javax.faces.Long" />
+		<f:event type="preRenderView"
+			listener="#{cadastroVagaController.init}" />
+	</f:metadata>
 
 
 	<h:form>
@@ -30,13 +31,13 @@
 			<div class="surface-card p-4 shadow-2 border-round"
 				style="width: 100%;">
 
-				<div class="surface-card p-4 shadow-2 border-round"
+				<div id="perfil" class="surface-card p-4 shadow-2 border-round"
 					style="width: 20%; margin-right: 50px; position: fixed; right: 50px; top: 110px;">
 
 					<div style="display: grid; justify-items: center; height: 5%;">
 						<img
 							src="data:image/jpg;base64, #{perfilEmpresaController.fotoStr}"
-							style="width: 100px; border-radius: 50%; border: inset;" />
+							style="width: 100px; border-radius: 50%; border: inset; margin-bottom: 10px;" />
 
 						<p:outputLabel
 							value="#{perfilEmpresaController.empresa.nomeEmpresarial}" />
@@ -44,7 +45,7 @@
 
 						<p:linkButton value="EDITAR PERFIL" icon="pi pi-fw pi-user-edit"
 							outcome="/cadastro/empresa.xhtml" styleClass="btn-primary"
-							style="height: fit-content;" />
+							style="height: fit-content; margin-top: 10px;" />
 
 					</div>
 
@@ -53,8 +54,8 @@
 					<div style="display: grid; justify-items: center;">
 
 						<p:linkButton value="DASHBOARD" icon="pi pi-fw pi-desktop"
-							style="height: fit-content; width: 120px;"
-							styleClass="" outcome="/perfil/empresa.xhtml" />
+							style="height: fit-content; width: 120px;" styleClass=""
+							outcome="/perfil/empresa.xhtml" />
 
 					</div>
 
@@ -82,7 +83,7 @@
 						</div>
 					</div>
 
-					<div class="surface-section" style="margin-left: 150px;">
+					<div id="vaga" class="surface-section" style="margin-left: 150px;">
 
 						<p:panelGrid columns="2"
 							columnClasses="ui-grid-col-2,ui-grid-col-6,ui-grid-col-2,ui-grid-col-6"
@@ -352,8 +353,30 @@
 		display: grid !important;
 	}
 }
+
 .userImage {
 	display: none !important;
+}
+
+@media screen and (max-width: 1030px) {
+	#perfil {
+		margin-right: 10px !important;
+	}
+	#vaga {
+		margin-left: 50px !important;
+	}
+}
+
+@media screen and (max-width: 830px) {
+	.userImage {
+		display: grid !important;
+	}
+	#perfil {
+		display: none !important;
+	}
+	#vaga {
+		margin-left: 0px !important;
+	}
 }
 </style>
 
