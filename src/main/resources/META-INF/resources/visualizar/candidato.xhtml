@@ -48,6 +48,49 @@
 	border-bottom: 1px solid #b1afaf;
 	margin-bottom: 25px;
 }
+
+@media screen and (max-width: 930px) {
+	#info {
+		font-size: 14px !important;
+	}
+	.iconInfo {
+		font-size: 24px !important;
+	}
+	.info {
+		font-size: 16px !important;
+	}
+	.habilidade {
+		font-size: 16px !important;
+	}
+	.kob {
+		width: 40px !important;
+	}
+	#divHabilidade {
+		flex-wrap: wrap !important;
+	}
+	.icon {
+		margin-right: 15px !important;
+	}
+	.userImg {
+		width: 80% !important;
+	}
+}
+
+@media screen and (max-width: 630px) {
+	.icon {
+		margin-right: 5px !important;
+	}
+	#userInfo {
+		width: 35% !important;
+	}
+	#userDados {
+		width: 65% !important;
+	}
+	#aviso {
+		font-size: 14px !important;
+		padding: 10px !important;
+	}
+}
 </style>
 
 	<f:metadata>
@@ -67,14 +110,14 @@
 			<div style="width: 100%; height: auto; display: flex;">
 
 
-				<div class="surface-card p-4 shadow-1 border-round"
+				<div id="userInfo" class="surface-card p-4 shadow-1 border-round"
 					style="width: 30%; display: grid; justify-content: center; color: #767474;">
 
 					<div>
 
 						<img
 							src="data:image/jpg;base64, #{visualizarCandidatoController.candidato.fotoStr()}"
-							class="userImage" width="200"
+							class="userImg" width="200"
 							style="border-radius: 50%; border: inset;" />
 
 						<h3 style="color: black;">#{visualizarCandidatoController.candidato.nome}</h3>
@@ -89,10 +132,11 @@
 							<h5>#{visualizarCandidatoController.candidato.titulo}</h5>
 
 						</div>
-						
-						
 
-						<p:button value="Baixar CV" style="height: fit-content; margin-top: 10px; margin-bottom: 20px" />
+
+
+						<p:button value="Baixar CV"
+							style="height: fit-content; margin-top: 10px; margin-bottom: 20px" />
 
 
 						<div>
@@ -150,10 +194,10 @@
 
 				</div>
 
-				<div class="surface-card p-4 shadow-1 border-round"
+				<div id="userDados" class="surface-card p-4 shadow-1 border-round"
 					style="width: 70%;">
 
-					<div
+					<div id="aviso"
 						style="height: 50px; background-color: #e9e9e9; display: flex; justify-content: center; align-items: center; margin-bottom: 30px; margin-top: 5px;">
 						<h:outputText style="font-size: 16px;"
 							value="Perfil visto por empresas para quais você se candidatou." />
@@ -167,7 +211,7 @@
 						</p:divider>
 
 
-						<div
+						<div id="divHabilidade"
 							style="display: flex; justify-content: center; margin-top: 35px; margin-bottom: 35px;">
 
 							<p:repeat
@@ -177,14 +221,15 @@
 								<div
 									style="display: flex; align-items: center; margin-right: 20px;">
 
-									<h:outputText
+									<h:outputText styleClass="habilidade"
 										style="font-size: 16px; color: gray; margin-right: 10px;"
 										value="#{habilidade.habilidade}" />
 
 
 									<p:knob foregroundColor="#2196F3" backgroundColor="#e9e9e95c"
-										value="#{habilidade.ano * 10}" labelTemplate="" width="50"
-										height="50" rendered="#{habilidade.textoHabilidade() != ''}" />
+										styleClass="kob" value="#{habilidade.ano * 10}"
+										labelTemplate="" width="50" height="50"
+										rendered="#{habilidade.textoHabilidade() != ''}" />
 
 								</div>
 
@@ -201,7 +246,7 @@
 							</div>
 						</p:divider>
 
-						<div
+						<div id="info"
 							style="display: flex; margin-left: 5px; font-size: 16px; color: #878484; margin-top: 35px; margin-bottom: 20px;">
 
 							<div style="width: 50%;">
@@ -213,7 +258,7 @@
 
 									<div>
 										<span>Status de busca</span> <br />
-										<h:outputText style="font-size: 18px; "
+										<h:outputText styleClass="info" style="font-size: 18px;"
 											value=" #{visualizarCandidatoController.candidato.statusBusca}" />
 
 									</div>
@@ -227,7 +272,7 @@
 
 									<div>
 										<span>Salário mensal mínimo que aceito receber</span> <br />
-										<h:outputText style="font-size: 18px; "
+										<h:outputText style="font-size: 18px;" styleClass="info"
 											value=" #{visualizarCandidatoController.candidato.pretensaoSalarial}" />
 
 									</div>
@@ -241,7 +286,7 @@
 
 									<div>
 										<span>Tenho interesse em trabalhar em</span> <br />
-										<h:outputText style="font-size: 18px; "
+										<h:outputText style="font-size: 18px;" styleClass="info"
 											value=" #{visualizarCandidatoController.candidato.tamanhoEmpresaFormatada()}" />
 
 									</div>
@@ -259,7 +304,7 @@
 
 									<div>
 										<span>Tipo(s) de contrato</span> <br />
-										<h:outputText style="font-size: 18px; "
+										<h:outputText style="font-size: 18px;" styleClass="info"
 											value=" #{visualizarCandidatoController.candidato.tipoContratoFormatado()}" />
 
 									</div>
@@ -272,7 +317,7 @@
 
 									<div>
 										<span>Nível de Inglês</span> <br />
-										<h:outputText style="font-size: 18px; "
+										<h:outputText style="font-size: 18px;" styleClass="info"
 											value=" Nível #{visualizarCandidatoController.candidato.ingles}" />
 
 									</div>
@@ -305,7 +350,7 @@
 										style="width: 25%; border-right: 3px solid #cbcaca; margin-right: 15px;">
 
 										<span>Duração</span> <br />
-										<h:outputText style="font-size: 18px;"
+										<h:outputText style="font-size: 18px;" styleClass="info"
 											value="#{experiencia.duracaoTrabalho()}" />
 									</div>
 
@@ -313,14 +358,14 @@
 
 										<div>
 											<h:outputText style="font-size: 18px; font-weight: 700;"
-												value="#{experiencia.nome} " />
+												value="#{experiencia.nome}" styleClass="info" />
 											<h:outputText style="font-size: 18px;"
 												value="(#{experiencia.perfil})" />
 										</div>
 
 
 
-										<h:outputText style="font-size: 18px;"
+										<h:outputText style="font-size: 18px;" styleClass="info"
 											value="Cargo: #{experiencia.cargo}" />
 
 
@@ -328,17 +373,17 @@
 										<div>
 											<i class="fa fa-calendar-o" />
 
-											<h:outputText style="font-size: 18px;"
+											<h:outputText style="font-size: 18px;" styleClass="info"
 												value=" #{experiencia.dataInicioFormatada()}" />
 
 											<i class="fa fa-arrow-right" />
 
 											<h:outputText
 												rendered="#{experiencia.dataTerminoFormatada() != null}"
-												style="font-size: 18px;"
+												style="font-size: 18px;" styleClass="info"
 												value=" #{experiencia.dataTerminoFormatada()}" />
 
-											<h:outputText
+											<h:outputText styleClass="info"
 												rendered="#{experiencia.dataTerminoFormatada() == null}"
 												style="font-size: 18px;" value=" Hoje" />
 
@@ -347,10 +392,11 @@
 
 										<div>
 
-											<h:outputText style="font-size: 18px;"
+											<h:outputText style="font-size: 18px;" styleClass="info"
 												value="Principais habilidades usadas: " />
 
 											<h:outputText style="font-size: 18px; font-weight: 700;"
+												styleClass="info"
 												value="#{experiencia.habilidadesFormatada()}" />
 
 										</div>
@@ -359,9 +405,9 @@
 										<div>
 
 											<h:outputText style="font-size: 18px; font-weight: 700;"
-												value="Descrição das atividades: " />
+												styleClass="info" value="Descrição das atividades: " />
 
-											<h:outputText style="font-size: 18px;"
+											<h:outputText style="font-size: 18px;" styleClass="info"
 												value="#{experiencia.descricao}" />
 
 										</div>
@@ -385,7 +431,7 @@
 							</div>
 						</p:divider>
 						<div style="margin-top: 35px; margin-bottom: 20px;">
-							<h:outputText style="font-size: 18px;"
+							<h:outputText style="font-size: 18px;" styleClass="info"
 								value="#{visualizarCandidatoController.candidato.descricao}" />
 
 						</div>

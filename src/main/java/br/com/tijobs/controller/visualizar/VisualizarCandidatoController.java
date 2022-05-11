@@ -10,25 +10,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Candidato;
 import br.com.tijobs.repository.CandidatoRepository;
+import br.com.tijobs.util.UtilService;
 
 @Named
 @ViewScoped
 public class VisualizarCandidatoController {
 
 	private Candidato candidato;
-	
+
 	private Integer idCandidato;
-	
+
 	@Autowired
 	private CandidatoRepository candidatoRepository;
+
+	@Autowired
+	private UtilService utilService;
 
 	@PostConstruct
 	public void init() {
 
-		if(has(idCandidato)) {
+		if (has(idCandidato)) {
 			candidato = candidatoRepository.findById(idCandidato).get();
-		}else {
-			candidato = new Candidato();
+		} else {
+			
+			candidato = utilService.perfilCandidato();
+
+			if (candidato == null) {
+				candidato = new Candidato();
+			}
 		}
 	}
 

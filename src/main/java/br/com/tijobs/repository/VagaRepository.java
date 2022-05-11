@@ -55,4 +55,7 @@ public interface VagaRepository extends JpaRepository<Vaga, Integer> {
 	List<Integer> buscaQuantidadeDeCandidatosPorEmpresa(int idEmpresa);
 
 	List<Vaga> findByEmpresaAndPrincipaisTecnologiasLike(Empresa empresa, String tecnologia);
+
+	@Query(value = "select distinct v.id_empresa from vaga v join vaga_candidato vc on v.id = vc.id_vaga where vc.id_candidato = :idCandidato", nativeQuery = true)
+	List<Integer> buscaQuantidadeDeEmpresasPorCandidato(int idCandidato);
 }

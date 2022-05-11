@@ -38,7 +38,7 @@
 		font-size: 15px !important;
 	}
 	.userImage {
-		width: 50px !important;
+		width: 45px !important;
 		margin-left: 0px !important;
 	}
 }
@@ -89,13 +89,23 @@
 .ui-menuitem-active, .ui-state-hover {
 	background-color: white !important;
 }
+
+.userImage {
+	margin-top: 4px;
+	margin-bottom: 4px;
+	width: 50px;
+	border-radius: 50%;
+	border: inset;
+	margin-left: 50px;
+}
 </style>
 
 	<h:form prependId="false">
 
 		<div id="top-menu"
 			style="display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 1px solid #e2e2e2;">
-			<p:menubar style="width: 50%; border: none;" styleClass="principal">
+			<p:menubar style="width: 50%; border: none; margin-bottom: 5px;"
+				styleClass="principal">
 				<p:menuitem outcome="/index.html" styleClass="principalItem"
 					style="font-family: monospace; font-size: 28px; font-weight: 700; color: #000000a6; border-left: none;">
 						#{indexController.tijobsTexto}			
@@ -175,23 +185,30 @@
 
 			<sec:authorize access="hasRole('CANDIDATO') or hasRole('EMPRESA')">
 
-				<div
-					style="display: flex; align-items: center;">
+				<div style="display: flex; align-items: center;">
 
 
 
 					<sec:authorize access="hasRole('CANDIDATO')">
 
 						<img src="data:image/jpg;base64, #{indexController.fotoStr}"
-							class="userImage"
-							style="width: 50px; border-radius: 50%; border: inset; margin-left: 50px;" />
+							class="userImage" />
 
 						<p:menubar style="border: none; margin-bottom: 5px;">
 							<p:submenu id="candidato" label="Candidato"
 								icon="pi pi-fw pi-cog">
 								<p:menuitem value="Ver Vagas" outcome="/vagas.xhtml"
 									icon="pi pi-fw pi-briefcase" />
-								<p:menuitem value="Dashboard" outcome="/perfil/candidato.xhtml" icon="pi pi-fw pi-desktop" />
+									
+								<p:menuitem value="Dashboard" outcome="/perfil/candidato.xhtml"
+									icon="pi pi-fw pi-desktop" />
+									
+								<p:menuitem value="Editar Perfil" outcome="/cadastro/candidato.xhtml"
+									icon="pi pi-fw pi-user-edit" />
+									
+								<p:menuitem value="Roadmaps" outcome="/cadastro/candidato.xhtml"
+									icon="fa fa-sitemap" />
+									
 								<p:menuitem url="/logout" value="Sair"
 									icon="pi pi-fw pi-sign-out" />
 							</p:submenu>
@@ -204,16 +221,28 @@
 					<sec:authorize access="hasRole('EMPRESA')">
 
 						<img src="data:image/jpg;base64, #{indexController.fotoStr}"
-							class="userImage"
-							style="width: 50px; border-radius: 50%; border: inset; margin-left: 50px;" />
+							class="userImage" />
 
 						<p:menubar style="border: none; margin-bottom: 5px;">
 							<p:submenu id="empresa" label="Empresa" icon="pi pi-fw pi-cog">
 								<p:menuitem value="Ver Vagas" outcome="/vagas.xhtml"
 									icon="pi pi-fw pi-briefcase" />
-								<p:menuitem value="Dashboard" outcome="/perfil/empresa.xhtml" icon="pi pi-fw pi-desktop" />
+
+								<p:menuitem value="Dashboard" outcome="/perfil/empresa.xhtml"
+									icon="pi pi-fw pi-desktop" />
+
+
+								<p:menuitem value="Editar Perfil" icon="pi pi-fw pi-user-edit"
+									outcome="/cadastro/empresa.xhtml" />
+
+
+								<p:menuitem value="Cadastrar Vagas"
+									outcome="/cadastro/vaga.xhtml" icon="pi pi-fw pi-briefcase" />
+
+
 								<p:menuitem url="/logout" value="Sair"
 									icon="pi pi-fw pi-sign-out" />
+
 							</p:submenu>
 
 						</p:menubar>

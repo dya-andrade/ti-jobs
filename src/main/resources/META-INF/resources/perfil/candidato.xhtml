@@ -21,6 +21,19 @@
 	</script>
 
 	<style type="text/css">
+.userImage {
+	display: none !important;
+}
+
+#empresa {
+	margin-bottom: 4px !important;
+}
+
+.styleInfo {
+	margin-right: 10px;
+	font-size: 14px;
+}
+
 .trDesativada {
 	background: #c9c5c547 !important;
 	opacity: 0.8 !important;
@@ -31,7 +44,7 @@
 }
 
 .empresa td:nth-child(2) {
-	width: 60% !important;
+	width: 40% !important;
 }
 
 #tabela_head {
@@ -46,15 +59,6 @@
 #tabela_data td {
 	border: none !important;
 	border-bottom: 1px solid #c5c2c2 !important;
-}
-
-.styleInfo {
-	margin-right: 10px;
-	font-size: 15px;
-}
-
-.userImage {
-	display: none !important;
 }
 
 .ui-state-highlight, .ui-widget-content .ui-state-highlight {
@@ -102,24 +106,130 @@
 	margin-top: 10px !important;
 	font-family: system-ui !important;
 }
+
+.ui-progressbar .ui-progressbar-label {
+	color: #99a2a9 !important;
+}
+
+.subInfo {
+	background: white !important;
+	padding: 4px !important;
+	margin-left: 20px !important;
+	font-size: 16px !important;
+	font-weight: 600 !important;
+	color: gray !important;
+}
+
+.ui-divider.ui-divider-solid.ui-divider-horizontal:before {
+	color: #c1c1c1;
+}
+
+@media screen and (max-width: 1222px) {
+	#dialogoVaga {
+		width: 90% !important;
+		height: 80% !important;
+	}
+	.userImage {
+		display: grid !important;
+	}
+	#perfil {
+		display: none !important;
+	}
+	#infoCandidato {
+		width: 50% !important;
+	}
+	#subInfoCandidato {
+		justify-content: initial !important;
+	}
+	#divTabela {
+		width: 100% !important;
+		margin-left: 0px !important;
+	}
+}
+
+@media screen and (max-width: 880px) {
+	#infoCandidato {
+		width: 40% !important;
+	}
+	#infoCandidato .text-3xl {
+		font-size: 1.5rem !important;
+	}
+	#subInfoCandidato {
+		width: 100% !important;
+	}
+}
+
+@media screen and (max-width: 730px) {
+	#divCandidato {
+		display: grid !important;
+		margin-left: 0px !important;
+	}
+	#infoCandidato {
+		width: 100% !important;
+	}
+	#subInfoCandidato {
+		display: flex !important;
+	}
+	.mt-8 {
+		margin-top: 2rem !important;
+		margin-bottom: 2em !important;
+	}
+	#divChart {
+		width: 100% !important;
+		display: flex !important;
+		justify-content: center !important;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.empresa td:nth-child(1) {
+	    text-align: inherit !important;	
+		width: 100% !important;
+	}
+	
+		.empresa td:nth-child(2) {
+		width: 100% !important;
+	}
+	
+	.empresa td:nth-child(3) {
+			text-align: end !important;
+	
+		width: 100% !important;
+	}
+	.empresa td:nth-child(4) {
+			width: 100% !important;
+	
+	}
+}
+
+@media screen and (max-width: 991px) and (min-width: 730px) {
+	#divInfo {
+		width: 200% !important;
+	}
+}
 </style>
 
 
 	<h:form prependId="false">
 
 
+
 		<div class="flex align-items-center justify-content-center">
 
-			<div class="surface-card p-4 shadow-2 border-round"
-				style="width: 100%;">
 
-				<div class="surface-card p-4 shadow-2 border-round"
-					style="width: 20%; margin-right: 50px; position: fixed; right: 15px;">
+			<div class="surface-card p-4 shadow-2 border-round"
+				style="width: 100%; min-height: 550px;">
+
+				<h2 style="text-align: center;">DASHBOARD</h2>
+
+
+				<div id="perfil" class="surface-card p-4 shadow-2 border-round"
+					style="width: 20%; position: fixed; right: 0px; top: 54px;">
 
 					<div style="display: grid; justify-items: center; height: 5%;">
 						<img
 							src="data:image/jpg;base64, #{perfilCandidatoController.fotoStr}"
-							style="width: 100px; border-radius: 50%; border: inset;" />
+							style="width: 100px; border-radius: 50%; border: inset; margin-bottom: 10px;" />
 
 						<p:outputLabel value="#{perfilCandidatoController.candidato.nome}" />
 						<p:outputLabel
@@ -127,14 +237,13 @@
 
 						<p:linkButton value="EDITAR PERFIL" icon="pi pi-fw pi-user-edit"
 							outcome="/cadastro/candidato.xhtml" styleClass="btn-success"
-							style="height: fit-content;" />
+							style="height: fit-content; margin-top: 10px;" />
 
 					</div>
 
 					<p:separator />
 
 					<div style="display: grid; justify-items: center;">
-
 
 						<p:linkButton value="ROADMAPS" icon="fa fa-sitemap"
 							style="height: fit-content; width: 120px;" />
@@ -145,109 +254,211 @@
 				</div>
 
 
+				<div class="surface-section"
+					style="width: 100%; display: grid; padding-top: 20px">
 
 
-				<div class="surface-section" style="width: 70%;">
 
-					<h3 style="margin-bottom: 25px;">SUAS CANDIDATURAS</h3>
-
-					<p:dataTable id="tabela" styleClass="empresa" var="vaga"
-						value="#{perfilCandidatoController.vagas}" widgetVar="tabelaVagas"
-						currentPageReportTemplate="[{startRecord} a {endRecord}]"
-						disabledSelection="#{vaga.desativada == true}" rowKey="#{vaga.id}"
-						emptyMessage="Sem vagas." reflow="true" paginator="true" rows="5"
-						paginatorPosition="bottom"
-						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-						rowsPerPageTemplate="5,10,15" selectionMode="single"
-						selection="#{perfilCandidatoController.vagaSelecionada}">
-
-						<p:ajax event="rowSelect" update=":dialogoVaga :vagaDetalhes"
-							oncomplete="PF('vagaDialogo').show()" />
-
-						<p:column width="30%" style="text-align: center;"
-							styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
-							<img src="data:image/jpg;base64, #{vaga.empresa.fotoStr()}"
-								style="width: 60px;" />
-						</p:column>
-
-						<p:column styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
-							<div style="margin-bottom: 10px;">
-								<h:outputText
-									style="font-size: 1.5em; font-weight: 600; margin-right: 5px;"
-									value="#{vaga.profissao}" />
-
-								<h:outputText
-									style="background: #cdfff3; color: #25a51c; font-weight: 600; padding: 1px;"
-									value="NOVA" rendered="#{!vaga.desativada}" />
-
-								<h:outputText
-									style="background: #FFCDD2; color: #C63737; font-weight: 600; padding: 1px;"
-									value="DESATIVADA" rendered="#{vaga.desativada}" />
-							</div>
-							<div style="margin-bottom: 10px;">
-								<div class="colunaInfo" style="display: flex;">
-									<div class="styleInfo">
-										<i class="pi pi-briefcase" />
-										<h:outputText value=" #{vaga.empresa.nomeEmpresarial}" />
-									</div>
+					<div id="divCandidato"
+						style="width: 100%; display: flex; margin-left: 25px;">
 
 
-									<div class="styleInfo">
-										<i class="pi pi-map-marker" />
-										<h:outputText value=" #{vaga.empresa.localidade}" />
-									</div>
-									<div class="styleInfo">
-										<i class="fa fa-building-o" />
-										<h:outputText value=" #{vaga.empresa.tamanho}" />
-									</div>
-
-									<div class="styleInfo">
-										<i class="pi pi-chart-bar" />
-										<h:outputText value=" #{vaga.nivelExperiencia}" />
+						<div id="infoCandidato"
+							class="surface-section px-4 py-5 md:px-6 lg:px-7"
+							style="width: 45%; padding-right: 1em !important;">
+							<ul
+								class="list-none p-0 m-0 flex align-items-center font-medium mb-3">
+								<li><a href="http://localhost:8080/index.jsf"
+									class="text-500 no-underline line-height-3 cursor-pointer">Index</a>
+								</li>
+								<li class="px-2"><i
+									class="pi pi-angle-right text-500 line-height-3" /></li>
+								<li><span class="text-900 line-height-3">Meu Perfil</span></li>
+							</ul>
+							<div
+								class="flex align-items-start flex-column lg:justify-content-between lg:flex-row">
+								<div style="width: 70%;">
+									<div class="font-large text-6xl text-900 text-blue-700">#{perfilCandidatoController.candidato.nome}</div>
+									<div class="flex align-items-center text-gray-500 flex-wrap">
+										<div class="mr-5 flex align-items-center mt-5 text-3xl">
+											<i class="fa fa-building-o mr-2" /> <span>#{perfilCandidatoController.quantidadeDeEmpresas()}
+												Total Empresas</span>
+										</div>
+										<div class="mr-5 flex align-items-center mt-5 text-3xl">
+											<i class="pi pi-fw pi-briefcase mr-2" /> <span>#{perfilCandidatoController.vagas.size()}
+												Candidaturas</span>
+										</div>
+										<div class="flex align-items-center mt-5 text-1xl">
+											<i class="pi pi-map-marker mr-2" /> <span>#{perfilCandidatoController.candidato.cidade},
+												Brasil</span>
+										</div>
 									</div>
 								</div>
-								<div class="colunaInfo" style="display: flex;">
-
-									<div class="styleInfo">
-										<i class="fa fa-money" /> <span> Salário: </span>
-
-										<h:outputText value="#{vaga.salario}" />
+								<div class="mt-8 lg:mt-0 text-gray-500" id="subInfoCandidato"
+									style="width: 30%; display: grid; justify-content: end; margin-right: 10px;">
+									<div class="flex align-items-center mt-5 text-1xl"
+										style="margin-right: 15px;">
+										<i class="fa fa-building-o mr-2" /> <span>#{perfilCandidatoController.candidato.carreira}</span>
+									</div>
+									<div class="flex align-items-center mt-5 text-1xl" style="margin-right: 15px;">
+										<i class="fa fa-phone mr-2" /> <span>#{perfilCandidatoController.candidato.telefone}</span>
 									</div>
 
-									<div class="styleInfo">
-										<i class="fa fa-file-text-o" />
-										<h:outputText value=" #{vaga.tipoContrato}" />
+
+									<div class="flex align-items-center mt-5 text-1xl">
+
+										<p:linkButton outcome="/visualizar/candidato.xhtml"
+											value="VER PERFIL" target="_blank" icon="pi pi-fw pi-user"
+											style="height: fit-content;"  />
 									</div>
-									<div class="styleInfo">
-										<i class="fa fa-plane" /> <span> Aceita Candidatos de
-											Fora: </span>
-										<h:outputText value=" #{vaga.aceitaCandidatoFora}" />
-									</div>
+
 								</div>
 							</div>
-							<div>
-								<p:repeat value="#{vaga.listaPrincipaisTecnologias()}"
-									var="tecnologia">
-									<span
-										style="border-radius: 16px; background-color: #cfe6f9; padding: 0 0.5rem; font-size: 15px; font-weight: 600; color: #3477a7;">#{tecnologia}</span>
-								</p:repeat>
+
+
+							<div id="divInfo" style="margin-top: 20px;">
+								<p:divider align="left">
+									<div class="p-d-inline-flex p-ai-center subInfo">
+										<i class="fa fa-user"
+											style="font-size: 16px; color: gray;"></i> INFO
+									</div>
+								</p:divider>
+
+								<h:outputText
+									style="font-size: 16px; color: gray; margin-right: 10px;"
+									value="#{perfilCandidatoController.candidato.descricao}" />
+
+
 							</div>
-						</p:column>
-
-						<p:column styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
-
-							<p:button style="font-size: 12px;" value="CANCELAR CANDIDATURA" styleClass="btn-primary" />
-
-						</p:column>
-
-					</p:dataTable>
 
 
+						</div>
+
+						<div id="divChart">
+
+							<p:chart id="chart" type="pie"
+								model="#{chartView.pieModelCandidato}"
+								style="width:400px;height:300px; margin-top: 50px;" />
+
+						</div>
+					</div>
+
+					<div style="width: 100%;">
+						<div id="divTabela" style="width: 72%; margin-left: 70px;">
+
+							<h3 style="margin-top: 30px;">SUAS CANDIDATURAS</h3>
+							<h5 style="margin-bottom: 20px;">Clique duas vezes na vaga
+								para visualizar os candidatos.</h5>
+
+
+							<p:dataTable id="tabela" styleClass="empresa" var="vaga"
+								value="#{perfilCandidatoController.vagas}"
+								widgetVar="tabelaVagas"
+								currentPageReportTemplate="[{startRecord} a {endRecord}]"
+								disabledSelection="#{vaga.desativada == true}"
+								rowKey="#{vaga.id}" emptyMessage="Sem vagas." reflow="true"
+								paginator="true" rows="3" paginatorPosition="bottom"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+								rowsPerPageTemplate="3,6,9" selectionMode="single"
+								selection="#{perfilCandidatoController.vagaSelecionada}">
+
+								<p:ajax event="rowSelect" update=":dialogoVaga :vagaDetalhes"
+									oncomplete="PF('vagaDialogo').show()" />
+
+
+								<p:column width="30%" style="text-align: center;"
+									styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
+									<img src="data:image/jpg;base64, #{vaga.empresa.fotoStr()}"
+										style="width: 60px;" />
+								</p:column>
+
+
+								<p:column styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
+									<div style="margin-bottom: 10px;">
+										<h:outputText
+											style="font-size: 1.25em; font-weight: 600; margin-right: 5px;"
+											value="#{vaga.profissao}" />
+
+										<h:outputText
+											style="background: #cdefff; color: #254bd3; font-weight: 600; padding: 1px;"
+											value="NOVA" rendered="#{!vaga.desativada}" />
+
+										<h:outputText
+											style="background: #FFCDD2; color: #C63737; font-weight: 600; padding: 1px;"
+											value="DESATIVADA" rendered="#{vaga.desativada}" />
+									</div>
+									<div style="margin-bottom: 10px;">
+										<div class="colunaInfo" style="display: flex;">
+
+											<div class="styleInfo">
+												<i class="pi pi-chart-bar" />
+												<h:outputText value=" #{vaga.nivelExperiencia}" />
+											</div>
+
+											<div class="styleInfo">
+												<i class="fa fa-money" /> <span> Salário: </span>
+
+												<h:outputText value="#{vaga.salario}" />
+											</div>
+										</div>
+										<div class="colunaInfo" style="display: flex;">
+
+
+
+											<div class="styleInfo">
+												<i class="fa fa-file-text-o" />
+												<h:outputText value=" #{vaga.tipoContrato}" />
+											</div>
+											<div class="styleInfo">
+												<i class="fa fa-plane" /> <span> Aceita Candidatos
+													de Fora: </span>
+												<h:outputText value=" #{vaga.aceitaCandidatoFora}" />
+											</div>
+										</div>
+									</div>
+									<div>
+										<p:repeat value="#{vaga.listaPrincipaisTecnologias()}"
+											var="tecnologia">
+											<span style="#{perfilCandidatoController.tecnologiasCores()}">#{tecnologia}</span>
+										</p:repeat>
+									</div>
+								</p:column>
+
+
+								<p:column style="font-size: 14px;"
+									styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
+
+									<h:outputText value="Candidaturas: " />
+									<h:outputText
+										style="color: #3ae12f; font-weight: 600; font-size: 16px;"
+										value=" #{vaga.candidatos.size()}" />
+									<br />
+									<h:outputText value="Data: " />
+									<h:outputText value=" #{vaga.dataCriacao}" />
+
+								</p:column>
+
+								<p:column styleClass="#{vaga.desativada ? 'trDesativada' : ''}"
+									style="text-align: end;">
+
+
+									<p:commandButton
+										action="#{perfilEmpresaController.desativarVaga(vaga)}"
+										ajax="false" style="font-size: 11.5px;"
+										rendered="#{!vaga.desativada}" value="CANCELAR CANDIDATURA" />
+
+
+								</p:column>
+
+							</p:dataTable>
+
+						</div>
+					</div>
 				</div>
-
 			</div>
 
 		</div>
+
 
 		<p:dialog id="dialogoVaga" responsive="true"
 			header="VAGA: ID# #{perfilCandidatoController.vagaSelecionada.id}"
@@ -422,6 +633,9 @@
 			</p:outputPanel>
 
 		</p:dialog>
+
+
+
 
 		<div
 			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">

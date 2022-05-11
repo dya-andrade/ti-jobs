@@ -1,5 +1,7 @@
 package br.com.tijobs.controller.perfil;
 
+import static br.com.tijobs.util.Message.addDetailMessage;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,6 +10,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -15,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Empresa;
 import br.com.tijobs.model.Vaga;
+import br.com.tijobs.repository.VagaRepository;
 import br.com.tijobs.service.VagaService;
 import br.com.tijobs.util.UtilService;
 
@@ -37,6 +41,10 @@ public class PerfilEmpresaController {
 	private List<String> colors;
 
 	private List<String> backgroundColors;
+	
+	@Autowired
+	private VagaRepository vagaRepository;
+	
 
 	@PostConstruct
 	public void init() {
@@ -85,6 +93,21 @@ public class PerfilEmpresaController {
 
 		return "vertical-align: middle; border-radius: 50px; border: 2px solid " + colors.get(numero)
 				+ "; margin-right: 5px;";
+	}
+	
+	
+	public void desativarVaga(Vaga vaga) {
+		vaga.setDesativada(true);
+		vagaRepository.save(vaga);
+		
+		addDetailMessage("Vaga desativada", FacesMessage.SEVERITY_INFO);
+	}
+	
+	public void ativarVaga(Vaga vaga) {
+		vaga.setDesativada(false);
+		vagaRepository.save(vaga);
+		
+		addDetailMessage("Vaga ativada", FacesMessage.SEVERITY_INFO);
 	}
 
 	public String getFotoStr() {

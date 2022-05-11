@@ -25,6 +25,10 @@
 	display: none !important;
 }
 
+#empresa {
+	margin-bottom: 4px !important;
+}
+
 .styleInfo {
 	margin-right: 10px;
 	font-size: 14px;
@@ -81,13 +85,88 @@
 	background: white !important;
 	padding: 4px !important;
 	margin-left: 20px !important;
-	font-size: 20px !important;
+	font-size: 16px !important;
 	font-weight: 600 !important;
-	color: #0e6fb8 !important;
+	color: gray !important;
 }
 
 .ui-divider.ui-divider-solid.ui-divider-horizontal:before {
 	color: #c1c1c1;
+}
+
+@media screen and (max-width: 1222px) {
+	#dialogoVaga {
+		width: 90% !important;
+		height: 80% !important;
+	}
+	.userImage {
+		display: grid !important;
+	}
+	#perfil {
+		display: none !important;
+	}
+	#infoEmpresa {
+		width: 50% !important;
+	}
+	#subInfoEmpresa {
+		justify-content: initial !important;
+	}
+	#divTabela {
+		width: 100% !important;
+		margin-left: 0px !important;
+	}
+}
+
+@media screen and (max-width: 880px) {
+	#infoEmpresa {
+		width: 40% !important;
+	}
+	#infoEmpresa .text-3xl {
+		font-size: 1.5rem !important;
+	}
+	#subInfoEmpresa {
+		width: 100% !important;
+	}
+}
+
+@media screen and (max-width: 730px) {
+	#divEmpresa {
+		display: grid !important;
+		margin-left: 0px !important;
+	}
+	#infoEmpresa {
+		width: 100% !important;
+	}
+	#subInfoEmpresa {
+		display: flex !important;
+	}
+	.mt-8 {
+		margin-top: 2rem !important;
+		margin-bottom: 2em !important;
+	}
+	#divChart {
+		width: 100% !important;
+		display: flex !important;
+		justify-content: center !important;
+	}
+}
+
+@media screen and (max-width: 740px) {
+	.empresa td:nth-child(1) {
+		width: 100% !important;
+	}
+	.empresa td:nth-child(3) {
+		width: 100% !important;
+	}
+	.empresa td:nth-child(2) {
+		text-align: end !important;
+	}
+}
+
+@media screen and (max-width: 991px) and (min-width: 730px) {
+	#divInfo {
+		width: 200% !important;
+	}
 }
 </style>
 
@@ -105,20 +184,20 @@
 				<h2 style="text-align: center;">DASHBOARD</h2>
 
 
-				<div class="surface-card p-4 shadow-2 border-round"
-					style="width: 20%; position: fixed; right: 0px; top: 50px;">
+				<div id="perfil" class="surface-card p-4 shadow-2 border-round"
+					style="width: 20%; position: fixed; right: 0px; top: 54px;">
 
 					<div style="display: grid; justify-items: center; height: 5%;">
 						<img
 							src="data:image/jpg;base64, #{perfilEmpresaController.fotoStr}"
-							style="width: 100px; border-radius: 50%; border: inset;" />
+							style="width: 100px; border-radius: 50%; border: inset; margin-bottom: 10px;" />
 
 						<p:outputLabel
 							value="#{perfilEmpresaController.empresa.nomeEmpresarial}" />
 						<p:outputLabel value="#{perfilEmpresaController.empresa.cnpj}" />
 
 						<p:linkButton value="EDITAR PERFIL" icon="pi pi-fw pi-user-edit"
-							outcome="/cadastro/empresa.xhtml" style="height: fit-content;"
+							outcome="/cadastro/empresa.xhtml" style="height: fit-content; margin-top: 10px;"
 							styleClass="btn-primary" />
 
 					</div>
@@ -136,74 +215,92 @@
 
 				</div>
 
+
 				<div class="surface-section"
 					style="width: 100%; display: grid; padding-top: 20px">
 
 
 
-					<div style="width: 100%; display: flex; margin-left: 25px;">
+					<div id="divEmpresa"
+						style="width: 100%; display: flex; margin-left: 25px;">
 
 
-						<div class="surface-section px-4 py-5 md:px-6 lg:px-7"
-							style="width: 45%;">
+						<div id="infoEmpresa"
+							class="surface-section px-4 py-5 md:px-6 lg:px-7"
+							style="width: 45%; padding-right: 1em !important;">
 							<ul
 								class="list-none p-0 m-0 flex align-items-center font-medium mb-3">
-								<li><a
-									class="text-500 no-underline line-height-3 cursor-pointer">Application</a>
+								<li><a href="http://localhost:8080/index.jsf"
+									class="text-500 no-underline line-height-3 cursor-pointer">Index</a>
 								</li>
 								<li class="px-2"><i
 									class="pi pi-angle-right text-500 line-height-3" /></li>
-								<li><span class="text-900 line-height-3">Analytics</span></li>
+								<li><span class="text-900 line-height-3">Meu Perfil</span></li>
 							</ul>
 							<div
 								class="flex align-items-start flex-column lg:justify-content-between lg:flex-row">
-								<div style="width: 80%;">
+								<div style="width: 70%;">
 									<div class="font-large text-6xl text-900 text-blue-700">#{perfilEmpresaController.empresa.nomeEmpresarial}</div>
 									<div class="flex align-items-center text-gray-500 flex-wrap">
 										<div class="mr-5 flex align-items-center mt-5 text-3xl">
-											<i class="pi pi-users mr-2" /> <span>#{perfilEmpresaController.quantidadeDeCandidatos()} Total Candidatos</span>
+											<i class="pi pi-users mr-2" /> <span>#{perfilEmpresaController.quantidadeDeCandidatos()}
+												Total Candidatos</span>
 										</div>
 										<div class="mr-5 flex align-items-center mt-5 text-3xl">
-											<i class="pi pi-fw pi-briefcase mr-2" /> <span>#{perfilEmpresaController.vagas.size()} Vagas</span>
+											<i class="pi pi-fw pi-briefcase mr-2" /> <span>#{perfilEmpresaController.vagas.size()}
+												Vagas</span>
 										</div>
 										<div class="flex align-items-center mt-5 text-1xl">
-											<i class="pi pi-map-marker mr-2" /> <span>#{perfilEmpresaController.empresa.localidade}, Brasil</span>
+											<i class="pi pi-map-marker mr-2" /> <span>#{perfilEmpresaController.empresa.localidade},
+												Brasil</span>
 										</div>
 									</div>
 								</div>
-								<div class="mt-8 lg:mt-0 text-gray-500" style="text-align: end; width: 20%;">
+								<div class="mt-8 lg:mt-0 text-gray-500" id="subInfoEmpresa"
+									style="width: 30%; display: grid; justify-content: end; margin-right: 10px;">
+									<div class="flex align-items-center mt-5 text-1xl"
+										style="margin-right: 15px;">
+										<i class="fa fa-building-o mr-2" /> <span>#{perfilEmpresaController.empresa.ramo}</span>
+									</div>
 									<div class="flex align-items-center mt-5 text-1xl">
-											<i class="fa fa-building-o mr-2" /> <span>#{perfilEmpresaController.empresa.ramo}</span>
-										</div>
-										<div class="flex align-items-center mt-5 text-1xl">
-											<i class="fa fa-phone mr-2" /> <span>#{perfilEmpresaController.empresa.telefone}</span>
-										</div>
+										<i class="fa fa-phone mr-2" /> <span>#{perfilEmpresaController.empresa.telefone}</span>
+									</div>
 								</div>
 							</div>
+
+
+							<div id="divInfo" style="margin-top: 20px;">
+								<p:divider align="left">
+									<div class="p-d-inline-flex p-ai-center subInfo">
+										<i class="fa fa-building-o"
+											style="font-size: 16px; color: gray;"></i> INFO
+									</div>
+								</p:divider>
+
+								<h:outputText
+									style="font-size: 16px; color: gray; margin-right: 10px;"
+									value="#{perfilEmpresaController.empresa.descricao}" />
+
+
+							</div>
+
+
 						</div>
 
-						<p:chart id="chart" type="pie" model="#{chartView.pieModel}"
-							style="width:400px;height:300px; margin-top: 50px;" />
-					</div>
+						<div id="divChart">
 
-					<div style="width: 72%; margin-left: 70px;">
-						<p:divider align="left">
-							<div class="p-d-inline-flex p-ai-center subInfo">
-								<i class="fa fa-building-o" style="font-size: 20px; color: gray;"></i>
-							</div>
-						</p:divider>
+							<p:chart id="chart" type="pie" model="#{chartView.pieModelEmpresa}"
+								style="width:400px;height:300px; margin-top: 50px;" />
 
-						<h:outputText
-							style="font-size: 16px; color: gray; margin-right: 10px;"
-							value="TEXTO" />
-
-
+						</div>
 					</div>
 
 					<div style="width: 100%;">
-						<div style="width: 72%; margin-left: 70px;">
+						<div id="divTabela" style="width: 72%; margin-left: 70px;">
 
-							<h3 style="margin-bottom: 10px; margin-top: 0px;">SUAS VAGAS</h3>
+							<h3 style="margin-top: 30px;">SUAS VAGAS</h3>
+							<h5 style="margin-bottom: 20px;">Clique duas vezes na vaga
+								para visualizar os candidatos.</h5>
 
 
 							<p:dataTable id="tabela" styleClass="empresa" var="vaga"
@@ -294,14 +391,14 @@
 									</p:linkButton>
 
 
-									<p:button style="font-size: 12px;"
+									<p:commandButton action="#{perfilEmpresaController.desativarVaga(vaga)}" 
+										ajax="false" style="font-size: 11.5px;"
 										rendered="#{!vaga.desativada}" value="DESATIVAR" />
 
-									<p:button style="font-size: 12px;"
+									<p:commandButton action="#{perfilEmpresaController.ativarVaga(vaga)}" 
+										ajax="false" style="font-size: 11.5px;"
 										rendered="#{vaga.desativada}" value="ATIVAR"
 										styleClass="btn-info" />
-
-
 
 
 								</p:column>
@@ -319,13 +416,11 @@
 		<p:dialog id="dialogoVaga" responsive="true"
 			header="VAGA: ID# #{perfilEmpresaController.vagaSelecionada.id}"
 			widgetVar="vagaDialogo" modal="true" showEffect="explode"
-			resizable="false" hideEffect="explode"
-			style="overflow: auto; max-height: 550px;">
+			resizable="false" hideEffect="explode">
 
 			<p:dataTable id="candidatosDetalhes" var="candidato"
 				value="#{perfilEmpresaController.vagaSelecionada.candidatos}"
-				sortBy="#{candidato.nome}" reflow="true"
-				emptyMessage="Sem candidatos."
+				sortBy="#{candidato.nome}" emptyMessage="Sem candidatos."
 				currentPageReportTemplate="[{startRecord} a {endRecord}]"
 				rowKey="#{candidato.id}" paginator="true" rows="10"
 				paginatorPosition="bottom"
@@ -348,7 +443,7 @@
 				</p:headerRow>
 
 
-				<p:column width="20%" headerText="Título">
+				<p:column headerText="Título" responsivePriority="4">
 					<h:outputText value="#{candidato.titulo}" />
 				</p:column>
 
@@ -356,7 +451,8 @@
 					<span>#{candidato.experiencia}</span>
 				</p:column>
 
-				<p:column id="progresso" width="25%" headerText="Habilidades">
+				<p:column id="progresso" style="min-width: 30%;"
+					headerText="Habilidades">
 
 					<p:repeat value="#{candidato.habilidades}" var="habilidade">
 						<p:progressBar value="#{habilidade.ano * 10}"
@@ -367,12 +463,17 @@
 
 				</p:column>
 
-				<p:column width="20%" headerText="GitHub">
-					<p:link target="_blank" value="#{candidato.github}"
-						href="#{candidato.github}" />
+				<p:column headerText="GitHub" style="text-align: center;"
+					responsivePriority="3">
+
+					<i class="fa fa-github" />
+
+					<p:link target="_blank" value=" Ver perfil GitHub"
+						href="#{candidato.github != '' ? 
+							'candidato.github' : 'https://www.github.com' }" />
 				</p:column>
 
-				<p:column>
+				<p:column style="text-align: center;">
 
 					<p:linkButton outcome="/visualizar/candidato.xhtml" target="_blank"
 						style="font-size: 12px;" value="VISUALIZAR"
@@ -383,7 +484,7 @@
 				</p:column>
 
 				<p:summaryRow>
-					<p:column colspan="5" style="text-align:right">
+					<p:column colspan="2" style="text-align:right">
 						<h:outputText value="Total de Candidatos:" />
 					</p:column>
 					<p:column>

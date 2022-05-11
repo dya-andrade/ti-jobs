@@ -170,4 +170,8 @@ public class VagaService {
 	public List<Vaga> buscaVagasPelaEmpresaEPrincipaisTecnologias(Empresa empresa, String tecnologia) {
 		return vagaRepository.findByEmpresaAndPrincipaisTecnologiasLike(empresa, tecnologia);
 	}
+
+	public List<Integer> buscaQuantidadeDeEmpresasPorCandidato(int idCandidato) {
+		return vagaRepository.buscaQuantidadeDeEmpresasPorCandidato(idCandidato);
+	}
 }
