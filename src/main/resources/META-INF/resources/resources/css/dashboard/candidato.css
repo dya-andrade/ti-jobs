@@ -1,0 +1,54 @@
+.empresa td:nth-child(1) {
+	width: 20% !important;
+}
+
+.empresa td:nth-child(2) {
+	width: 40% !important;
+}
+
+#header {
+	background-color: #386491a6 !important;
+	padding-top: 40px !important;
+	padding-bottom: 30px !important;
+}
+
+.ui-divider.ui-divider-solid.ui-divider-horizontal:before {
+	border: 1px solid #c7c2c2f7 !important;
+}
+
+.subTituloDescricao {
+	background: white !important;
+	padding: 4px !important;
+	margin-left: 20px !important;
+	font-size: 18px !important;
+	font-weight: 600 !important;
+}
+
+.subDivDescricao {
+	margin-top: 10px !important;
+	display: grid !important;
+	margin-bottom: 30px !important;
+}
+
+.subTextoDescricao {
+	font-size: 16px !important;
+	margin-top: 10px !important;
+	font-family: system-ui !important;
+}
+
+@media screen and (max-width: 600px) {
+	.empresa td:nth-child(1) {
+		text-align: inherit !important;
+		width: 100% !important;
+	}
+	.empresa td:nth-child(2) {
+		width: 100% !important;
+	}
+	.empresa td:nth-child(3) {
+		text-align: end !important;
+		width: 100% !important;
+	}
+	.empresa td:nth-child(4) {
+		width: 100% !important;
+	}
+}

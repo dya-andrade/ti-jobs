@@ -31,17 +31,15 @@
 			<div class="surface-card p-4 shadow-2 border-round"
 				style="width: 100%;">
 
-				<div id="perfil" class="surface-card p-4 shadow-2 border-round"
-					style="width: 20%; margin-right: 50px; position: fixed; right: 50px; top: 110px;">
+				<div id="perfil" class="surface-card p-4 shadow-2 border-round">
 
-					<div style="display: grid; justify-items: center; height: 5%;">
+					<div id="foto">
 						<img
-							src="data:image/jpg;base64, #{perfilEmpresaController.fotoStr}"
-							style="width: 100px; border-radius: 50%; border: inset; margin-bottom: 10px;" />
+							src="data:image/jpg;base64, #{dashboardEmpresaController.fotoStr}" />
 
 						<p:outputLabel
-							value="#{perfilEmpresaController.empresa.nomeEmpresarial}" />
-						<p:outputLabel value="#{perfilEmpresaController.empresa.cnpj}" />
+							value="#{dashboardEmpresaController.empresa.nomeEmpresarial}" />
+						<p:outputLabel value="#{dashboardEmpresaController.empresa.cnpj}" />
 
 						<p:linkButton value="EDITAR PERFIL" icon="pi pi-fw pi-user-edit"
 							outcome="/cadastro/empresa.xhtml" styleClass="btn-primary"
@@ -51,24 +49,24 @@
 
 					<p:separator />
 
-					<div style="display: grid; justify-items: center;">
+					<div id="perfilButtons" >
 
 						<p:linkButton value="DASHBOARD" icon="pi pi-fw pi-desktop"
-							style="height: fit-content; width: 120px;" styleClass=""
-							outcome="/perfil/empresa.xhtml" />
+							styleClass="perfilButtons"
+							outcome="/dashboard/empresa.xhtml" />
 
 					</div>
 
 
 				</div>
 
-				<div style="width: 100%; margin-top: 15px;">
+				<div id="body" style="margin-top: 15px;">
 
 
 					<div class="surface-section text-center">
 
-						<div class="mb-3 font-bold text-2xl"
-							style="display: inline-flex; margin-top: 10px;">
+						<div id="headerTitulo" class="mb-3 font-bold text-2xl"
+							style="margin-top: 10px;">
 
 							<h2 class="text-900" style="margin-right: 8px; margin-top: 0px;">CADASTRAR
 								VAGAS</h2>
@@ -294,91 +292,12 @@
 			</div>
 		</div>
 
-		<div
-			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">
-
-			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
-
-			<span style="margin-right: 10px;">Versão: 1.0.0</span>
-
-		</div>
+		<ui:include src="/includes/rodape.xhtml" />
 
 	</h:form>
-
-
-	<style type="text/css">
-.ui-divider {
-	color: #2972bd !important;
-	opacity: 0.4 !important;
-}
-
-#j_idt15:j_idt18 .ui-panelgrid-cell {
-	width: 100% !important;
-}
-
-.ui-divider-content {
-	background-color: #ffffff !important;
-	padding: 0 0.5rem !important;
-	margin-left: 25px !important;
-}
-
-.ui-divider.ui-divider-solid.ui-divider-horizontal:before {
-	border-top-style: dotted !important;
-}
-
-.ui-messages-error {
-	background: #FFCDD2 !important;
-	border: 1px solid #EF5350 !important;
-	border-width: 0 0 0 6px !important;
-	color: #B71C1C !important;
-	width: 100% !important;
-	font-size: 12px !important;
-}
-
-.ui-messages-error ul {
-	display: inline-flex !important;
-}
-
-.ui-messages-error ul li {
-	display: flex !important;
-	justify-content: flex-start !important;
-}
-
-.ui-messages-error ul {
-	text-align: initial !important;
-}
-
-@media screen and (max-width: 650px) {
-	.ui-messages-error ul {
-		display: grid !important;
-	}
-}
-
-.userImage {
-	display: none !important;
-}
-
-@media screen and (max-width: 1030px) {
-	#perfil {
-		margin-right: 10px !important;
-	}
-	#vaga {
-		margin-left: 50px !important;
-	}
-}
-
-@media screen and (max-width: 830px) {
-	.userImage {
-		display: grid !important;
-	}
-	#perfil {
-		display: none !important;
-	}
-	#vaga {
-		margin-left: 0px !important;
-	}
-}
-</style>
+	
+		<h:outputStylesheet name="css/cadastro/cadastro.css" />
+		<h:outputStylesheet name="css/cadastro/vaga.css" />
 
 </h:body>
 </html>

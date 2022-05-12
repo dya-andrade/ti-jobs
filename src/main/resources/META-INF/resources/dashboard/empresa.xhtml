@@ -16,159 +16,9 @@
 
 <h:body>
 
-	<script type="text/javascript">
-		
-	</script>
 
-	<style type="text/css">
-.userImage {
-	display: none !important;
-}
-
-#empresa {
-	margin-bottom: 4px !important;
-}
-
-.styleInfo {
-	margin-right: 10px;
-	font-size: 14px;
-}
-
-.trDesativada {
-	background: #c9c5c547 !important;
-	opacity: 0.8 !important;
-}
-
-.empresa td:nth-child(1) {
-	width: 55% !important;
-}
-
-.empresa td:nth-child(3) {
-	width: 17% !important;
-}
-
-#tabela_head {
-	display: table-column !important;
-}
-
-#tabela_data, #tabela_paginator_bottom {
-	border: none !important;
-	margin-top: 5px !important;
-}
-
-#tabela_data td {
-	border: none !important;
-	border-bottom: 1px solid #c5c2c2 !important;
-}
-
-.ui-state-highlight, .ui-widget-content .ui-state-highlight {
-	color: black !important;
-	background-color: #ffffff !important;
-	background-image: linear-gradient(to bottom, #ffffff, #d7eaf1)
-		!important;
-}
-
-.ui-datatable-odd, ui-treetable-odd {
-	background-color: #ffffff !important;
-}
-
-#dialogoVaga {
-	width: 80% !important;
-	height: 80% !important;
-}
-
-.ui-progressbar .ui-progressbar-label {
-	color: #99a2a9 !important;
-}
-
-.subInfo {
-	background: white !important;
-	padding: 4px !important;
-	margin-left: 20px !important;
-	font-size: 16px !important;
-	font-weight: 600 !important;
-	color: gray !important;
-}
-
-.ui-divider.ui-divider-solid.ui-divider-horizontal:before {
-	color: #c1c1c1;
-}
-
-@media screen and (max-width: 1222px) {
-	#dialogoVaga {
-		width: 90% !important;
-		height: 80% !important;
-	}
-	.userImage {
-		display: grid !important;
-	}
-	#perfil {
-		display: none !important;
-	}
-	#infoEmpresa {
-		width: 50% !important;
-	}
-	#subInfoEmpresa {
-		justify-content: initial !important;
-	}
-	#divTabela {
-		width: 100% !important;
-		margin-left: 0px !important;
-	}
-}
-
-@media screen and (max-width: 880px) {
-	#infoEmpresa {
-		width: 40% !important;
-	}
-	#infoEmpresa .text-3xl {
-		font-size: 1.5rem !important;
-	}
-	#subInfoEmpresa {
-		width: 100% !important;
-	}
-}
-
-@media screen and (max-width: 730px) {
-	#divEmpresa {
-		display: grid !important;
-		margin-left: 0px !important;
-	}
-	#infoEmpresa {
-		width: 100% !important;
-	}
-	#subInfoEmpresa {
-		display: flex !important;
-	}
-	.mt-8 {
-		margin-top: 2rem !important;
-		margin-bottom: 2em !important;
-	}
-	#divChart {
-		width: 100% !important;
-		display: flex !important;
-		justify-content: center !important;
-	}
-}
-
-@media screen and (max-width: 740px) {
-	.empresa td:nth-child(1) {
-		width: 100% !important;
-	}
-	.empresa td:nth-child(3) {
-		width: 100% !important;
-	}
-	.empresa td:nth-child(2) {
-		text-align: end !important;
-	}
-}
-
-@media screen and (max-width: 991px) and (min-width: 730px) {
-	#divInfo {
-		width: 200% !important;
-	}
-}
-</style>
+	<h:outputStylesheet name="css/dashboard/dashboard.css" />
+	<h:outputStylesheet name="css/dashboard/empresa.css" />
 
 
 	<h:form prependId="false">
@@ -189,12 +39,12 @@
 
 					<div style="display: grid; justify-items: center; height: 5%;">
 						<img
-							src="data:image/jpg;base64, #{perfilEmpresaController.fotoStr}"
+							src="data:image/jpg;base64, #{dashboardEmpresaController.fotoStr}"
 							style="width: 100px; border-radius: 50%; border: inset; margin-bottom: 10px;" />
 
 						<p:outputLabel
-							value="#{perfilEmpresaController.empresa.nomeEmpresarial}" />
-						<p:outputLabel value="#{perfilEmpresaController.empresa.cnpj}" />
+							value="#{dashboardEmpresaController.empresa.nomeEmpresarial}" />
+						<p:outputLabel value="#{dashboardEmpresaController.empresa.cnpj}" />
 
 						<p:linkButton value="EDITAR PERFIL" icon="pi pi-fw pi-user-edit"
 							outcome="/cadastro/empresa.xhtml" style="height: fit-content; margin-top: 10px;"
@@ -240,18 +90,18 @@
 							<div
 								class="flex align-items-start flex-column lg:justify-content-between lg:flex-row">
 								<div style="width: 70%;">
-									<div class="font-large text-6xl text-900 text-blue-700">#{perfilEmpresaController.empresa.nomeEmpresarial}</div>
+									<div class="font-large text-6xl text-900 text-blue-700">#{dashboardEmpresaController.empresa.nomeEmpresarial}</div>
 									<div class="flex align-items-center text-gray-500 flex-wrap">
 										<div class="mr-5 flex align-items-center mt-5 text-3xl">
-											<i class="pi pi-users mr-2" /> <span>#{perfilEmpresaController.quantidadeDeCandidatos()}
+											<i class="pi pi-users mr-2" /> <span>#{dashboardEmpresaController.quantidadeDeCandidatos()}
 												Total Candidatos</span>
 										</div>
 										<div class="mr-5 flex align-items-center mt-5 text-3xl">
-											<i class="pi pi-fw pi-briefcase mr-2" /> <span>#{perfilEmpresaController.vagas.size()}
+											<i class="pi pi-fw pi-briefcase mr-2" /> <span>#{dashboardEmpresaController.vagas.size()}
 												Vagas</span>
 										</div>
 										<div class="flex align-items-center mt-5 text-1xl">
-											<i class="pi pi-map-marker mr-2" /> <span>#{perfilEmpresaController.empresa.localidade},
+											<i class="pi pi-map-marker mr-2" /> <span>#{dashboardEmpresaController.empresa.localidade},
 												Brasil</span>
 										</div>
 									</div>
@@ -260,10 +110,10 @@
 									style="width: 30%; display: grid; justify-content: end; margin-right: 10px;">
 									<div class="flex align-items-center mt-5 text-1xl"
 										style="margin-right: 15px;">
-										<i class="fa fa-building-o mr-2" /> <span>#{perfilEmpresaController.empresa.ramo}</span>
+										<i class="fa fa-building-o mr-2" /> <span>#{dashboardEmpresaController.empresa.ramo}</span>
 									</div>
 									<div class="flex align-items-center mt-5 text-1xl">
-										<i class="fa fa-phone mr-2" /> <span>#{perfilEmpresaController.empresa.telefone}</span>
+										<i class="fa fa-phone mr-2" /> <span>#{dashboardEmpresaController.empresa.telefone}</span>
 									</div>
 								</div>
 							</div>
@@ -279,7 +129,7 @@
 
 								<h:outputText
 									style="font-size: 16px; color: gray; margin-right: 10px;"
-									value="#{perfilEmpresaController.empresa.descricao}" />
+									value="#{dashboardEmpresaController.empresa.descricao}" />
 
 
 							</div>
@@ -304,14 +154,14 @@
 
 
 							<p:dataTable id="tabela" styleClass="empresa" var="vaga"
-								value="#{perfilEmpresaController.vagas}" widgetVar="tabelaVagas"
+								value="#{dashboardEmpresaController.vagas}" widgetVar="tabelaVagas"
 								currentPageReportTemplate="[{startRecord} a {endRecord}]"
 								disabledSelection="#{vaga.desativada == true}"
 								rowKey="#{vaga.id}" emptyMessage="Sem vagas." reflow="true"
 								paginator="true" rows="3" paginatorPosition="bottom"
 								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 								rowsPerPageTemplate="3,6,9" selectionMode="single"
-								selection="#{perfilEmpresaController.vagaSelecionada}">
+								selection="#{dashboardEmpresaController.vagaSelecionada}">
 
 								<p:ajax event="rowSelect"
 									update=":dialogoVaga :candidatosDetalhes"
@@ -363,7 +213,7 @@
 									<div>
 										<p:repeat value="#{vaga.listaPrincipaisTecnologias()}"
 											var="tecnologia">
-											<span style="#{perfilEmpresaController.tecnologiasCores()}">#{tecnologia}</span>
+											<span style="#{dashboardEmpresaController.tecnologiasCores()}">#{tecnologia}</span>
 										</p:repeat>
 									</div>
 								</p:column>
@@ -391,11 +241,11 @@
 									</p:linkButton>
 
 
-									<p:commandButton action="#{perfilEmpresaController.desativarVaga(vaga)}" 
+									<p:commandButton action="#{dashboardEmpresaController.desativarVaga(vaga)}" 
 										ajax="false" style="font-size: 11.5px;"
 										rendered="#{!vaga.desativada}" value="DESATIVAR" />
 
-									<p:commandButton action="#{perfilEmpresaController.ativarVaga(vaga)}" 
+									<p:commandButton action="#{dashboardEmpresaController.ativarVaga(vaga)}" 
 										ajax="false" style="font-size: 11.5px;"
 										rendered="#{vaga.desativada}" value="ATIVAR"
 										styleClass="btn-info" />
@@ -414,12 +264,12 @@
 
 
 		<p:dialog id="dialogoVaga" responsive="true"
-			header="VAGA: ID# #{perfilEmpresaController.vagaSelecionada.id}"
+			header="VAGA: ID# #{dashboardEmpresaController.vagaSelecionada.id}"
 			widgetVar="vagaDialogo" modal="true" showEffect="explode"
 			resizable="false" hideEffect="explode">
 
 			<p:dataTable id="candidatosDetalhes" var="candidato"
-				value="#{perfilEmpresaController.vagaSelecionada.candidatos}"
+				value="#{dashboardEmpresaController.vagaSelecionada.candidatos}"
 				sortBy="#{candidato.nome}" emptyMessage="Sem candidatos."
 				currentPageReportTemplate="[{startRecord} a {endRecord}]"
 				rowKey="#{candidato.id}" paginator="true" rows="10"
@@ -434,7 +284,7 @@
 							style="vertical-align: middle">
 
 							<img src="data:image/jpg;base64, #{candidato.fotoStr()}"
-								style="#{perfilEmpresaController.avatarCores()}" width="42" />
+								style="#{dashboardEmpresaController.avatarCores()}" width="42" />
 
 							<h:outputText styleClass="p-ml-2" value="#{candidato.nome}" />
 						</div>
@@ -455,8 +305,8 @@
 					headerText="Habilidades">
 
 					<p:repeat value="#{candidato.habilidades}" var="habilidade">
-						<p:progressBar value="#{habilidade.ano * 10}"
-							style="height: 20px;"
+						<p:progressBar value="#{habilidade.anoPorcetagem}"
+							style="height: 20px;" 
 							labelTemplate="#{habilidade.textoHabilidade()}"
 							displayOnly="true" />
 					</p:repeat>
@@ -475,7 +325,7 @@
 
 				<p:column style="text-align: center;">
 
-					<p:linkButton outcome="/visualizar/candidato.xhtml" target="_blank"
+					<p:linkButton outcome="/perfil/candidato.xhtml" target="_blank"
 						style="font-size: 12px;" value="VISUALIZAR"
 						styleClass="btn-primary">
 						<f:param name="idCandidato" value="#{candidato.id}" />
@@ -489,7 +339,7 @@
 					</p:column>
 					<p:column>
 						<h:outputText
-							value="#{perfilEmpresaController.vagaSelecionada.candidatos.size()}" />
+							value="#{dashboardEmpresaController.vagaSelecionada.candidatos.size()}" />
 					</p:column>
 				</p:summaryRow>
 
@@ -498,17 +348,7 @@
 
 		</p:dialog>
 
-
-
-
-		<div
-			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">
-
-			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
-
-			<span style="margin-right: 10px;">Versão: 1.0.0</span>
-
-		</div>
+		<ui:include src="/includes/rodape.xhtml" />
 
 	</h:form>
 

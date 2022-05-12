@@ -1,0 +1,123 @@
+.userImage {
+	display: none !important;
+}
+
+#empresa {
+	margin-bottom: 4px !important;
+}
+
+.styleInfo {
+	margin-right: 10px;
+	font-size: 14px;
+}
+
+.trDesativada {
+	background: #c9c5c547 !important;
+	opacity: 0.8 !important;
+}
+
+#tabela_head {
+	display: table-column !important;
+}
+
+#tabela_data, #tabela_paginator_bottom {
+	border: none !important;
+	margin-top: 5px !important;
+}
+
+#tabela_data td {
+	border: none !important;
+	border-bottom: 1px solid #c5c2c2 !important;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight {
+	color: black !important;
+	background-color: #ffffff !important;
+	background-image: linear-gradient(to bottom, #ffffff, #d7eaf1)
+		!important;
+}
+
+.ui-datatable-odd, ui-treetable-odd {
+	background-color: #ffffff !important;
+}
+
+#dialogoVaga {
+	width: 80% !important;
+	height: 80% !important;
+}
+
+.ui-progressbar .ui-progressbar-label {
+	color: #99a2a9 !important;
+}
+
+.subInfo {
+	background: white !important;
+	padding: 4px !important;
+	margin-left: 20px !important;
+	font-size: 16px !important;
+	font-weight: 600 !important;
+	color: gray !important;
+}
+
+@media screen and (max-width: 1222px) {
+	#dialogoVaga {
+		width: 90% !important;
+		height: 80% !important;
+	}
+	.userImage {
+		display: grid !important;
+	}
+	#perfil {
+		display: none !important;
+	}
+	#infoEmpresa, #infoCandidato {
+		width: 50% !important;
+	}
+	#subInfoCandidato, #subInfoEmpresa {
+		justify-content: initial !important;
+	}
+	#divTabela {
+		width: 100% !important;
+		margin-left: 0px !important;
+	}
+}
+
+@media screen and (max-width: 880px) {
+	#infoEmpresa, #infoCandidato {
+		width: 40% !important;
+	}
+	#infoEmpresa .text-3xl, #infoCandidato .text-3xl {
+		font-size: 1.5rem !important;
+	}
+	#subInfoEmpresa, #subInfoCandidato {
+		width: 100% !important;
+	}
+}
+
+@media screen and (max-width: 730px) {
+	#divEmpresa, #divCandidato {
+		display: grid !important;
+		margin-left: 0px !important;
+	}
+	#infoEmpresa, #infoCandidato {
+		width: 100% !important;
+	}
+	#subInfoEmpresa, #subInfoCandidato {
+		display: flex !important;
+	}
+	.mt-8 {
+		margin-top: 2rem !important;
+		margin-bottom: 2em !important;
+	}
+	#divChart {
+		width: 100% !important;
+		display: flex !important;
+		justify-content: center !important;
+	}
+}
+
+@media screen and (max-width: 991px) and (min-width: 730px) {
+	#divInfo {
+		width: 200% !important;
+	}
+}

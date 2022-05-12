@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,7 +26,7 @@ public class CadastreController {
 	private Usuario usuarioEmpresa;
 
 	private boolean avisoCandidato = false;
-	
+
 	private boolean avisoEmpresa = false;
 
 	@Autowired
@@ -47,24 +48,24 @@ public class CadastreController {
 	}
 
 	public void senhasIguaisCandidato() {
-		
+
 		String senha = usuarioCandidato.getSenha();
-		
+
 		String confirmeSenha = usuarioCandidato.getConfirmeSenha();
-		
+
 		if (senha.equals(confirmeSenha)) {
 			avisoCandidato = false;
 		} else {
 			avisoCandidato = true;
 		}
 	}
-	
+
 	public void senhasIguaisEmpresa() {
-		
+
 		String senha = usuarioEmpresa.getSenha();
-		
+
 		String confirmeSenha = usuarioEmpresa.getConfirmeSenha();
-		
+
 		if (senha.equals(confirmeSenha)) {
 			avisoEmpresa = false;
 		} else {
@@ -80,20 +81,26 @@ public class CadastreController {
 			usuarioCandidato.setSenha(securityService.passwordEncoder().encode(usuarioCandidato.getSenha()));
 			usuarioRepository.save(usuarioCandidato);
 
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/cadastro/candidato.xhtml");
+			HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+			session.setAttribute("usuario", usuarioCandidato);
+
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/login.jsf");
 
 		}
 	}
 
 	public void criarCadastroEmpresa() throws IOException {
-		
+
 		usuarioEmpresa.setPerfil(perfilAcessoRepository.findById(2).get());
-		
+
 		if (usuarioEmpresa.getSenha().equals(usuarioEmpresa.getConfirmeSenha())) {
 			usuarioEmpresa.setSenha(securityService.passwordEncoder().encode(usuarioEmpresa.getSenha()));
 			usuarioRepository.save(usuarioEmpresa);
 
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/cadastro/empresa.xhtml");
+			HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+			session.setAttribute("usuario", usuarioEmpresa);
+
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/login.jsf");
 
 		}
 	}

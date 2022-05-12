@@ -16,36 +16,8 @@
 
 <h:body>
 
-	<style type="text/css">
-@media screen and (max-width: 770px) {
-	.texto {
-		margin-top: 25% !important;
-	}
-}
 
-@media screen and (max-width: 545px) {
-	.texto {
-		margin-top: 30% !important;
-	}
-	.texto-btn {
-		font-size: 11.5px !important;
-	}
-	#buttons {
-		display: flex;
-		align-items: center;
-	}
-}
-
-@media screen and (max-width: 700px) {
-	.titulo {
-		font-size: 2em !important;
-	}
-	.subTitulo {
-		font-size: 1.5em !important;
-	}
-}
-</style>
-
+	<h:outputStylesheet name="css/index.css" />
 
 
 	<h:form>
@@ -67,10 +39,10 @@
 						coisa impossível é aquilo que você não tenta.</p>
 
 					<div id="buttons">
-						<p:commandButton action="#{indexController.verVagas()}" value="Ver vagas"
-							class="mr-3 texto-btn" />
-						<p:commandButton action="#{indexController.cadastraSe()}" value="Cadastra-se"
-							styleClass="btn-primary texto-btn" />
+						<p:commandButton action="#{indexController.verVagas()}"
+							value="Ver vagas" class="mr-3 texto-btn" />
+						<p:commandButton action="#{indexController.cadastraSe()}"
+							value="Cadastra-se" styleClass="btn-primary texto-btn" />
 					</div>
 				</section>
 
@@ -85,9 +57,10 @@
 					<p class="mt-0 mb-4 text-700 line-height-3">Lembrete: A única
 						coisa impossível é aquilo que você não tenta.</p>
 
-					<p:commandButton  action="#{indexController.verVagas()}" value="Ver vagas"
-						class="mr-3 texto-btn" />
-					<p:commandButton value="Dashboard" action="#{indexController.dashboard()}"
+					<p:commandButton action="#{indexController.verVagas()}"
+						value="Ver vagas" class="mr-3 texto-btn" />
+					<p:commandButton value="Dashboard"
+						action="#{indexController.dashboard()}"
 						styleClass="btn-primary texto-btn" />
 				</section>
 
@@ -136,7 +109,8 @@
 							</ul>
 							<hr
 								class="mb-3 mx-0 border-top-1 border-bottom-none surface-border mt-auto" />
-							<p:commandButton action="#{indexController.verVagas()}" value="Candidata-se"
+							<p:commandButton action="#{indexController.verVagas()}"
+								value="Candidata-se"
 								styleClass="px-3 py-2 w-full mt-auto btn-primary" />
 						</div>
 					</div>
@@ -169,7 +143,8 @@
 							</ul>
 							<hr
 								class="mb-3 mx-0 border-top-1 border-bottom-none surface-border mt-auto" />
-							<p:commandButton action="#{indexController.verVagas()}" value="Candidata-se"
+							<p:commandButton action="#{indexController.verVagas()}"
+								value="Candidata-se"
 								styleClass="px-3 py-2 w-full mt-auto btn-primary" />
 						</div>
 					</div>
@@ -202,7 +177,8 @@
 							</ul>
 							<hr
 								class="mb-3 mx-0 border-top-1 border-bottom-none surface-border mt-auto" />
-							<p:commandButton action="#{indexController.verVagas()}" value="Candidata-se"
+							<p:commandButton action="#{indexController.verVagas()}"
+								value="Candidata-se"
 								styleClass="px-3 py-2 w-full mt-auto btn-primary" />
 						</div>
 					</div>
@@ -220,22 +196,14 @@
 				Código fonte da aplicação em Spring Boot e Primefaces. <br /> Mais
 				informações no README.
 			</div>
-			<p:linkButton href="https://github.com/MulherMarav/tijobs/tree/master" value="Github"
-				icon="fa fa-github-alt ml-4"
+			<p:linkButton
+				href="https://github.com/MulherMarav/tijobs/tree/master"
+				value="Github" icon="fa fa-github-alt ml-4"
 				styleClass="font-bold px-4 py-2 ui-button-raised rounded-button white-space-nowrap" />
 		</div>
 
 
-		<div
-			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">
-
-			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
-
-			<span style="margin-right: 10px;">Versão: 1.0.0</span>
-
-
-		</div>
-
+		<ui:include src="/includes/rodape.xhtml" />
 
 	</h:form>
 

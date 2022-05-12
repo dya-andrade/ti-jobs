@@ -26,27 +26,24 @@
 				style="width: 100%;">
 
 
-				<div id="perfil" class="surface-card p-4 shadow-2 border-round"
-					style="width: 20%; margin-right: 50px; position: fixed; right: 15px;">
+				<div id="perfil" class="surface-card p-4 shadow-2 border-round">
 
-					<div style="display: grid; justify-items: center; height: 5%;">
+					<div id="foto">
 						<img
-							src="data:image/jpg;base64, #{perfilEmpresaController.fotoStr}"
-							style="width: 100px; border-radius: 50%; border: inset; margin-bottom: 10px;" />
+							src="data:image/jpg;base64, #{dashboardEmpresaController.fotoStr}" />
 
 						<p:outputLabel
-							value="#{perfilEmpresaController.empresa.nomeEmpresarial}" />
-						<p:outputLabel value="#{perfilEmpresaController.empresa.cnpj}" />
+							value="#{dashboardEmpresaController.empresa.nomeEmpresarial}" />
+						<p:outputLabel value="#{dashboardEmpresaController.empresa.cnpj}" />
 
 					</div>
 
 					<p:separator />
 
-					<div style="display: grid; justify-items: center;">
+					<div id="perfilButtons" >
 
 						<p:linkButton value="DASHBOARD" icon="pi pi-fw pi-desktop"
-							style="height: fit-content; width: 120px;"
-							styleClass="btn-primary" outcome="/perfil/empresa.xhtml" />
+							styleClass="btn-primary perfilButtons" outcome="/dashboard/empresa.xhtml" />
 
 						<br />
 
@@ -61,10 +58,10 @@
 				</div>
 
 
-				<div style="width: 100%;">
+				<div id="body" >
 
-					<div class="surface-section text-center" style="margin-top: 15px;">
-						<div class="mb-3 font-bold text-2xl" style="display: inline-flex;">
+					<div class="surface-section text-center" id="header" >
+						<div class="mb-3 font-bold text-2xl" id="headerTitulo" >
 							<h2 class="text-900" style="margin-right: 8px;">EDITAR
 								PERFIL</h2>
 						</div>
@@ -74,7 +71,7 @@
 						</div>
 					</div>
 
-					<div class="surface-section">
+					<div style="margin-left: 50px" class="surface-section bodyInfo">
 						<div class="font-medium text-3xl text-900 mb-3">
 							<i class="fa fa-building-o" style="font-size: 20px;"></i>
 							Informações
@@ -146,7 +143,7 @@
 									<div style="display: flex;"
 										class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">
 										<p:inputTextarea id="descricao" rows="4" required="true"
-											requiredMessage="Descrição é obrigatório"
+											requiredMessage="Descrição é obrigatório" style="width: 70%;"
 											value="#{cadastroEmpresaController.empresa.descricao}"
 											placeholder="Sobre a empresa e suas atividades." cols="35" />
 										<p:message for="descricao" display="icon" />
@@ -244,60 +241,14 @@
 			</div>
 		</div>
 
-		<div
-			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">
 
-			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
-
-			<span style="margin-right: 10px;">Versão: 1.0.0</span>
-
-		</div>
+		<ui:include src="/includes/rodape.xhtml" />
 
 
 	</h:form>
-
-	<style type="text/css">
-.ui-fluid .ui-inputmask {
-	width: auto !important;
-}
-
-.ui-fileupload-simple .ui-button {
-	width: 100px !important;
-}
-
-.ui-messages-error {
-	background: #FFCDD2 !important;
-	border: 1px solid #EF5350 !important;
-	border-width: 0 0 0 6px !important;
-	color: #B71C1C !important;
-	width: 50% !important;
-	font-size: 12px !important;
-}
-
-.ui-messages-error ul {
-	text-align: initial !important;
-}
-
-.userImage {
-	display: none !important;
-}
-
-@media screen and (max-width: 1105px) {
-
-	#perfil {
-		margin-right: 10px !important;
-	}
-}
-
-@media screen and (max-width: 960px) {
-	.userImage {
-		display: grid !important;
-	}
-	#perfil {
-		display: none !important;
-	}
-}
-</style>
+	
+		<h:outputStylesheet name="css/cadastro/cadastro.css" />
+		<h:outputStylesheet name="css/cadastro/empresa.css" />
 
 </h:body>
 </html>

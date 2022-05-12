@@ -1,0 +1,23 @@
+.empresa td:nth-child(1) {
+	width: 55% !important;
+}
+
+.empresa td:nth-child(3) {
+	width: 17% !important;
+}
+
+.ui-divider.ui-divider-solid.ui-divider-horizontal:before {
+	color: #c1c1c1 !important;
+}
+
+@media screen and (max-width: 740px) {
+	.empresa td:nth-child(1) {
+		width: 100% !important;
+	}
+	.empresa td:nth-child(3) {
+		width: 100% !important;
+	}
+	.empresa td:nth-child(2) {
+		text-align: end !important;
+	}
+}

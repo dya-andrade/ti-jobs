@@ -1,0 +1,39 @@
+* {
+	opacity: 1 !important;
+}
+
+.ui-diagram-element {
+	border: 0.1em dotted #d4e06b;
+	width: 14em;
+	height: auto;
+	line-height: 4em;
+	text-align: center;
+}
+
+.subSkills {
+	background-color: #ddebf7;
+}
+
+.java {
+	background-color: #fdfd9a;
+}
+
+.subJava {
+	background-color: #ffffd6;
+}
+
+.sub {
+	width: 25.5em;
+	line-height: 2.5em;
+	font-size: 12px;
+	padding-left: 5px;
+}
+
+.fontSub {
+	font-size: 12px;
+}
+
+.titulo {
+	font-size: 15px;
+	font-weight: 600;
+}

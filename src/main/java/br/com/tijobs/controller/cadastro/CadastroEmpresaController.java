@@ -94,8 +94,7 @@ public class CadastroEmpresaController {
 
 		empresaRepository.save(empresa);
 
-		FacesContext.getCurrentInstance().getExternalContext().redirect("/index.xhtml");
-
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/dashboard/empresa.xhtml");
 	}
 	
 	public UploadedFile getFile() {
@@ -104,7 +103,7 @@ public class CadastroEmpresaController {
 
 	public void setFile(UploadedFile file) {
 		this.file = file;
-		if (file != null) {
+		if (file.getFileName() != null) {
 			empresa.setLogotipo(file.getContent());
 		}
 	}

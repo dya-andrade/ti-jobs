@@ -16,114 +16,10 @@
 
 <h:body>
 
-	<script type="text/javascript">
-		PrimeFaces.locales['pt'] = {
-			closeText : 'Fechar',
-			prevText : 'Anterior',
-			nextText : 'Próximo',
-			currentText : 'Começo',
-			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
-					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
-					'Novembro', 'Dezembro' ],
-			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
-					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
-			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
-					'Sexta', 'Sábado' ],
-			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
-			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
-			weekHeader : 'Semana',
-			firstDay : 0,
-			isRTL : false,
-			showMonthAfterYear : false,
-			yearSuffix : '',
-			timeOnlyTitle : 'Só Horas',
-			timeText : 'Tempo',
-			hourText : 'Hora',
-			minuteText : 'Minuto',
-			secondText : 'Segundo',
-			ampm : false,
-			month : 'Mês',
-			week : 'Semana',
-			day : 'Dia',
-			allDayText : 'Todo o Dia'
-		};
-	</script>
+	<h:outputStylesheet name="css/cadastro/cadastro.css" />
+	<h:outputStylesheet name="css/cadastro/candidato.css" />
 
-	<style type="text/css">
-.ui-inputmask {
-	width: fit-content !important;
-}
-
-.ui-fileupload-simple {
-	width: fit-content !important;
-}
-
-.ui-fileupload-simple .ui-button {
-	color: #606060 !important;
-	background-color: #d1b9f7 !important;
-}
-
-@media screen and (max-width: 560px) {
-	.hab {
-		margin-right: 30px !important;
-	}
-}
-
-.habDiv {
-	margin-bottom: 8px !important;
-}
-
-@media screen and (max-width: 720px) {
-	.responsivoDiv {
-		display: grid !important;
-	}
-	.responsivoDivchild {
-		width: 50% !important;
-		margin-bottom: 10px !important;
-	}
-}
-
-.ui-chkbox-label {
-	margin-right: 0px !important;
-}
-
-.ui-panel-title {
-	font-size: 16px !important;
-}
-
-.ui-selectonebutton .ui-button {
-	width: 100px !important;
-}
-
-.ui-messages-error {
-	background: #FFCDD2 !important;
-	border: 1px solid #EF5350 !important;
-	border-width: 0 0 0 6px !important;
-	color: #B71C1C !important;
-	width: 50% !important;
-	font-size: 12px !important;
-}
-
-.ui-messages-error ul {
-	text-align: initial !important;
-}
-
-.userImage {
-	display: none !important;
-}
-
-@media screen and (max-width: 940px) {
-	.userImage {
-		display: grid !important;
-	}
-	#perfil {
-		display: none !important;
-	}
-}
-</style>
-
-
-	<h:form>
+	<h:form enctype="multipart/form-data">
 
 		<div class="flex align-items-center justify-content-center">
 
@@ -133,44 +29,41 @@
 				style="width: 100%;">
 
 
-				<div id="perfil" class="surface-card p-4 shadow-2 border-round"
-					style="width: 20%; margin-right: 50px; position: fixed; right: 15px;">
+				<div id="perfil" class="surface-card p-4 shadow-2 border-round">
 
-					<div style="display: grid; justify-items: center; height: 5%;">
+					<div id="foto">
 						<img
-							src="data:image/jpg;base64, #{perfilCandidatoController.fotoStr}"
-							style="width: 100px; border-radius: 50%; border: inset; margin-bottom: 10px;" />
+							src="data:image/jpg;base64, #{dashboardCandidatoController.fotoStr}" />
 
-						<p:outputLabel value="#{perfilCandidatoController.candidato.nome}" />
 						<p:outputLabel
-							value="#{perfilCandidatoController.candidato.carreira}" />
+							value="#{dashboardCandidatoController.candidato.nome}" />
+						<p:outputLabel
+							value="#{dashboardCandidatoController.candidato.carreira}" />
 
 					</div>
 
 					<p:separator />
 
-					<div style="display: grid; justify-items: center;">
-
+					<div id="perfilButtons">
 
 						<p:linkButton value="DASHBOARD" icon="pi pi-fw pi-desktop"
-							style="height: fit-content; width: 120px;"
-							styleClass="btn-primary" outcome="/perfil/candidato.xhtml" />
+							styleClass="btn-primary perfilButtons"
+							outcome="/dashboard/candidato.xhtml" />
 
 						<br />
 
 						<p:linkButton value="ROADMAPS" icon="fa fa-sitemap"
-						outcome="/roadmap/roadmap.xhtml"
-							style="height: fit-content; width: 120px;" />
+							outcome="/roadmap/roadmap.xhtml" styleClass="perfilButtons" />
 
 					</div>
 
 				</div>
 
-				<div style="width: 100%;">
+				<div id="body">
 
-					<div class="surface-section text-center" style="margin-top: 25px;">
+					<div class="surface-section text-center" id="header">
 
-						<div class="mb-3 font-bold text-2xl" style="display: inline-flex;">
+						<div class="mb-3 font-bold text-2xl" id="headerTitulo">
 
 							<h2 class="text-900" style="margin-right: 8px; margin-top: 0px;">EDITAR
 								PERFIL</h2>
@@ -201,8 +94,7 @@
 									</div>
 
 									<div class="p-grid ui-fluid">
-										<div class="p-col-12 p-md-4"
-											style="width: 50%; display: grid;">
+										<div class="p-col-12 p-md-4 painelGrid">
 
 
 											<p:outputLabel for="nome" value="Nome Completo" />
@@ -286,10 +178,9 @@
 										</div>
 									</div>
 
-									<div class="p-grid ui-fluid">
+									<div class="p-grid ui-fluid painelGrid">
 
-										<div class="p-col-12 p-md-4"
-											style="width: 50%; display: grid;">
+										<div class="p-col-12 p-md-4">
 
 
 											<p:outputLabel for="titulo" value="Título do seu perfil:" />
@@ -303,8 +194,7 @@
 
 										<br />
 
-										<div class="p-col-12 p-md-4"
-											style="width: 50%; display: grid;">
+										<div class="p-col-12 p-md-4 painelGrid">
 
 
 											<p:outputLabel for="ingles" value="Nível de inglês" />
@@ -324,8 +214,7 @@
 
 										<br />
 
-										<div class="p-col-12 p-md-4"
-											style="width: 50%; display: grid;">
+										<div class="p-col-12 p-md-4 painelGrid">
 
 
 											<p:outputLabel for="descricao" value="Descrição" />
@@ -339,8 +228,7 @@
 
 										<br />
 
-										<div class="p-col-12 p-md-4"
-											style="width: 50%; display: grid;">
+										<div class="p-col-12 p-md-4 painelGrid">
 											<p:outputLabel for="git" value="Link do GitHub" />
 
 											<div class="ui-inputgroup">
@@ -356,8 +244,7 @@
 
 										<br />
 
-										<div class="p-col-12 p-md-4"
-											style="width: 50%; display: grid;">
+										<div class="p-col-12 p-md-4 painelGrid">
 											<p:outputLabel for="link" value="Link do Linkedin" />
 
 											<div class="ui-inputgroup">
@@ -373,8 +260,7 @@
 
 										<br />
 
-										<div class="p-col-12 p-md-4"
-											style="width: 50%; display: grid;">
+										<div class="p-col-12 p-md-4 painelGrid">
 
 
 											<p:outputLabel for="cv" value="Anexar seu currículo" />
@@ -385,7 +271,9 @@
 												invalidSizeMessage="Tamanho máximo permitido: 1MB"
 												invalidFileMessage="Formato não suportado" id="cv"
 												chooseIcon="pi pi-camera" mode="simple" skinSimple="true"
-												label="Escolher" />
+												label="Escolher">
+	
+											</p:fileUpload>
 
 											<p style="opacity: 0.5; font-size: 12px;">apenas
 												formatos: PDF e DOCX</p>
@@ -416,8 +304,7 @@
 
 									<div class="p-grid ui-fluid">
 
-										<div class="p-col-12 p-md-4"
-											style="width: 50%; display: grid;">
+										<div class="p-col-12 p-md-4 painelGrid">
 											<p:outputLabel for="carreira" value="Foco de carreira" />
 											<p:selectOneMenu id="carreira" required="true"
 												value="#{cadastroCandidatoController.candidato.carreira}"
@@ -433,8 +320,7 @@
 
 										<br />
 
-										<div class="p-col-12 p-md-4"
-											style="width: 50%; display: grid;">
+										<div class="p-col-12 p-md-4 painelGrid">
 
 											<p:outputLabel for="experiencia" value="Nível de experiência" />
 
@@ -1317,7 +1203,7 @@
 								<div>
 									<p:commandButton icon="pi pi-save" value="Salvar"
 										styleClass="btn-primary transition-colors transition-duration-500  hover:bg-blue-1000"
-										style="font-size: 14px; margin-top: 10px;"
+										style="font-size: 14px; margin-top: 10px; margin-left: 25px;"
 										title="Salvar os dados" process="@form" update="@form"
 										action="#{cadastroCandidatoController.salvar}" />
 								</div>
@@ -1331,16 +1217,42 @@
 
 		</div>
 
-		<div
-			style="display: flex; background-color: black; width: 100%; height: 50px; color: #bdb9b9; justify-content: space-between; align-items: center;">
-
-			<span style="margin-left: 10px;">Copyright (C) 2022 - TI Jobs</span>
-
-			<span style="margin-right: 10px;">Versão: 1.0.0</span>
-
-		</div>
+		<ui:include src="/includes/rodape.xhtml" />
 
 	</h:form>
+
+	<script type="text/javascript">
+		PrimeFaces.locales['pt'] = {
+			closeText : 'Fechar',
+			prevText : 'Anterior',
+			nextText : 'Próximo',
+			currentText : 'Começo',
+			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+					'Novembro', 'Dezembro' ],
+			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+					'Sexta', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 0,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Só Horas',
+			timeText : 'Tempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			ampm : false,
+			month : 'Mês',
+			week : 'Semana',
+			day : 'Dia',
+			allDayText : 'Todo o Dia'
+		};
+	</script>
 
 </h:body>
 </html>

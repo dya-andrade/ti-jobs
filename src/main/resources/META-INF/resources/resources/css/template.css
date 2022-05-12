@@ -1,0 +1,68 @@
+@media screen and (max-width: 770px) {
+	.principalItem {
+		font-size: 26px !important;
+	}
+	.menuItem {
+		font-size: 15px !important;
+	}
+	.userImage {
+		width: 45px !important;
+		margin-left: 0px !important;
+	}
+}
+
+@media screen and (max-width: 673px) {
+	.menu {
+		display: none !important;
+	}
+	#menuMobile {
+		display: grid !important;
+	}
+	.principal {
+		width: 60% !important;
+	}
+}
+
+.menuItemStyle {
+	font-family: monospace !important;
+	font-weight: 600 !important;
+	color: #0e6fb3 !important;
+	font-size: 18px !important;
+	height: 43px !important;
+	padding-top: 10px !important;
+}
+
+#cadastre .ui-menuitem-link {
+	font-size: 15px !important;
+}
+
+#cadastre .ui-submenu-link {
+	background-color: #00c0ef40 !important;
+	font-family: monospace !important;
+	font-size: 18px !important;
+	color: midnightblue !important;
+	font-weight: 600 !important;
+	padding-top: 10px !important;
+}
+
+#empresa .ui-menuitem-link, #candidato .ui-menuitem-link {
+	font-size: 15px !important;
+}
+
+#empresa .ui-submenu-link, #candidato .ui-submenu-link {
+	font-family: monospace !important;
+	width: max-content !important;
+}
+
+.ui-menuitem-active, .ui-state-hover {
+	background-color: white !important;
+}
+
+.userImage {
+	margin-top: 4px;
+	margin-bottom: 4px;
+	width: 50px;
+	border-radius: 50%;
+	border: inset;
+	margin-left: 50px;
+}

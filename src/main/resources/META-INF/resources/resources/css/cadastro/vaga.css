@@ -1,0 +1,59 @@
+#perfil {
+	right: 50px !important; 
+	top: 110px !important;
+}
+
+.ui-divider {
+	color: #2972bd !important;
+	opacity: 0.4 !important;
+}
+
+#j_idt15:j_idt18 .ui-panelgrid-cell {
+	width: 100% !important;
+}
+
+.ui-divider-content {
+	background-color: #ffffff !important;
+	padding: 0 0.5rem !important;
+	margin-left: 25px !important;
+}
+
+.ui-divider.ui-divider-solid.ui-divider-horizontal:before {
+	border-top-style: dotted !important;
+}
+
+.ui-messages-error ul {
+	display: inline-flex !important;
+}
+
+.ui-messages-error ul li {
+	display: flex !important;
+	justify-content: flex-start !important;
+}
+
+@media screen and (max-width: 650px) {
+	.ui-messages-error ul {
+		display: grid !important;
+	}
+}
+
+@media screen and (max-width: 1030px) {
+	#perfil {
+		margin-right: 10px !important;
+	}
+	#vaga {
+		margin-left: 50px !important;
+	}
+}
+
+@media screen and (max-width: 830px) {
+	.userImage {
+		display: grid !important;
+	}
+	#perfil {
+		display: none !important;
+	}
+	#vaga {
+		margin-left: 0px !important;
+	}
+}
