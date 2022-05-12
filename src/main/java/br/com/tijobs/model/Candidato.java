@@ -56,6 +56,8 @@ public class Candidato implements Serializable {
 
 	@Lob //---
 	private byte[] curriculo;
+	
+	private String contenttypeFilenameCv;
 
 	private String carreira;
 
@@ -213,6 +215,14 @@ public class Candidato implements Serializable {
 
 	public void setCurriculo(byte[] curriculo) {
 		this.curriculo = curriculo;
+	}
+
+	public String getContenttypeFilenameCv() {
+		return contenttypeFilenameCv;
+	}
+
+	public void setContenttypeFilenameCv(String contenttypeFilenameCv) {
+		this.contenttypeFilenameCv = contenttypeFilenameCv;
 	}
 
 	public String getCarreira() {

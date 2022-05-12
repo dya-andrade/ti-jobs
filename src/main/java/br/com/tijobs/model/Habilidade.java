@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity(name = "habilidade")
 public class Habilidade {
@@ -18,6 +19,8 @@ public class Habilidade {
 	
 	private Integer ano;
 	
+	private Integer anoPorcetagem;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_candidato", referencedColumnName = "id")
 	private Candidato candidato;
@@ -26,7 +29,15 @@ public class Habilidade {
 	@JoinColumn(name = "id_experiencia", referencedColumnName = "id")
 	private Experiencia experiencia;
 
-	
+
+	public Integer getAnoPorcetagem() {
+		return anoPorcetagem;
+	}
+
+	public void setAnoPorcetagem(Integer anoPorcetagem) {
+		this.anoPorcetagem = anoPorcetagem;
+	}
+
 	public String textoHabilidade() {
 		if(ano == null) {
 			return "";
@@ -60,6 +71,7 @@ public class Habilidade {
 	}
 
 	public void setAno(Integer ano) {
+		this.anoPorcetagem = ano * 10;
 		this.ano = ano;
 	}
 

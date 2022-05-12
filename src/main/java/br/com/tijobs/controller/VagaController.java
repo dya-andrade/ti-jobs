@@ -139,7 +139,7 @@ public class VagaController {
 
 			vagaRepository.save(vagaSelecionada);
 
-			addDetailMessage("Candidatura realizada.", FacesMessage.SEVERITY_INFO);
+			addDetailMessage("Candidatura realizada", FacesMessage.SEVERITY_INFO);
 		}
 
 	}
@@ -161,7 +161,7 @@ public class VagaController {
 
 		vagaRepository.save(vagaSelecionada);
 
-		addDetailMessage("Candidatura cancelada.", FacesMessage.SEVERITY_INFO);
+		addDetailMessage("Candidatura cancelada", FacesMessage.SEVERITY_INFO);
 	}
 
 	public void cadastrar() throws IOException {
@@ -253,7 +253,7 @@ public class VagaController {
 
 			current.executeScript("PF('vagaDialogo').hide();");
 
-			addDetailMessage("Vaga desativada.", FacesMessage.SEVERITY_WARN);
+			addDetailMessage("Vaga desativada", FacesMessage.SEVERITY_WARN);
 			current.ajax().update("growl");
 		}
 	}

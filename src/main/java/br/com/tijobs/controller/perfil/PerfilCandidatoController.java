@@ -1,141 +1,78 @@
 package br.com.tijobs.controller.perfil;
 
-import static br.com.tijobs.util.Message.addDetailMessage;
+import static com.github.adminfaces.template.util.Assert.has;
 
-import java.util.ArrayList;
+import java.io.ByteArrayInputStream;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Candidato;
-import br.com.tijobs.model.Vaga;
-import br.com.tijobs.repository.VagaRepository;
-import br.com.tijobs.service.VagaService;
+import br.com.tijobs.repository.CandidatoRepository;
 import br.com.tijobs.util.UtilService;
 
 @Named
 @ViewScoped
 public class PerfilCandidatoController {
 
-	private List<Vaga> vagas;
-
-	private Vaga vagaSelecionada;
-
 	private Candidato candidato;
 
+	private Integer idCandidato;
+
 	@Autowired
-	private VagaService vagaService;
+	private CandidatoRepository candidatoRepository;
 
 	@Autowired
 	private UtilService utilService;
 
-	private List<String> colors;
-
-	private List<String> backgroundColors;
-	
-	@Autowired
-	private VagaRepository vagaRepository;
-
 	@PostConstruct
 	public void init() {
 
-		candidato = utilService.perfilCandidato();
-
-		if (candidato != null) {
-			vagas = vagaService.buscaVagasPeloIdCandidato(candidato.getId());
+		if (has(idCandidato)) {
+			candidato = candidatoRepository.findById(idCandidato).get();
 		} else {
-			vagas = new ArrayList<Vaga>();
-		}
 
-		colors = new ArrayList<String>();
-		backgroundColors = new ArrayList<String>();
+			candidato = utilService.perfilCandidato();
 
-		colors.add(0, "#eb60c");
-		backgroundColors.add(0, "#fddbff");
-
-		colors.add(1, "#3ad738");
-		backgroundColors.add(1, "#d9f7de");
-
-		colors.add(2, "#3477a7");
-		backgroundColors.add(2, "#cfe6f9");
-
-		colors.add(3, "#d1df5c");
-		backgroundColors.add(2, "#f6ffc5");
-
-		colors.add(4, "#e53d3d");
-		backgroundColors.add(4, "#ffd1db");
-
-	}
-
-	public String tecnologiasCores() {
-
-		Random random = new Random();
-
-		int numero = random.nextInt(5);
-
-		return "border-radius: 16px; background-color: " + backgroundColors.get(numero)
-				+ "; padding: 0 0.5rem; font-size: 15px; color: " + colors.get(numero) + "; font-weight: 600;";
-	}
-	
-	public void cancelarCandidatura(Vaga vaga) {
-		List<Candidato> candidatos = vaga.getCandidatos();
-		
-		if(candidatos.contains(candidato)) {
-			candidatos.remove(candidato);
-		}else {
-			
-			for (Candidato candidato : candidatos) {
-				if(candidato.getId() == this.candidato.getId()) {
-					candidatos.remove(candidato);
-					break;
-				}
+			if (candidato == null) {
+				candidato = new Candidato();
 			}
 		}
-		
-		vaga.setCandidatos(candidatos);
-		vagaRepository.save(vaga);
-		
-		vagas = vagaService.buscaVagasPeloIdCandidato(candidato.getId());
-		
-		addDetailMessage("Candidatura cancelada", FacesMessage.SEVERITY_INFO);
 	}
 
-	public String getFotoStr() {
-		return utilService.fotoUsuarioLogado();
-	}
+	public StreamedContent downloadCV() {
+		if (candidato.getCurriculo() != null) {
 
-	public Integer quantidadeDeEmpresas() {
-		if (candidato != null) {
-			List<Integer> quantidade = vagaService.buscaQuantidadeDeEmpresasPorCandidato(candidato.getId());
-			return quantidade.size();
-		} else {
-			return 0;
+			List<String> infoCurriculo = Arrays.stream(candidato.getContenttypeFilenameCv().split(",")).map(String::valueOf)
+					.collect(Collectors.toList());
+
+			return DefaultStreamedContent.builder().name(infoCurriculo.get(1)).contentType(infoCurriculo.get(0))
+					.stream(() -> new ByteArrayInputStream(candidato.getCurriculo())).build();
 		}
-	}
-
-	public List<Vaga> getVagas() {
-		return vagas;
-	}
-
-	public Vaga getVagaSelecionada() {
-		return vagaSelecionada;
-	}
-
-	public void setVagaSelecionada(Vaga vagaSelecionada) {
-		this.vagaSelecionada = vagaSelecionada;
+		return null;
 	}
 
 	public Candidato getCandidato() {
 		return candidato;
 	}
 
-	public String iconBeneficio(String beneficio) {
-		return vagaService.iconeDoBenefício(beneficio);
+	public void setCandidato(Candidato candidato) {
+		this.candidato = candidato;
+	}
+
+	public Integer getIdCandidato() {
+		return idCandidato;
+	}
+
+	public void setIdCandidato(Integer idCandidato) {
+		this.idCandidato = idCandidato;
 	}
 }

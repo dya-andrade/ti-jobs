@@ -1,0 +1,26 @@
+* {
+	opacity: 1 !important;
+}
+
+.ui-diagram-element {
+	border: 0.1em dotted #d4e06b;
+	width: 14em;
+	height: auto;
+	line-height: 4em;
+	text-align: center;
+}
+
+.sub {
+	width: 25.5em;
+	line-height: 2.5em;
+	font-size: 12px;
+}
+
+.fontSub {
+	font-size: 12px;
+}
+
+.titulo {
+	font-size: 15px;
+	font-weight: 600;
+}

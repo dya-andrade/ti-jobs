@@ -1,4 +1,4 @@
-package br.com.tijobs.controller.perfil;
+package br.com.tijobs.controller.dashboard;
 
 import static br.com.tijobs.util.Message.addDetailMessage;
 
@@ -24,7 +24,7 @@ import br.com.tijobs.util.UtilService;
 
 @Named
 @ViewScoped
-public class PerfilEmpresaController {
+public class DashboardEmpresaController {
 
 	private List<Vaga> vagas;
 
@@ -37,10 +37,6 @@ public class PerfilEmpresaController {
 
 	@Autowired
 	private UtilService utilService;
-
-	private List<String> colors;
-
-	private List<String> backgroundColors;
 	
 	@Autowired
 	private VagaRepository vagaRepository;
@@ -56,27 +52,14 @@ public class PerfilEmpresaController {
 		} else {
 			vagas = new ArrayList<Vaga>();
 		}
-
-		colors = new ArrayList<String>();
-		backgroundColors = new ArrayList<String>();
-
-		colors.add(0, "#eb60c");
-		backgroundColors.add(0, "#fddbff");
-
-		colors.add(1, "#3ad738");
-		backgroundColors.add(1, "#d9f7de");
-
-		colors.add(2, "#3477a7");
-		backgroundColors.add(2, "#cfe6f9");
-
-		colors.add(3, "#d1df5c");
-		backgroundColors.add(2, "#f6ffc5");
-
-		colors.add(4, "#e53d3d");
-		backgroundColors.add(4, "#ffd1db");
+		
 	}
 
 	public String tecnologiasCores() {
+		
+		List<String> backgroundColors = utilService.getBackgroundColors();
+		
+		List<String> colors = utilService.getColors();
 
 		Random random = new Random();
 
@@ -87,6 +70,9 @@ public class PerfilEmpresaController {
 	}
 
 	public String avatarCores() {
+				
+		List<String> colors = utilService.getColors();
+		
 		Random random = new Random();
 
 		int numero = random.nextInt(5);

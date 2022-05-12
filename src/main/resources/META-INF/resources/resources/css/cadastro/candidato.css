@@ -1,0 +1,58 @@
+.painelGrid  {
+	width: 50%; display: grid
+}
+
+/* --------- */
+.ui-inputmask {
+	width: fit-content !important;
+}
+
+.ui-fileupload-simple {
+	width: fit-content !important;
+}
+
+.ui-fileupload-simple .ui-button {
+	color: #606060 !important;
+	background-color: #d1b9f7 !important;
+}
+
+@media screen and (max-width: 560px) {
+	.hab {
+		margin-right: 30px !important;
+	}
+}
+
+.habDiv {
+	margin-bottom: 8px !important;
+}
+
+@media screen and (max-width: 720px) {
+	.responsivoDiv {
+		display: grid !important;
+	}
+	.responsivoDivchild {
+		width: 50% !important;
+		margin-bottom: 10px !important;
+	}
+}
+
+.ui-chkbox-label {
+	margin-right: 0px !important;
+}
+
+.ui-panel-title {
+	font-size: 16px !important;
+}
+
+.ui-selectonebutton .ui-button {
+	width: 100px !important;
+}
+
+@media screen and (max-width: 940px) {
+	.userImage {
+		display: grid !important;
+	}
+	#perfil {
+		display: none !important;
+	}
+}

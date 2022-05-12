@@ -53,9 +53,9 @@ public class IndexController {
 		PerfilAcesso perfil = usuario.getPerfil();
 		
 		if(perfil.getId() == 1) {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("perfil/candidato.xhtml");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/dashboard/candidato.xhtml");
 		} else {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("perfil/empresa.xhtml");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/dashboard/empresa.xhtml");
 		}
 		
 	}

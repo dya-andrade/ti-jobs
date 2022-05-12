@@ -101,7 +101,7 @@ public class CadastroVagaController {
 
 		vagaRepository.save(vaga);
 
-		FacesContext.getCurrentInstance().getExternalContext().redirect("/index.xhtml");
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/dashboard/empresa.xhtml");
 	}
 
 	public Vaga getVaga() {

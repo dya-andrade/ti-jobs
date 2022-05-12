@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			http.authorizeRequests()
 					.antMatchers("/", "/login.jsf", "/recover.xhtml", "/javax.faces.resource/**", "/resources/**",
 							"/index.jsf", "/cadastre.jsf", "/vagas.jsf")
-					.permitAll().antMatchers("/cadastro/**", "/perfil/**", "/visualizar/**", "/roadmap/**").fullyAuthenticated().and().formLogin()
+					.permitAll().antMatchers("/cadastro/**", "/perfil/**", "/dashboard/**", "/roadmap/**").fullyAuthenticated().and().formLogin()
 					.loginPage("/login.jsf").defaultSuccessUrl("/index.xhtml").failureUrl("/login.jsf?authfailed=true")
 					.permitAll().and().logout().logoutSuccessUrl("/login.jsf").logoutUrl("/logout").and().csrf()
 					.disable();

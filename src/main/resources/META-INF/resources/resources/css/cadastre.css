@@ -1,0 +1,17 @@
+.ui-tabs-nav {
+	border: none !important;
+}
+
+.card {
+	background-image: url("/resources/images/cidade.jpg") !important;
+}
+
+.ui-tabs-nav {
+	font-size: 16px !important;
+}
+
+@media screen and (max-width: 770px) {
+	#cadastro {
+		width: 90% !important;
+	}
+}

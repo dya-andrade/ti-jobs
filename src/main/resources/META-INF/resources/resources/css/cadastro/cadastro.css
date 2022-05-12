@@ -1,0 +1,58 @@
+#perfil {
+	width: 20%;
+	margin-right: 70px;
+	position: fixed;
+	right: 15px;
+}
+
+#foto {
+	display: grid;
+	justify-items: center;
+	height: 5%;
+}
+
+#foto img {
+	width: 100px;
+	border-radius: 50%;
+	border: inset;
+	margin-bottom: 10px;
+}
+
+#perfilButtons {
+	display: grid;
+	justify-items: center;
+}
+
+.perfilButtons {
+	height: fit-content;
+	width: 120px;
+}
+
+#body {
+	width: 100%;
+}
+
+#header {
+	margin-top: 25px;
+}
+
+#headerTitulo {
+	display: inline-flex;
+}
+
+.ui-messages-error ul {
+	text-align: initial !important;
+}
+
+.ui-messages-error {
+	background: #FFCDD2 !important;
+	border: 1px solid #EF5350 !important;
+	border-width: 0 0 0 6px !important;
+	color: #B71C1C !important;
+	width: 50% !important;
+	font-size: 12px !important;
+}
+
+.userImage {
+	display: none !important;
+}

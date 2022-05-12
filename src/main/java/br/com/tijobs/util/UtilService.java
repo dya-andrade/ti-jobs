@@ -40,6 +40,32 @@ public class UtilService {
 	public Usuario usuarioLogado() {
 		return securityService.getLogado();
 	}
+	
+	public List<String> getColors() {
+		
+		List<String> colors = new ArrayList<String>();
+
+		colors.add(0, "#eb60c");
+		colors.add(1, "#3ad738");
+		colors.add(2, "#3477a7");
+		colors.add(3, "#d1df5c");
+		colors.add(4, "#e53d3d");
+		
+		return colors;	
+	}
+	
+	public List<String> getBackgroundColors() {
+		
+		List<String> backgroundColors = new ArrayList<String>();
+
+		backgroundColors.add(0, "#fddbff");
+		backgroundColors.add(1, "#d9f7de");
+		backgroundColors.add(2, "#cfe6f9");
+		backgroundColors.add(2, "#f6ffc5");
+		backgroundColors.add(4, "#ffd1db");
+		
+		return backgroundColors;
+	}
 
 	public Empresa perfilEmpresa() {
 

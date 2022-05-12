@@ -1,11 +1,13 @@
 package br.com.tijobs.controller.cadastro;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -86,7 +88,7 @@ public class CadastroCandidatoController {
 		distritos = utilService.buscaDistritosSP();
 	}
 
-	public void salvar() {
+	public void salvar() throws IOException {
 
 		for (Habilidade habilidade : candidato.getHabilidades()) {
 			habilidade.setCandidato(candidato);
@@ -101,6 +103,8 @@ public class CadastroCandidatoController {
 		}
 
 		candidatoRepository.save(candidato);
+		
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/perfil/candidato.xhtml");
 	}
 
 	public Candidato getCandidato() {
@@ -117,7 +121,7 @@ public class CadastroCandidatoController {
 
 	public void setFoto(UploadedFile file) {
 		this.foto = file;
-		if (file != null) {
+		if (file.getFileName() != null) {
 			candidato.setFoto(file.getContent());
 		}
 	}
@@ -126,9 +130,14 @@ public class CadastroCandidatoController {
 		return curriculo;
 	}
 
-	public void setCurriculo(UploadedFile file) {
+	public void setCurriculo(UploadedFile file) {		
 		this.curriculo = file;
-		if (file != null) {
+		
+		if (file.getFileName() != null) {
+			
+			String contenttypeFilenameCv = file.getContentType() + "," + file.getFileName();
+			candidato.setContenttypeFilenameCv(contenttypeFilenameCv);
+			
 			candidato.setCurriculo(file.getContent());
 		}
 	}

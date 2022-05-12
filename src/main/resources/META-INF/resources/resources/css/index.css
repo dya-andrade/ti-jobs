@@ -1,0 +1,27 @@
+@media screen and (max-width: 770px) {
+	.texto {
+		margin-top: 25% !important;
+	}
+}
+
+@media screen and (max-width: 545px) {
+	.texto {
+		margin-top: 30% !important;
+	}
+	.texto-btn {
+		font-size: 11.5px !important;
+	}
+	#buttons {
+		display: flex;
+		align-items: center;
+	}
+}
+
+@media screen and (max-width: 700px) {
+	.titulo {
+		font-size: 2em !important;
+	}
+	.subTitulo {
+		font-size: 1.5em !important;
+	}
+}

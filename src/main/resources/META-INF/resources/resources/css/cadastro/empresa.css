@@ -1,0 +1,25 @@
+.ui-fluid .ui-inputmask {
+	width: auto !important;
+}
+
+.ui-fileupload-simple .ui-button {
+	width: 100px !important;
+}
+
+@media screen and (max-width: 1105px) {
+	#perfil {
+		margin-right: 10px !important;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	.userImage {
+		display: grid !important;
+	}
+	#perfil {
+		display: none !important;
+	}
+	.bodyInfo {
+		margin-left: 0px !important;
+	}
+}

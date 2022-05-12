@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>TI Jobs - dashboard candidato</title>
+</h:head>
+
+<ui:include src="/WEB-INF/templates/template.xhtml" />
+
+<h:body>
+
+	<h:outputStylesheet name="css/dashboard/dashboard.css" />
+	<h:outputStylesheet name="css/dashboard/candidato.css" />
+
+	<h:form prependId="false">
+
+
+
+		<div class="flex align-items-center justify-content-center">
+
+
+			<div class="surface-card p-4 shadow-2 border-round"
+				style="width: 100%; min-height: 550px;">
+
+				<h2 style="text-align: center;">DASHBOARD</h2>
+
+
+				<div id="perfil" class="surface-card p-4 shadow-2 border-round"
+					style="width: 20%; position: fixed; right: 0px; top: 54px;">
+
+					<div style="display: grid; justify-items: center; height: 5%;">
+						<img
+							src="data:image/jpg;base64, #{dashboardCandidatoController.fotoStr}"
+							style="width: 100px; border-radius: 50%; border: inset; margin-bottom: 10px;" />
+
+						<p:outputLabel
+							value="#{dashboardCandidatoController.candidato.nome}" />
+						<p:outputLabel
+							value="#{dashboardCandidatoController.candidato.carreira}" />
+
+						<p:linkButton value="EDITAR PERFIL" icon="pi pi-fw pi-user-edit"
+							outcome="/cadastro/candidato.xhtml" styleClass="btn-success"
+							style="height: fit-content; margin-top: 10px;" />
+
+					</div>
+
+					<p:separator />
+
+					<div style="display: grid; justify-items: center;">
+
+						<p:linkButton value="ROADMAPS" icon="fa fa-sitemap"
+							outcome="/roadmap/roadmap.xhtml"
+							style="height: fit-content; width: 120px;" />
+
+					</div>
+
+
+				</div>
+
+
+				<div class="surface-section"
+					style="width: 100%; display: grid; padding-top: 20px">
+
+
+
+					<div id="divCandidato"
+						style="width: 100%; display: flex; margin-left: 25px;">
+
+
+						<div id="infoCandidato"
+							class="surface-section px-4 py-5 md:px-6 lg:px-7"
+							style="width: 45%; padding-right: 1em !important;">
+							<ul
+								class="list-none p-0 m-0 flex align-items-center font-medium mb-3">
+								<li><a href="http://localhost:8080/index.jsf"
+									class="text-500 no-underline line-height-3 cursor-pointer">Index</a>
+								</li>
+								<li class="px-2"><i
+									class="pi pi-angle-right text-500 line-height-3" /></li>
+								<li><span class="text-900 line-height-3">Meu Perfil</span></li>
+							</ul>
+							<div
+								class="flex align-items-start flex-column lg:justify-content-between lg:flex-row">
+								<div style="width: 70%;">
+									<div class="font-large text-6xl text-900 text-blue-700">#{dashboardCandidatoController.candidato.nome}</div>
+									<div class="flex align-items-center text-gray-500 flex-wrap">
+										<div class="mr-5 flex align-items-center mt-5 text-3xl">
+											<i class="fa fa-building-o mr-2" /> <span>#{dashboardCandidatoController.quantidadeDeEmpresas()}
+												Total Empresas</span>
+										</div>
+										<div class="mr-5 flex align-items-center mt-5 text-3xl">
+											<i class="pi pi-fw pi-briefcase mr-2" /> <span>#{dashboardCandidatoController.vagas.size()}
+												Candidaturas</span>
+										</div>
+										<div class="flex align-items-center mt-5 text-1xl">
+											<i class="pi pi-map-marker mr-2" /> <span>#{dashboardCandidatoController.candidato.cidade},
+												Brasil</span>
+										</div>
+									</div>
+								</div>
+								<div class="mt-8 lg:mt-0 text-gray-500" id="subInfoCandidato"
+									style="width: 30%; display: grid; justify-content: end; margin-right: 10px;">
+									<div class="flex align-items-center mt-5 text-1xl"
+										style="margin-right: 15px;">
+										<i class="fa fa-code mr-2" /> <span>#{dashboardCandidatoController.candidato.carreira}</span>
+									</div>
+									<div class="flex align-items-center mt-5 text-1xl"
+										style="margin-right: 15px;">
+										<i class="fa fa-phone mr-2" /> <span>#{dashboardCandidatoController.candidato.telefone}</span>
+									</div>
+
+
+									<div class="flex align-items-center mt-5 text-1xl">
+
+										<p:linkButton outcome="/perfil/candidato.xhtml"
+											value="VER PERFIL" target="_blank" icon="pi pi-fw pi-user"
+											style="height: fit-content;" />
+									</div>
+
+								</div>
+							</div>
+
+
+							<div id="divInfo" style="margin-top: 20px;">
+								<p:divider align="left">
+									<div class="p-d-inline-flex p-ai-center subInfo">
+										<i class="fa fa-user" style="font-size: 16px; color: gray;"></i>
+										INFO
+									</div>
+								</p:divider>
+
+								<h:outputText
+									style="font-size: 16px; color: gray; margin-right: 10px;"
+									value="#{dashboardCandidatoController.candidato.descricao}" />
+
+
+							</div>
+
+
+						</div>
+
+						<div id="divChart">
+
+							<p:chart id="chart" type="pie"
+								model="#{chartView.pieModelCandidato}"
+								style="width:400px;height:300px; margin-top: 50px;" />
+
+						</div>
+					</div>
+
+					<div style="width: 100%;">
+						<div id="divTabela" style="width: 72%; margin-left: 70px;">
+
+							<h3 style="margin-top: 30px;">SUAS CANDIDATURAS</h3>
+							<h5 style="margin-bottom: 20px;">Clique duas vezes na vaga
+								para visualizar os candidatos.</h5>
+
+
+							<p:dataTable id="tabela" styleClass="empresa" var="vaga"
+								value="#{dashboardCandidatoController.vagas}"
+								widgetVar="tabelaVagas"
+								currentPageReportTemplate="[{startRecord} a {endRecord}]"
+								disabledSelection="#{vaga.desativada == true}"
+								rowKey="#{vaga.id}" emptyMessage="Sem vagas." reflow="true"
+								paginator="true" rows="3" paginatorPosition="bottom"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+								rowsPerPageTemplate="3,6,9" selectionMode="single"
+								selection="#{dashboardCandidatoController.vagaSelecionada}">
+
+								<p:ajax event="rowSelect" update=":dialogoVaga :vagaDetalhes"
+									oncomplete="PF('vagaDialogo').show()" />
+
+
+								<p:column width="30%" style="text-align: center;"
+									styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
+									<img src="data:image/jpg;base64, #{vaga.empresa.fotoStr()}"
+										style="width: 60px;" />
+								</p:column>
+
+
+								<p:column styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
+									<div style="margin-bottom: 10px;">
+										<h:outputText
+											style="font-size: 1.25em; font-weight: 600; margin-right: 5px;"
+											value="#{vaga.profissao}" />
+
+										<h:outputText
+											style="background: #cdefff; color: #254bd3; font-weight: 600; padding: 1px;"
+											value="NOVA" rendered="#{!vaga.desativada}" />
+
+										<h:outputText
+											style="background: #FFCDD2; color: #C63737; font-weight: 600; padding: 1px;"
+											value="DESATIVADA" rendered="#{vaga.desativada}" />
+									</div>
+									<div style="margin-bottom: 10px;">
+										<div class="colunaInfo" style="display: flex;">
+
+											<div class="styleInfo">
+												<i class="pi pi-chart-bar" />
+												<h:outputText value=" #{vaga.nivelExperiencia}" />
+											</div>
+
+											<div class="styleInfo">
+												<i class="fa fa-money" /> <span> Salário: </span>
+
+												<h:outputText value="#{vaga.salario}" />
+											</div>
+										</div>
+										<div class="colunaInfo" style="display: flex;">
+
+
+
+											<div class="styleInfo">
+												<i class="fa fa-file-text-o" />
+												<h:outputText value=" #{vaga.tipoContrato}" />
+											</div>
+											<div class="styleInfo">
+												<i class="fa fa-plane" /> <span> Aceita Candidatos
+													de Fora: </span>
+												<h:outputText value=" #{vaga.aceitaCandidatoFora}" />
+											</div>
+										</div>
+									</div>
+									<div>
+										<p:repeat value="#{vaga.listaPrincipaisTecnologias()}"
+											var="tecnologia">
+											<span
+												style="#{dashboardCandidatoController.tecnologiasCores()}">#{tecnologia}</span>
+										</p:repeat>
+									</div>
+								</p:column>
+
+
+								<p:column style="font-size: 14px;"
+									styleClass="#{vaga.desativada ? 'trDesativada' : ''}">
+
+									<h:outputText value="Candidaturas: " />
+									<h:outputText
+										style="color: #3ae12f; font-weight: 600; font-size: 16px;"
+										value=" #{vaga.candidatos.size()}" />
+									<br />
+									<h:outputText value="Data: " />
+									<h:outputText value=" #{vaga.dataCriacao}" />
+
+								</p:column>
+
+								<p:column styleClass="#{vaga.desativada ? 'trDesativada' : ''}"
+									style="text-align: end;">
+
+									<p:commandButton
+										action="#{dashboardCandidatoController.cancelarCandidatura(vaga)}"
+										ajax="false" style="font-size: 11.5px;"
+										rendered="#{!vaga.desativada}" value="CANCELAR CANDIDATURA" />
+
+								</p:column>
+
+							</p:dataTable>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+		<p:dialog id="dialogoVaga" responsive="true"
+			header="VAGA: ID# #{dashboardCandidatoController.vagaSelecionada.id}"
+			widgetVar="vagaDialogo" modal="true" showEffect="explode"
+			resizable="false" hideEffect="explode"
+			style="overflow: auto; max-height: 550px;">
+
+			<p:outputPanel id="vagaDetalhes" style="text-align:center;"
+				rendered="#{dashboardCandidatoController.vagaSelecionada != null}">
+
+
+				<div id="header">
+					<span style="color: white; font-size: 16px;">#{dashboardCandidatoController.vagaSelecionada.area}</span>
+					<h4 style="color: white; font-size: 28px;">#{dashboardCandidatoController.vagaSelecionada.profissao}</h4>
+					<br />
+
+					<div id="headerHab"
+						style="display: flex; flex-wrap: wrap; justify-content: center;">
+
+						<p:repeat
+							value="#{dashboardCandidatoController.vagaSelecionada.listaPrincipaisTecnologias()}"
+							var="tecnologia">
+							<span
+								style="border-radius: 16px; margin-right: 5px; padding: 0 0.75rem; font-size: 16px; color: white; border: 1px solid;">
+								#{tecnologia}</span>
+						</p:repeat>
+
+					</div>
+
+				</div>
+
+				<div id="body">
+					<div id="empresa" style="margin-top: 30px; text-align: initial;">
+
+						<h:outputText style="font-size: 24px; font-weight: 600;"
+							value="#{dashboardCandidatoController.vagaSelecionada.empresa.nomeEmpresarial}" />
+
+						<div
+							style="display: flex; padding-top: 20px; padding-bottom: 20px; background-color: #80808038; height: auto; align-items: center; margin-top: 5px;">
+							<div
+								style="width: 30%; display: flex; justify-content: center; align-items: center;">
+								<img
+									src="data:image/jpg;base64, #{dashboardCandidatoController.vagaSelecionada.empresa.fotoStr()}"
+									style="width: 60px;" />
+							</div>
+							<div id="resumoVaga"
+								style="display: flex; font-size: 16px; justify-content: space-between; width: 55%;">
+
+								<div>
+									<div style="margin-bottom: 5px">
+										<i class="fa fa-building" />
+										<h:outputText
+											value=" #{dashboardCandidatoController.vagaSelecionada.empresa.tamanho}" />
+									</div>
+									<div style="margin-bottom: 5px">
+										<i class="pi pi-map-marker" />
+										<h:outputText
+											value=" #{dashboardCandidatoController.vagaSelecionada.empresa.localidade}" />
+									</div>
+									<div style="margin-bottom: 5px">
+										<i class="pi pi-globe" />
+
+										<h:outputText value=" Remoto" />
+									</div>
+									<div style="margin-bottom: 5px">
+										<i class="fa fa-plane" />
+										<h:outputText
+											value=" Aceita candidatos de fora: #{dashboardCandidatoController.vagaSelecionada.aceitaCandidatoFora}" />
+									</div>
+								</div>
+
+								<div>
+									<div style="margin-bottom: 5px">
+										<i class="fa fa-file-text-o" />
+
+										<h:outputText
+											value=" #{dashboardCandidatoController.vagaSelecionada.tipoContrato}" />
+									</div>
+									<div style="margin-bottom: 5px">
+										<i class="pi pi-chart-bar" />
+
+										<h:outputText
+											value=" #{dashboardCandidatoController.vagaSelecionada.nivelExperiencia}" />
+									</div>
+									<div style="margin-bottom: 5px">
+										<i class="fa fa-money" />
+										<h:outputText
+											value=" Salário: #{dashboardCandidatoController.vagaSelecionada.salario}" />
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div id="descricao" style="margin-top: 20px; text-align: initial;">
+
+						<div style="display: grid; margin-bottom: 30px;">
+
+							<p:divider align="left">
+								<div class="p-d-inline-flex p-ai-center subTituloDescricao">
+									<span> Descrição da Empresa</span>
+								</div>
+							</p:divider>
+
+							<h:outputText styleClass="subTextoDescricao"
+								value="#{dashboardCandidatoController.vagaSelecionada.apresentacao}" />
+
+						</div>
+
+						<div class="subDivDescricao">
+
+							<p:divider align="left">
+								<div class="p-d-inline-flex p-ai-center subTituloDescricao">
+									<span> Atividades e Reponsabilidades</span>
+								</div>
+							</p:divider>
+
+							<h:outputText styleClass="subTextoDescricao"
+								value="#{dashboardCandidatoController.vagaSelecionada.responsabilidades}" />
+						</div>
+
+						<div class="subDivDescricao">
+
+							<p:divider align="left">
+								<div class="p-d-inline-flex p-ai-center subTituloDescricao">
+									<span> Requisitos Obrigatórios</span>
+								</div>
+							</p:divider>
+
+							<h:outputText styleClass="subTextoDescricao"
+								value="#{dashboardCandidatoController.vagaSelecionada.skillsObrigatorias}" />
+						</div>
+
+						<div class="subDivDescricao">
+
+							<p:divider align="left">
+								<div class="p-d-inline-flex p-ai-center subTituloDescricao">
+									<span> Requisitos Desejavéis</span>
+								</div>
+							</p:divider>
+
+							<h:outputText styleClass="subTextoDescricao"
+								value="#{dashboardCandidatoController.vagaSelecionada.skillsDesejaveis}" />
+						</div>
+
+						<div class="subDivDescricao">
+							<p:divider align="left">
+								<div class="p-d-inline-flex p-ai-center subTituloDescricao">
+									<span> Quais benefícios oferecemos</span>
+								</div>
+							</p:divider>
+
+							<div
+								style="background-color: #80808038; display: grid; padding: 10px;">
+
+								<p:repeat
+									value="#{dashboardCandidatoController.vagaSelecionada.listaBeneficios()}"
+									var="beneficio">
+
+									<div style="margin-bottom: 5px;">
+										<i
+											class="#{dashboardCandidatoController.iconBeneficio(beneficio)}" />
+										<h:outputText styleClass="subTextoDescricao"
+											value=" #{beneficio}" />
+									</div>
+
+								</p:repeat>
+
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+			</p:outputPanel>
+
+		</p:dialog>
+
+		<ui:include src="/includes/rodape.xhtml" />
+
+	</h:form>
+
+</h:body>
+</html>
