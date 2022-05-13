@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.event.SlideEndEvent;
 import org.primefaces.model.file.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -89,16 +90,20 @@ public class CadastroCandidatoController {
 	}
 
 	public void salvar() throws IOException {
-
-		for (Habilidade habilidade : candidato.getHabilidades()) {
-			habilidade.setCandidato(candidato);
+		
+		if(candidato.getHabilidades().get(0).getCandidato() == null) {
+			for (Habilidade habilidade : candidato.getHabilidades()) {
+				habilidade.setCandidato(candidato);
+			}
 		}
 
-		for (Experiencia experiencia : candidato.getExperiencias()) {
-			experiencia.setCandidato(candidato);
+		if(candidato.getExperiencias().get(0).getCandidato() == null) {
+			for (Experiencia experiencia : candidato.getExperiencias()) {
+				experiencia.setCandidato(candidato);
 
-			for (Habilidade habilidade : experiencia.getHabilidades()) {
-				habilidade.setExperiencia(experiencia);
+				for (Habilidade habilidade : experiencia.getHabilidades()) {
+					habilidade.setExperiencia(experiencia);
+				}
 			}
 		}
 
@@ -182,4 +187,24 @@ public class CadastroCandidatoController {
 	public List<String> getHabilidades() {
 		return utilService.habilidades();
 	}
+	
+    public void endEventHabilidade1(SlideEndEvent event) {
+    	candidato.getHabilidades().get(0).setAno((int) event.getValue());
+    }
+	
+    public void endEventHabilidade2(SlideEndEvent event) {
+    	candidato.getHabilidades().get(1).setAno((int) event.getValue());
+    }
+    
+    public void endEventHabilidade3(SlideEndEvent event) {
+    	candidato.getHabilidades().get(2).setAno((int) event.getValue());
+    }
+    
+    public void endEventHabilidade4(SlideEndEvent event) {
+    	candidato.getHabilidades().get(3).setAno((int) event.getValue());
+    }
+    
+    public void endEventHabilidade5(SlideEndEvent event) {
+    	candidato.getHabilidades().get(4).setAno((int) event.getValue());
+    }
 }
