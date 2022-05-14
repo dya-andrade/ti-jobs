@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:adm="http://github.com/adminfaces"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>TI Jobs - página expirada</title>
+</h:head>
+
+<ui:include src="/WEB-INF/templates/template.xhtml" />
+
+<h:body>
+
+
+
+		<div class="error-content bodyPrincipal">
+			<div class="box box-solid box-danger">
+				<div class="box-header with-border" style="padding-top: 1px">
+					<h3>Página expirada</h3>
+				</div>
+				<div class="box-body">
+					<p>
+						A página não pode ser recuperada. <a
+							href="#{sessionScope.requestedUri}"> Clique aqui para
+							recarregar.</a>
+					</p>
+
+				</div>
+			</div>
+		</div>
+		<h:form>
+			<p:remoteCommand autoRun="true" process="@none" global="false"
+				partialSubmit="true" update="@none"
+				oncomplete="$('body').layout('fix');window.setTimeout(collapseSidebar, 100);" />
+		</h:form>
+
+
+	<adm:sidebar collapsed="true" />
+
+	<ui:include src="/includes/rodape.xhtml" />
+
+
+</h:body>
+</html>

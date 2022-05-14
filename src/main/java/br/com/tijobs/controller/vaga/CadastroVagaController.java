@@ -1,5 +1,6 @@
-package br.com.tijobs.controller.cadastro;
+package br.com.tijobs.controller.vaga;
 
+import static br.com.tijobs.util.Message.addDetailMessage;
 import static com.github.adminfaces.template.util.Assert.has;
 
 import java.io.IOException;
@@ -8,18 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Empresa;
-import br.com.tijobs.model.ListaHabilidade;
 import br.com.tijobs.model.Vaga;
+import br.com.tijobs.model.habilidade.ListaHabilidade;
 import br.com.tijobs.repository.EmpresaRepository;
-import br.com.tijobs.repository.ListaHabilidadeRepository;
-import br.com.tijobs.repository.VagaRepository;
+import br.com.tijobs.repository.habilidade.ListaHabilidadeRepository;
+import br.com.tijobs.service.VagaService;
 import br.com.tijobs.util.UtilService;
 
 @Named
@@ -27,7 +28,7 @@ import br.com.tijobs.util.UtilService;
 public class CadastroVagaController {
 
 	private Vaga vaga;
-	
+
 	private Integer idVaga;
 
 	private List<String> benefícios;
@@ -39,23 +40,20 @@ public class CadastroVagaController {
 	private List<ListaHabilidade> tecnologiasSelecionadas;
 
 	@Autowired
-	private VagaRepository vagaRepository;
-
-	@Autowired
-	private EmpresaRepository empresaRepository;
-
-	@Autowired
 	private ListaHabilidadeRepository habilidadeRepository;
 
 	@Autowired
 	private UtilService utilService;
 
+	@Autowired
+	private VagaService vagaService;
+
 	@PostConstruct
 	public void init() {
-		
+
 		if (has(idVaga)) {
-			vaga = vagaRepository.findById(idVaga).get();
-		}else if (vaga == null) {
+			vaga = vagaService.buscaVagaPorId(idVaga);
+		} else if (vaga == null) {
 			vaga = new Vaga();
 		}
 
@@ -63,7 +61,7 @@ public class CadastroVagaController {
 
 		adicionaBeneficios();
 	}
-	
+
 	public Integer getIdVaga() {
 		return idVaga;
 	}
@@ -92,16 +90,14 @@ public class CadastroVagaController {
 		benefícios.add("Auxílio Creche");
 	}
 
-	public void cadastrar() throws IOException {
-		Empresa empresa = empresaRepository.findByUsuario(utilService.usuarioLogado());
+	public void cadastrar() {
+		try {
+			vagaService.cadastrarVaga(vaga, utilService.usuarioLogado());
+		} catch (IOException e) {
+			addDetailMessage("Vaga cadastrada", FacesMessage.SEVERITY_INFO);
+			e.printStackTrace();
+		}
 
-		vaga.setEmpresa(empresa);
-		
-		vaga.setDataCriacao(LocalDateTime.now());
-
-		vagaRepository.save(vaga);
-
-		FacesContext.getCurrentInstance().getExternalContext().redirect("/dashboard/empresa.xhtml");
 	}
 
 	public Vaga getVaga() {
@@ -124,7 +120,7 @@ public class CadastroVagaController {
 		for (String beneficio : beneficiosSelecionados) {
 			beneficios = beneficios + "," + beneficio;
 		}
-		
+
 		vaga.setBeneficios(beneficios);
 	}
 

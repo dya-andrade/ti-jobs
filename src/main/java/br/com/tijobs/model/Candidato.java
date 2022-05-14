@@ -21,6 +21,8 @@ import org.apache.commons.io.IOUtils;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import br.com.tijobs.model.habilidade.Habilidade;
+
 @Entity(name = "candidato")
 public class Candidato implements Serializable {
 	/**

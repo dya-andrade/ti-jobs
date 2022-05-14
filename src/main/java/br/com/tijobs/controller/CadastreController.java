@@ -1,8 +1,11 @@
 package br.com.tijobs.controller;
 
+import static br.com.tijobs.util.Message.addDetailMessage;
+
 import java.io.IOException;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -46,12 +49,22 @@ public class CadastreController {
 		this.avisoEmpresa = securityService.senhasIguais(usuarioEmpresa);
 	}
 
-	public void criarCadastroUsuario() throws IOException {
-		securityService.criaCadastro(usuarioCandidato, 1);
+	public void criarCadastroUsuario() {
+		try {
+			securityService.criaCadastro(usuarioCandidato, 1);
+		} catch (IOException e) {
+			addDetailMessage("Erro ao tentar criar cadastro", FacesMessage.SEVERITY_ERROR);
+			e.printStackTrace();
+		}
 	}
 
 	public void criarCadastroEmpresa() throws IOException {
-		securityService.criaCadastro(usuarioEmpresa, 2);
+		try {
+			securityService.criaCadastro(usuarioEmpresa, 2);
+		} catch (IOException e) {
+			addDetailMessage("Erro ao tentar criar cadastro", FacesMessage.SEVERITY_ERROR);
+			e.printStackTrace();
+		}
 	}
 
 	public Integer getIndex() {

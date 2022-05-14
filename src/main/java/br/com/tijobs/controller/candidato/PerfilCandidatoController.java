@@ -1,4 +1,4 @@
-package br.com.tijobs.controller.perfil;
+package br.com.tijobs.controller.candidato;
 
 import static com.github.adminfaces.template.util.Assert.has;
 
@@ -16,7 +16,7 @@ import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Candidato;
-import br.com.tijobs.repository.CandidatoRepository;
+import br.com.tijobs.service.CandidatoService;
 import br.com.tijobs.util.UtilService;
 
 @Named
@@ -28,7 +28,7 @@ public class PerfilCandidatoController {
 	private Integer idCandidato;
 
 	@Autowired
-	private CandidatoRepository candidatoRepository;
+	private CandidatoService candidatoService;
 
 	@Autowired
 	private UtilService utilService;
@@ -37,7 +37,7 @@ public class PerfilCandidatoController {
 	public void init() {
 
 		if (has(idCandidato)) {
-			candidato = candidatoRepository.findById(idCandidato).get();
+			candidato = candidatoService.buscarCadidatoPorId(idCandidato);
 		} else {
 
 			candidato = utilService.perfilCandidato();

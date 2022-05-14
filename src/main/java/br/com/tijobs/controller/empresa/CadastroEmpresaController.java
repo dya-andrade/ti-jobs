@@ -1,11 +1,13 @@
-package br.com.tijobs.controller.cadastro;
+package br.com.tijobs.controller.empresa;
+
+import static br.com.tijobs.util.Message.addDetailMessage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import javax.faces.view.ViewScoped;
@@ -15,7 +17,7 @@ import org.primefaces.model.file.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Empresa;
-import br.com.tijobs.repository.EmpresaRepository;
+import br.com.tijobs.service.EmpresaService;
 import br.com.tijobs.util.UtilService;
 
 @Named
@@ -23,7 +25,7 @@ import br.com.tijobs.util.UtilService;
 public class CadastroEmpresaController {
 
 	@Autowired
-	private EmpresaRepository empresaRepository;
+	private EmpresaService empresaService;
 
 	private Empresa empresa;
 
@@ -34,7 +36,7 @@ public class CadastroEmpresaController {
 	private List<String> distritos;
 
 	private UploadedFile file;
-	
+
 	@Autowired
 	private UtilService utilService;
 
@@ -46,12 +48,12 @@ public class CadastroEmpresaController {
 		}
 
 		adicionaTiposGrupo();
-		
+
 		adicionaRamos();
 
 		distritos = utilService.buscaDistritosSP();
 	}
-	
+
 	private void adicionaTiposGrupo() {
 		tiposGrupo = new ArrayList<>();
 
@@ -61,7 +63,7 @@ public class CadastroEmpresaController {
 
 		tiposGrupo.add(tiposEmpresa);
 	}
-	
+
 	private void adicionaRamos() {
 		ramos = new ArrayList<>();
 
@@ -87,16 +89,18 @@ public class CadastroEmpresaController {
 		ramos.add("Outros");
 	}
 
-
-	public void salvar() throws IOException {
-
+	public void salvar() {
+		
 		empresa.setUsuario(utilService.usuarioLogado());
-
-		empresaRepository.save(empresa);
-
-		FacesContext.getCurrentInstance().getExternalContext().redirect("/dashboard/empresa.xhtml");
+		
+		try {
+			empresaService.cadastrarEmpresa(empresa);
+		} catch (IOException e) {
+			addDetailMessage("Cadastro salvo", FacesMessage.SEVERITY_INFO);
+			e.printStackTrace();
+		}
 	}
-	
+
 	public UploadedFile getFile() {
 		return file;
 	}

@@ -1,12 +1,19 @@
 package br.com.tijobs.service;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
+
+import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.tijobs.model.Candidato;
 import br.com.tijobs.model.Empresa;
+import br.com.tijobs.model.Usuario;
 import br.com.tijobs.model.Vaga;
+import br.com.tijobs.repository.EmpresaRepository;
 import br.com.tijobs.repository.VagaRepository;
 
 @Service
@@ -14,16 +21,19 @@ public class VagaService {
 
 	@Autowired
 	private VagaRepository vagaRepository;
-	
-	
+
+	@Autowired
+
+	private EmpresaRepository empresaRepository;
+
 	public List<Vaga> buscaTodasVagas() {
 		return vagaRepository.findAll();
 	}
-	
+
 	public List<Vaga> buscaVagasPeloIdCandidato(Integer id) {
 		return vagaRepository.buscaVagasPorIdCandidato(id);
 	}
-	
+
 	public List<Vaga> buscaVagasPeloIdEmpresa(Empresa empresa) {
 		return vagaRepository.findByEmpresa(empresa);
 	}
@@ -173,5 +183,52 @@ public class VagaService {
 
 	public List<Integer> buscaQuantidadeDeEmpresasPorCandidato(int idCandidato) {
 		return vagaRepository.buscaQuantidadeDeEmpresasPorCandidato(idCandidato);
+	}
+
+	public void cadastrarVaga(Vaga vaga, Usuario usarioLogado) throws IOException {
+
+		Empresa empresa = empresaRepository.findByUsuario(usarioLogado);
+
+		vaga.setEmpresa(empresa);
+
+		vaga.setDataCriacao(LocalDateTime.now());
+
+		vagaRepository.save(vaga);
+
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/dashboard/empresa.xhtml");
+	}
+
+	public Vaga buscaVagaPorId(Integer idVaga) {
+		return vagaRepository.findById(idVaga).get();
+	}
+
+	public void cancelarCandidatura(Vaga vaga, Candidato candidato) {
+		List<Candidato> candidatos = vaga.getCandidatos();
+
+		if (candidatos.contains(candidato)) {
+			candidatos.remove(candidato);
+		} else {
+
+			for (Candidato c : candidatos) {
+				if (c.getId() == candidato.getId()) {
+					candidatos.remove(candidato);
+					break;
+				}
+			}
+		}
+
+		vaga.setCandidatos(candidatos);
+		vagaRepository.save(vaga);
+
+	}
+
+	public void desativaVaga(Vaga vaga) {
+		vaga.setDesativada(true);
+		vagaRepository.save(vaga);
+	}
+
+	public void ativaVaga(Vaga vaga) {
+		vaga.setDesativada(false);
+		vagaRepository.save(vaga);
 	}
 }

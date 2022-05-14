@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:adm="http://github.com/adminfaces"
+	xmlns:of="http://omnifaces.org/functions">
+
+<h:head>
+	<title>TI Jobs - 500</title>
+</h:head>
+
+<ui:include src="/WEB-INF/templates/template.xhtml" />
+
+<h:body>
+
+
+	<style type="text/css">
+.row {
+	margin-right: 0px !important;
+	margin-left: 0px !important;
+}
+</style>
+
+	<div class="row">
+		<div class="ui-g-12">
+			<div class="error-page">
+				<h2 class="headline text-red">500</h2>
+
+				<div class="error-content" style="font-size: 1.1em">
+					<h3>
+						<i class="fa fa-warning text-red"></i> Algo deu errado.
+					</h3>
+
+					<p>
+						Se o erro persistir, contate o administrador do sistema. <br />
+						Volte para
+						<p:link style="text-decoration: underline"
+							outcome="/#{adminConfig.indexPage}" value="o início"
+							escape="false" />
+						ou para <a href="#" onclick="window.history.back();"
+							class="ui-link" style="text-decoration: underline">a página
+							anterior</a>.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row bodyPrincipal">
+		<div class="ui-g-12">
+			<div class="box box-solid box-danger">
+				<div class="box-header with-border" style="padding-top: 1px">
+					<h3>Erro inesperado</h3>
+				</div>
+				<div class="box-body" style="overflow: auto">
+					<ul>
+						<li><b>Date/time:</b> #{of:formatDate(now,
+							adminConfig.dateFormat)}</li>
+						<li><b>User agent:</b> #{sessionScope.userAgent}</li>
+						<li><b>User IP:</b> #{sessionScope.userIp}</li>
+						<li><b>Request URI:</b> <a
+							href="#{sessionScope.requestedUri}">#{sessionScope.requestedUri}</a>
+						</li>
+						<li><b>Ajax request:</b>
+							#{facesContext.partialViewContext.ajaxRequest ? 'Yes' : 'No'}</li>
+						<li><b>Exception type: </b>#{sessionScope.exceptionType}</li>
+						<li><b>Message:</b> #{sessionScope.errorMessage}</li>
+					</ul>
+				</div>
+			</div>
+			<div class="box box-solid box-warning">
+				<div class="box-header with-border" style="padding-top: 1px">
+					<h3>Detalhes</h3>
+				</div>
+				<div class="box-body" style="overflow: auto">
+					<pre>
+						#{of:printStackTrace(sessionScope.stacktrace)}
+					</pre>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<adm:sidebar collapsed="true" />
+
+	<ui:include src="/includes/rodape.xhtml" />
+
+
+</h:body>
+</html>

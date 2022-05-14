@@ -1,4 +1,4 @@
-package br.com.tijobs.controller.dashboard;
+package br.com.tijobs.controller.empresa;
 
 import static br.com.tijobs.util.Message.addDetailMessage;
 
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Empresa;
 import br.com.tijobs.model.Vaga;
-import br.com.tijobs.repository.VagaRepository;
 import br.com.tijobs.service.VagaService;
 import br.com.tijobs.util.UtilService;
 
@@ -38,9 +37,6 @@ public class DashboardEmpresaController {
 	@Autowired
 	private UtilService utilService;
 	
-	@Autowired
-	private VagaRepository vagaRepository;
-	
 
 	@PostConstruct
 	public void init() {
@@ -56,9 +52,9 @@ public class DashboardEmpresaController {
 	}
 
 	public String tecnologiasCores() {
-		
+
 		List<String> backgroundColors = utilService.getBackgroundColors();
-		
+
 		List<String> colors = utilService.getColors();
 
 		Random random = new Random();
@@ -70,9 +66,9 @@ public class DashboardEmpresaController {
 	}
 
 	public String avatarCores() {
-				
+
 		List<String> colors = utilService.getColors();
-		
+
 		Random random = new Random();
 
 		int numero = random.nextInt(5);
@@ -80,23 +76,20 @@ public class DashboardEmpresaController {
 		return "vertical-align: middle; border-radius: 50px; border: 2px solid " + colors.get(numero)
 				+ "; margin-right: 5px;";
 	}
-	
-	
+
 	public void desativarVaga(Vaga vaga) {
-		vaga.setDesativada(true);
-		vagaRepository.save(vaga);
-		
+
+		vagaService.desativaVaga(vaga);
 		vagas = vagaService.buscaVagasPeloIdEmpresa(empresa);
-		
+
 		addDetailMessage("Vaga desativada", FacesMessage.SEVERITY_INFO);
 	}
-	
+
 	public void ativarVaga(Vaga vaga) {
-		vaga.setDesativada(false);
-		vagaRepository.save(vaga);
 		
+		vagaService.ativaVaga(vaga);
 		vagas = vagaService.buscaVagasPeloIdEmpresa(empresa);
-		
+
 		addDetailMessage("Vaga ativada", FacesMessage.SEVERITY_INFO);
 	}
 

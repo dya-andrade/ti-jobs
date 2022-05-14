@@ -22,6 +22,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import br.com.tijobs.model.habilidade.Habilidade;
+
 @Entity(name = "experiencia")
 public class Experiencia implements Serializable {
 

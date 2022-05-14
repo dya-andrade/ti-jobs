@@ -1,4 +1,4 @@
-package br.com.tijobs.service;
+package br.com.tijobs.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,14 +20,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Candidato;
 import br.com.tijobs.model.Empresa;
-import br.com.tijobs.model.Habilidade;
 import br.com.tijobs.model.Vaga;
-import br.com.tijobs.repository.HabilidadeRepository;
+import br.com.tijobs.model.habilidade.Habilidade;
+import br.com.tijobs.repository.habilidade.HabilidadeRepository;
+import br.com.tijobs.service.VagaService;
 import br.com.tijobs.util.UtilService;
 
 @Named
 @ViewScoped
-public class ChartView implements Serializable {
+public class ChartViewController implements Serializable {
 
 	/**
 	 * 

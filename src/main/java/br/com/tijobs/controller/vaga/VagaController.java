@@ -1,4 +1,4 @@
-package br.com.tijobs.controller;
+package br.com.tijobs.controller.vaga;
 
 import static br.com.tijobs.util.Message.addDetailMessage;
 
@@ -18,11 +18,11 @@ import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Candidato;
-import br.com.tijobs.model.ListaHabilidade;
 import br.com.tijobs.model.Usuario;
 import br.com.tijobs.model.Vaga;
-import br.com.tijobs.repository.ListaHabilidadeRepository;
+import br.com.tijobs.model.habilidade.ListaHabilidade;
 import br.com.tijobs.repository.VagaRepository;
+import br.com.tijobs.repository.habilidade.ListaHabilidadeRepository;
 import br.com.tijobs.service.VagaService;
 import br.com.tijobs.util.UtilService;
 

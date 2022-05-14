@@ -95,6 +95,28 @@ public class SecurityService {
 		}
 	}
 
+	public void resetarSenha(Usuario usuario) throws IOException {
+		if (usuario.getConfirmeSenha() != null && usuario.getSenha() != null) {
+
+			if (usuario.getSenha().equals(usuario.getConfirmeSenha())) {
+				usuario.setSenha(passwordEncoder().encode(usuario.getSenha()));
+				repository.save(usuario);
+
+				HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext()
+						.getSession(true);
+				session.setAttribute("usuario", usuario);
+
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/login.jsf");
+
+			} else {
+				addDetailMessage("As senhas não são iguais", FacesMessage.SEVERITY_WARN);
+			}
+		} else {
+			addDetailMessage("Todos os campos são obrigatório", FacesMessage.SEVERITY_WARN);
+		}
+
+	}
+
 	public boolean senhasIguais(Usuario usuario) {
 
 		String senha = usuario.getSenha();

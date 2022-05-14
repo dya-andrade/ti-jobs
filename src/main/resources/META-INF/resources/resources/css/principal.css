@@ -1,0 +1,15 @@
+#card {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-repeat: no-repeat;
+}
+
+#login, #recuperaSenha, #cadastro {
+	width: 50%;
+	height: auto;
+}
+
+.titulo {
+	font-size: 20px;
+}

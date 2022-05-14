@@ -1,3 +1,7 @@
+.bodyPrincipal {
+	min-height: 545px;
+}
+
 @media screen and (max-width: 770px) {
 	.principalItem {
 		font-size: 26px !important;

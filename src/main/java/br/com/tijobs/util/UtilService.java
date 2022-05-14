@@ -15,11 +15,11 @@ import org.springframework.web.client.RestTemplate;
 
 import br.com.tijobs.model.Candidato;
 import br.com.tijobs.model.Empresa;
-import br.com.tijobs.model.ListaHabilidade;
 import br.com.tijobs.model.Usuario;
+import br.com.tijobs.model.habilidade.ListaHabilidade;
 import br.com.tijobs.repository.CandidatoRepository;
 import br.com.tijobs.repository.EmpresaRepository;
-import br.com.tijobs.repository.ListaHabilidadeRepository;
+import br.com.tijobs.repository.habilidade.ListaHabilidadeRepository;
 import br.com.tijobs.security.SecurityService;
 
 @Service

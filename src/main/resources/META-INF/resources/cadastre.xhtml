@@ -16,8 +16,10 @@
 
 <h:body>
 
-	
+
 	<h:outputStylesheet name="css/cadastre.css" />
+	<h:outputStylesheet name="css/principal.css" />
+
 
 	<f:metadata>
 		<f:viewParam name="index" value="#{cadastreController.index}"
@@ -28,17 +30,15 @@
 
 	<h:form prependId="false">
 
-		<div class="card"
-			style="height: 550px; display: flex; justify-content: center; align-items: center; background-repeat: no-repeat; background: center;">
+		<div id="card" class="card bodyPrincipal" style="background: center;">
 
 
-			<p:tabView id="cadastro" style="width: 50%; height: auto;"
-				activeIndex="#{cadastreController.index}">
+			<p:tabView id="cadastro" activeIndex="#{cadastreController.index}">
 				<p:tab title="Candidato" id="candidato">
-					<div class="text-center mb-5" style="font-size: 20px;">
+					<div class="text-center mb-5 titulo">
 
 
-							<i class="pi pi-user" /> 
+						<i class="pi pi-user" />
 
 
 						<div class="text-900 text-3xl font-medium mb-3">Seja bem
@@ -77,24 +77,25 @@
 
 						</p:inputText>
 
-						<p:staticMessage id="avisoCandidato" styleClass="mb-6" severity="error"
-							summary="Atenção: " detail="As senhas não são iguais"
+						<p:staticMessage id="avisoCandidato" styleClass="mb-6"
+							severity="error" summary="Atenção: "
+							detail="As senhas não são iguais"
 							rendered="#{cadastreController.avisoCandidato}">
 						</p:staticMessage>
 
 
 						<p:commandButton id="criarCandidato" ajax="false" value="Criar"
-							process="@this candidato" update="@form :growl" icon="pi pi-id-card"
-							styleClass="btn-primary"
+							process="@this candidato" update="@form :growl"
+							icon="pi pi-id-card" styleClass="btn-primary"
 							action="#{cadastreController.criarCadastroUsuario}" />
 					</div>
 
 
 				</p:tab>
 				<p:tab title="Empresa" id="empresa">
-					<div class="text-center mb-5" style="font-size: 20px;">
+					<div class="text-center mb-5 titulo">
 
-							<i class="fa fa-building" /> 
+						<i class="fa fa-building" />
 
 						<div class="text-900 text-3xl font-medium mb-3">Seja bem
 							vindo(a)!</div>
@@ -124,19 +125,20 @@
 						<p:inputText id="novaSenhaConfirmeEmpresa" type="password"
 							styleClass="w-full mb-6"
 							value="#{cadastreController.usuarioEmpresa.confirmeSenha}">
-								<p:ajax event="keyup" delay="1000"
+							<p:ajax event="keyup" delay="1000"
 								listener="#{cadastreController.senhasIguaisEmpresa}"
 								process="@this novaSenhaEmpresa emailEmpresa" update="@form" />
 						</p:inputText>
-						
-							<p:staticMessage id="avisoEmpresa" styleClass="mb-6" severity="error"
-							summary="Atenção: " detail="As senhas não são iguais"
+
+						<p:staticMessage id="avisoEmpresa" styleClass="mb-6"
+							severity="error" summary="Atenção: "
+							detail="As senhas não são iguais"
 							rendered="#{cadastreController.avisoEmpresa}">
 						</p:staticMessage>
 
 						<p:commandButton id="criarEmpresa" ajax="false" value="Criar"
-							process="@this empresa" update="@form :growl" icon="pi pi-id-card"
-							styleClass="btn-primary"
+							process="@this empresa" update="@form :growl"
+							icon="pi pi-id-card" styleClass="btn-primary"
 							action="#{cadastreController.criarCadastroEmpresa}" />
 					</div>
 

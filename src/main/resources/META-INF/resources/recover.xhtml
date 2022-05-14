@@ -9,7 +9,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-	<title>TI Jobs - cadastre-se</title>
+	<title>TI Jobs - recuperar senha</title>
 </h:head>
 
 <ui:include src="/WEB-INF/templates/template.xhtml" />
@@ -18,18 +18,17 @@
 
 
 	<h:outputStylesheet name="css/recover.css" />
-
-
+	<h:outputStylesheet name="css/principal.css" />
 
 	<h:form prependId="false">
 
-		<div class="card"
-			style="height: 550px; display: flex; justify-content: center; align-items: center; background-repeat: no-repeat; background: center;">
+		<div id="card" class="card bodyPrincipal"
+			style="background: center;">
 
 
-			<p:tabView id="recuperaSenha" style="width: 50%; height: auto;">
+			<p:tabView id="recuperaSenha">
 				<p:tab title="Recuperar Senha" id="senha">
-					<div class="text-center mb-5" style="font-size: 20px;">
+					<div class="text-center mb-5 titulo">
 
 
 						<i class="fa fa-lock" />
@@ -57,7 +56,7 @@
 
 
 						<p:commandButton id="enviaCodigo" value="Enviar"
-							process="@this senha" update=":growl" icon="fa fa-key"
+							process="@this emailCandidato" update=":growl" icon="fa fa-key"
 							styleClass="btn-primary" onsuccess="PF('dlg').show()"
 							action="#{recoverController.enviarCodigo}" />
 
@@ -73,7 +72,7 @@
 
 		<p:dialog header="Código" widgetVar="dlg" minHeight="40" width="350"
 			showEffect="fade" modal="true" id="dialogo">
-			
+
 			<div id="divCodigo">
 				<label for="codigo" class="block text-900 font-medium mb-2">Informe
 					o código:</label>
@@ -81,7 +80,7 @@
 				<p:inputText id="codigo" styleClass="w-full mb-4"
 					value="#{recoverController.codigoUsuario}" />
 
-				<p:commandButton id="confirmar" value="Confirmar"
+				<p:commandButton id="confirmarCodigo" value="Confirmar"
 					process="@this codigo" update="dialogo :growl"
 					icon="fa fa-unlock-alt" styleClass="btn-success"
 					action="#{recoverController.confirmarCodigo}" />
@@ -89,14 +88,14 @@
 
 			<div id="divSenha">
 
-				<label for="novaSenha" class="block text-900 font-medium mb-2">Senha</label>
-				<p:inputText id="novaSenhaCandidato" type="password"
+				<label for="novaSenha" class="block text-900 font-medium mb-2">Nova senha</label>
+				<p:inputText id="novaSenha" type="password"
 					styleClass="w-full mb-3" value="#{recoverController.usuario.senha}" />
 
 
 				<label for="novaSenhaConfirme"
 					class="block text-900 font-medium mb-2">Confirme a senha</label>
-				<p:inputText id="novaSenhaConfirmeCandidato" type="password"
+				<p:inputText id="novaSenhaConfirme" type="password"
 					styleClass="w-full mb-6"
 					value="#{recoverController.usuario.confirmeSenha}">
 					<p:ajax event="keyup" delay="1000"
@@ -105,9 +104,15 @@
 
 				</p:inputText>
 
-				<p:commandButton id="confirmar" value="Confirmar"
-					process="@this divSenha" update="@form :growl"
-					icon="fa fa-unlock-alt" styleClass="btn-success"
+				<p:staticMessage id="aviso" styleClass="mb-6" severity="error"
+					summary="Atenção: " detail="As senhas não são iguais"
+					rendered="#{recoverController.aviso}">
+				</p:staticMessage>
+
+
+				<p:commandButton id="confirmarSenha" value="Confirmar"
+					process="@this dialogo" update="aviso :growl"
+					icon="fa fa-unlock" styleClass="btn-success"
 					action="#{recoverController.confirmarSenhaNova}" />
 			</div>
 

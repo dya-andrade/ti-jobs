@@ -1,4 +1,4 @@
-package br.com.tijobs.model;
+package br.com.tijobs.model.habilidade;
 
 import java.io.Serializable;
 

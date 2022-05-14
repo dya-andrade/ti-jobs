@@ -2,6 +2,7 @@ package br.com.tijobs.controller;
 
 import static br.com.tijobs.util.Message.addDetailMessage;
 
+import java.io.IOException;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
@@ -11,8 +12,9 @@ import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.tijobs.usuario.Usuario;
-import br.com.tijobs.usuario.UsuarioRepository;
+import br.com.tijobs.model.Usuario;
+import br.com.tijobs.security.SecurityService;
+import br.com.tijobs.service.UsuarioService;
 import br.com.tijobs.util.EmailUtil;
 
 @Named
@@ -24,14 +26,19 @@ public class RecoverController {
 	private String codigoUsuario;
 
 	private String codigo;
-	
+
 	private Usuario usuario;
-	
+
+	private boolean aviso = false;
+
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UsuarioService usuarioService;
 
 	@Autowired
 	private EmailUtil email;
+
+	@Autowired
+	private SecurityService securityService;
 
 	@PostConstruct
 	public void init() {
@@ -44,15 +51,18 @@ public class RecoverController {
 			Random random = new Random();
 
 			this.codigo = "";
-			
+
 			for (int i = 0; i < 6; i++) {
 				int numero = random.nextInt(9);
 				this.codigo += numero;
 			}
-
 			try {
-				email.enviar(emailUsuario, "TI Jobs - Recuperação de Senha", "Código: " + codigo);
-				usuario = usuarioRepository.findByEmail(emailUsuario);
+				usuario = usuarioService.buscaUsuarioPorEmail(emailUsuario);
+				if (usuario != null) {
+					email.enviar(emailUsuario, "TI Jobs - Recuperação de Senha", "Código: " + codigo);
+				} else {
+					addDetailMessage("Nenhuma conta foi localizada com este email", FacesMessage.SEVERITY_WARN);
+				}
 			} catch (Exception e) {
 				addDetailMessage("Erro ao tentar enviar o código", FacesMessage.SEVERITY_ERROR);
 				e.printStackTrace();
@@ -74,9 +84,22 @@ public class RecoverController {
 			addDetailMessage("Necessário informar o código", FacesMessage.SEVERITY_WARN);
 		}
 	}
-	
+
+	public void confirmarSenhaNova() {
+		try {
+			securityService.resetarSenha(usuario);
+		} catch (IOException e) {
+			addDetailMessage("Erro ao tentar resetar senha", FacesMessage.SEVERITY_ERROR);
+			e.printStackTrace();
+		}
+	}
+
 	public void senhasIguais() {
-		
+		this.aviso = securityService.senhasIguais(usuario);
+	}
+
+	public boolean isAviso() {
+		return aviso;
 	}
 
 	public String getEmailUsuario() {

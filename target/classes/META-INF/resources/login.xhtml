@@ -17,6 +17,7 @@
 <h:body>
 
 	<h:outputStylesheet name="css/login.css" />
+	<h:outputStylesheet name="css/principal.css" />
 
 	<f:metadata>
 		<f:event type="preRenderView" listener="#{loginController.init}" />
@@ -24,15 +25,13 @@
 
 	<h:form prependId="false">
 
-		<div class="card"
-			style="height: 550px; display: flex; justify-content: center; align-items: center; background-repeat: no-repeat; background: left;">
+		<div id="card" class="card bodyPrincipal" style="background: left;">
 
 
-			<p:tabView id="login" style="width: 50%; height: auto;"
-				prependId="false">
+			<p:tabView id="login" prependId="false">
 				<p:tab title="Login">
 
-					<div class="text-center mb-5" style="font-size: 20px;">
+					<div class="text-center mb-5 titulo">
 
 
 						<i class="pi pi-briefcase" />
@@ -61,12 +60,13 @@
 
 						<div class="flex align-items-center justify-content-between mb-6">
 							<div class="flex align-items-center">
-								<p:selectBooleanCheckbox  id="rememberme" value="true" disabled="true" styleClass="mr-2" />
+								<p:selectBooleanCheckbox id="rememberme" value="true"
+									disabled="true" styleClass="mr-2" />
 								<label for="rememberme"> Lembre-me</label>
 							</div>
-							<a
+							<p:link outcome="/recover.jsf"
 								class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Esqueceu
-								sua senha?</a>
+								sua senha?</p:link>
 						</div>
 
 						<h:panelGroup rendered="#{param.authfailed eq 'true'}">

@@ -153,31 +153,31 @@
 
 
 		<error-code>403</error-code>
-		<location>/403.jsf</location>
+		<location>/erro/403.jsf</location>
 	</error-page>
 	<error-page>
 		<exception-type>com.github.adminfaces.template.exception.AccessDeniedException</exception-type>
-		<location>/403.jsf</location>
+		<location>/erro/403.jsf</location>
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/404.jsf</location>
+		<location>/erro/404.jsf</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/error.jsf</location>
+		<location>/erro/error.jsf</location>
 	</error-page>
 	<error-page>
 		<exception-type>java.lang.Throwable</exception-type>
-		<location>/error.jsf</location>
+		<location>/erro/error.jsf</location>
 	</error-page>
 	<error-page>
 		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
-		<location>/expirada.jsf</location>
+		<location>/erro/expirada.jsf</location>
 	</error-page>
 	<error-page>
 		<exception-type>javax.persistence.OptimisticLockException</exception-type>
-		<location>/persist.jsf</location>
+		<location>/erro/persist.jsf</location>
 	</error-page>
 	<mime-mapping>
 		<extension>ico</extension>

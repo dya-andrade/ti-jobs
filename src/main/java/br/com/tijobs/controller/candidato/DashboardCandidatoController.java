@@ -1,4 +1,4 @@
-package br.com.tijobs.controller.dashboard;
+package br.com.tijobs.controller.candidato;
 
 import static br.com.tijobs.util.Message.addDetailMessage;
 
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Candidato;
 import br.com.tijobs.model.Vaga;
-import br.com.tijobs.repository.VagaRepository;
 import br.com.tijobs.service.VagaService;
 import br.com.tijobs.util.UtilService;
 
@@ -34,9 +33,6 @@ public class DashboardCandidatoController {
 
 	@Autowired
 	private UtilService utilService;
-	
-	@Autowired
-	private VagaRepository vagaRepository;
 
 
 	@PostConstruct
@@ -67,25 +63,10 @@ public class DashboardCandidatoController {
 	}
 	
 	public void cancelarCandidatura(Vaga vaga) {
-		List<Candidato> candidatos = vaga.getCandidatos();
-		
-		if(candidatos.contains(candidato)) {
-			candidatos.remove(candidato);
-		}else {
-			
-			for (Candidato candidato : candidatos) {
-				if(candidato.getId() == this.candidato.getId()) {
-					candidatos.remove(candidato);
-					break;
-				}
-			}
-		}
-		
-		vaga.setCandidatos(candidatos);
-		vagaRepository.save(vaga);
+		vagaService.cancelarCandidatura(vaga, candidato);
 		
 		vagas = vagaService.buscaVagasPeloIdCandidato(candidato.getId());
-		
+
 		addDetailMessage("Candidatura cancelada", FacesMessage.SEVERITY_INFO);
 	}
 
