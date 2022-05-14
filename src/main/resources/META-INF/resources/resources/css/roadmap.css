@@ -18,8 +18,16 @@
 	background-color: #fdfd9a;
 }
 
+.net {
+	background-color: #8dfb89;
+}
+
 .subJava {
 	background-color: #ffffd6;
+}
+
+.subNet {
+	background-color: #d9ffd7;
 }
 
 .sub {
@@ -36,4 +44,8 @@
 .titulo {
 	font-size: 15px;
 	font-weight: 600;
+}
+
+.tituloNet {
+	line-height: 2.5em;
 }

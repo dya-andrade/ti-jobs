@@ -3,11 +3,9 @@ package br.com.tijobs.controller;
 import static br.com.tijobs.util.Message.addDetailMessage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -62,9 +60,6 @@ public class VagaController {
 	@Autowired
 	private VagaService vagaService;
 	
-	private List<String> colors;
-	
-	private List<String> backgroundColors;
 
 	@PostConstruct
 	public void init() {
@@ -80,34 +75,6 @@ public class VagaController {
 		usuarioLogado = utilService.usuarioLogado();
 
 		candidatoLogado = utilService.perfilCandidato();
-		
-		colors = new ArrayList<String>();
-		backgroundColors = new ArrayList<String>();
-		
-		colors.add(0, "#eb60c");
-		backgroundColors.add(0, "#fddbff");
-		
-		colors.add(1, "#3ad738");
-		backgroundColors.add(1, "#d9f7de");
-		
-		colors.add(2, "#3477a7");
-		backgroundColors.add(2, "#cfe6f9");
-		
-		colors.add(3, "#d1df5c");
-		backgroundColors.add(2, "#f6ffc5");
-		
-		colors.add(4, "#e53d3d");
-		backgroundColors.add(4, "#ffd1db");
-	}
-
-	public String tecnologiasCores() {
-		
-        Random random = new Random();
-
-        int numero = random.nextInt(5);
-		
-		return "border-radius: 16px; background-color: " + backgroundColors.get(numero) + 
-				"; padding: 0 0.5rem; font-size: 15px; color: " + colors.get(numero) + "; font-weight: 600;";
 	}
 	
 	public String iconBeneficio(String beneficio) {

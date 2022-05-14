@@ -272,7 +272,7 @@
 												invalidFileMessage="Formato não suportado" id="cv"
 												chooseIcon="pi pi-camera" mode="simple" skinSimple="true"
 												label="Escolher">
-	
+
 											</p:fileUpload>
 
 											<p style="opacity: 0.5; font-size: 12px;">apenas
@@ -361,7 +361,10 @@
 
 												<div style="width: 24%; display: grid;">
 													<p:slider style="margin-top: 0px;" for="spinner1"
-														minValue="0" maxValue="10" />
+														minValue="0" maxValue="10">
+														<p:ajax event="slideEnd"
+															listener="#{cadastroCandidatoController.endEventHabilidade1}" />
+													</p:slider>
 													<p:inputText id="spinner1" disabled="true"
 														value="#{cadastroCandidatoController.candidato.habilidades.get(0).ano}" />
 												</div>
@@ -385,7 +388,10 @@
 
 												<div style="width: 24%; display: grid;">
 													<p:slider style="margin-top: 0px;" for="spinner2"
-														minValue="0" maxValue="10" />
+														minValue="0" maxValue="10">
+														<p:ajax event="slideEnd"
+															listener="#{cadastroCandidatoController.endEventHabilidade2}" />
+													</p:slider>
 													<p:inputText id="spinner2" disabled="true"
 														value="#{cadastroCandidatoController.candidato.habilidades.get(1).ano}" />
 												</div>
@@ -409,7 +415,10 @@
 
 												<div style="width: 24%; display: grid;">
 													<p:slider style="margin-top: 0px;" for="spinner3"
-														minValue="0" maxValue="10" />
+														minValue="0" maxValue="10">
+														<p:ajax event="slideEnd"
+															listener="#{cadastroCandidatoController.endEventHabilidade3}" />
+													</p:slider>
 													<p:inputText id="spinner3" disabled="true"
 														value="#{cadastroCandidatoController.candidato.habilidades.get(2).ano}" />
 												</div>
@@ -431,7 +440,10 @@
 
 												<div style="width: 24%; display: grid;">
 													<p:slider style="margin-top: 0px;" for="spinner4"
-														minValue="0" maxValue="10" />
+														minValue="0" maxValue="10">
+														<p:ajax event="slideEnd"
+															listener="#{cadastroCandidatoController.endEventHabilidade4}" />
+													</p:slider>
 													<p:inputText id="spinner4" disabled="true"
 														value="#{cadastroCandidatoController.candidato.habilidades.get(3).ano}" />
 												</div>
@@ -453,7 +465,10 @@
 
 												<div style="width: 24%; display: grid;">
 													<p:slider style="margin-top: 0px;" for="spinner5"
-														minValue="0" maxValue="10" />
+														minValue="0" maxValue="10">
+														<p:ajax event="slideEnd"
+															listener="#{cadastroCandidatoController.endEventHabilidade5}" />
+													</p:slider>
 													<p:inputText id="spinner5" disabled="true"
 														value="#{cadastroCandidatoController.candidato.habilidades.get(4).ano}" />
 												</div>
@@ -1204,7 +1219,7 @@
 									<p:commandButton icon="pi pi-save" value="Salvar"
 										styleClass="btn-primary transition-colors transition-duration-500  hover:bg-blue-1000"
 										style="font-size: 14px; margin-top: 10px; margin-left: 25px;"
-										title="Salvar os dados" process="@form" update="@form"
+										title="Salvar os dados" ajax="false"
 										action="#{cadastroCandidatoController.salvar}" />
 								</div>
 							</div>

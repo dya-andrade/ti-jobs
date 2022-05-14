@@ -6,6 +6,7 @@ import java.util.Base64;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -63,6 +64,7 @@ public class Candidato implements Serializable {
 
 	private String experiencia;
 
+	@Column(columnDefinition = "0")
 	private Boolean semExperiencia;
 
 	//---
