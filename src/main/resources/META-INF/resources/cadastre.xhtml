@@ -84,7 +84,7 @@
 
 
 						<p:commandButton id="criarCandidato" ajax="false" value="Criar"
-							process="@this candidato" update="@form" icon="pi pi-id-card"
+							process="@this candidato" update="@form :growl" icon="pi pi-id-card"
 							styleClass="btn-primary"
 							action="#{cadastreController.criarCadastroUsuario}" />
 					</div>
@@ -135,7 +135,7 @@
 						</p:staticMessage>
 
 						<p:commandButton id="criarEmpresa" ajax="false" value="Criar"
-							process="@this empresa" update="@form" icon="pi pi-id-card"
+							process="@this empresa" update="@form :growl" icon="pi pi-id-card"
 							styleClass="btn-primary"
 							action="#{cadastreController.criarCadastroEmpresa}" />
 					</div>

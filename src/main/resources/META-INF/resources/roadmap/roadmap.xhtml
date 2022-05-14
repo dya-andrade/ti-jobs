@@ -17,22 +17,49 @@
 <h:body>
 
 	<h:outputStylesheet name="css/roadmap.css" />
-	
+
 	<h:form>
 
 		<h2
-			style="width: 100%; text-align: center; margin-top: 35px; margin-bottom: 35px;">ROADMAP</h2>
+			style="width: 100%; text-align: center; margin-top: 35px; margin-bottom: 35px;">ROADMAP's</h2>
 
-		<ul class="list-none p-0 m-0 flex align-items-center font-medium mb-3" style="margin-left: 40px !important;">
-			<li><a href="http://localhost:8080/perfil/candidato.jsf"
-				class="text-500 no-underline line-height-3 cursor-pointer">Dashboard</a>
-			</li>
-			<li class="px-2"><i
-				class="pi pi-angle-right text-500 line-height-3" /></li>
-			<li><span class="text-900 line-height-3">Roadmap Java</span></li>
-		</ul>
-		
-		<span style="margin-left: 20px;">As tecnologias marcadas com '*' são as tecnologias que voce precisa saber para ser um desenvolvedor Java back-end.</span>
+		<div style="display: grid; justify-content: start; margin-left: 16px;">
+
+
+			<ul
+				class="list-none p-0 m-0 flex align-items-center font-medium mb-3">
+				<li><a href="http://localhost:8080/perfil/candidato.jsf"
+					class="text-500 no-underline line-height-3 cursor-pointer">Dashboard</a>
+				</li>
+				<li class="px-2"><i
+					class="pi pi-angle-right text-500 line-height-3" /></li>
+				<li><span class="text-900 line-height-3">Roadmaps</span></li>
+			</ul>
+
+			<span>As tecnologias marcadas com '*' são as tecnologias que
+				voce precisa saber para ser um desenvolvedor.</span>
+
+		</div>
+
+		<div class="ui-inputgroup"
+			style="margin-right: 16px;; display: flex; justify-content: flex-end;">
+			<div id="searchIcon" class="ui-inputgroup-addon">
+				<i class="pi pi-search"></i>
+			</div>
+			<p:selectOneMenu id="searchBtn" filter="true"
+				filterMatchMode="contains" effect="fade"
+				style="min-width: 130px;"
+				value="#{roadmapController.roadmapSelecionado}">
+
+				<p:ajax event="change" update="@form" process="@this"
+					listener="#{roadmapController.geraRoadmap}" />
+
+				<f:selectItem itemLabel="Java" itemValue="Java" />
+				<f:selectItem itemLabel="ASP .NET Core" itemValue="ASP .NET Core" />
+
+			</p:selectOneMenu>
+
+		</div>
 
 		<div class="flex align-items-center justify-content-center">
 
@@ -43,14 +70,13 @@
 
 
 				<p:diagram value="#{roadmapController.model}"
-					style="height: 1300px; width: 100%; overflow: initial;"
+					style="height: 1500px; width: 100%; overflow: initial;"
 					styleClass="ui-widget-content" />
 
 			</div>
 		</div>
 
 		<ui:include src="/includes/rodape.xhtml" />
-
 	</h:form>
 
 </h:body>

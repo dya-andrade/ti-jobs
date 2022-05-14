@@ -3,16 +3,12 @@ package br.com.tijobs.controller;
 import java.io.IOException;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Usuario;
-import br.com.tijobs.repository.PerfilAcessoRepository;
-import br.com.tijobs.repository.UsuarioRepository;
 import br.com.tijobs.security.SecurityService;
 
 @Named
@@ -30,13 +26,8 @@ public class CadastreController {
 	private boolean avisoEmpresa = false;
 
 	@Autowired
-	private PerfilAcessoRepository perfilAcessoRepository;
-
-	@Autowired
 	private SecurityService securityService;
 
-	@Autowired
-	private UsuarioRepository usuarioRepository;
 
 	@PostConstruct
 	public void init() {
@@ -48,61 +39,19 @@ public class CadastreController {
 	}
 
 	public void senhasIguaisCandidato() {
-
-		String senha = usuarioCandidato.getSenha();
-
-		String confirmeSenha = usuarioCandidato.getConfirmeSenha();
-
-		if (senha.equals(confirmeSenha)) {
-			avisoCandidato = false;
-		} else {
-			avisoCandidato = true;
-		}
+		this.avisoCandidato = securityService.senhasIguais(usuarioCandidato);
 	}
 
 	public void senhasIguaisEmpresa() {
-
-		String senha = usuarioEmpresa.getSenha();
-
-		String confirmeSenha = usuarioEmpresa.getConfirmeSenha();
-
-		if (senha.equals(confirmeSenha)) {
-			avisoEmpresa = false;
-		} else {
-			avisoEmpresa = true;
-		}
+		this.avisoEmpresa = securityService.senhasIguais(usuarioEmpresa);
 	}
 
 	public void criarCadastroUsuario() throws IOException {
-
-		usuarioCandidato.setPerfil(perfilAcessoRepository.findById(1).get());
-
-		if (usuarioCandidato.getSenha().equals(usuarioCandidato.getConfirmeSenha())) {
-			usuarioCandidato.setSenha(securityService.passwordEncoder().encode(usuarioCandidato.getSenha()));
-			usuarioRepository.save(usuarioCandidato);
-
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-			session.setAttribute("usuario", usuarioCandidato);
-
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/login.jsf");
-
-		}
+		securityService.criaCadastro(usuarioCandidato, 1);
 	}
 
 	public void criarCadastroEmpresa() throws IOException {
-
-		usuarioEmpresa.setPerfil(perfilAcessoRepository.findById(2).get());
-
-		if (usuarioEmpresa.getSenha().equals(usuarioEmpresa.getConfirmeSenha())) {
-			usuarioEmpresa.setSenha(securityService.passwordEncoder().encode(usuarioEmpresa.getSenha()));
-			usuarioRepository.save(usuarioEmpresa);
-
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-			session.setAttribute("usuario", usuarioEmpresa);
-
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/login.jsf");
-
-		}
+		securityService.criaCadastro(usuarioEmpresa, 2);
 	}
 
 	public Integer getIndex() {
