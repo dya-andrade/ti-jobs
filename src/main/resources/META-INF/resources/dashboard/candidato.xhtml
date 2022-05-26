@@ -35,10 +35,9 @@
 				<div id="perfil" class="surface-card p-4 shadow-2 border-round"
 					style="width: 20%; position: fixed; right: 0px; top: 54px;">
 
-					<div style="display: grid; justify-items: center; height: 5%;">
+					<div id="foto">
 						<img
-							src="data:image/jpg;base64, #{dashboardCandidatoController.fotoStr}"
-							style="width: 100px; border-radius: 50%; border: inset; margin-bottom: 10px;" />
+							src="data:image/jpg;base64, #{dashboardCandidatoController.fotoStr}" />
 
 						<p:outputLabel
 							value="#{dashboardCandidatoController.candidato.nome}" />
@@ -160,7 +159,7 @@
 
 							<h3 style="margin-top: 30px;">SUAS CANDIDATURAS</h3>
 							<h5 style="margin-bottom: 20px;">Clique duas vezes na vaga
-								para visualizar os candidatos.</h5>
+								para visualizar informações sobre a empresa.</h5>
 
 
 							<p:dataTable id="tabela" styleClass="empresa" var="vaga"

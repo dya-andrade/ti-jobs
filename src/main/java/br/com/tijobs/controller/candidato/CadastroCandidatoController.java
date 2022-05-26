@@ -31,6 +31,7 @@ public class CadastroCandidatoController {
 
 	private Candidato candidato;
 
+	@Autowired
 	private CandidatoService candidatoService;
 
 	private UploadedFile foto;
@@ -165,35 +166,39 @@ public class CadastroCandidatoController {
 			}
 
 			if (candidato.getExperiencias() == null) {
-				candidato.setExperiencias(new ArrayList<Experiencia>());
-				candidato.getExperiencias().add(new Experiencia());
-				candidato.getExperiencias().add(new Experiencia());
-				candidato.getExperiencias().add(new Experiencia());
-			}
 
-			if (candidato.getExperiencias() == null) {
+				List<Experiencia> experiencias = new ArrayList<Experiencia>();
+				experiencias.add(0, new Experiencia());
+				experiencias.add(1, new Experiencia());
+				experiencias.add(2, new Experiencia());
 
-				for (Experiencia experiencia : candidato.getExperiencias()) {
+				for (Experiencia experiencia : experiencias) {
 
-					experiencia.setHabilidades(new ArrayList<Habilidade>());
+					List<Habilidade> habilidades = new ArrayList<Habilidade>();
 
-					experiencia.getHabilidades().add(new Habilidade());
-					experiencia.getHabilidades().add(new Habilidade());
-					experiencia.getHabilidades().add(new Habilidade());
-					experiencia.getHabilidades().add(new Habilidade());
+					habilidades.add(0, new Habilidade());
+					habilidades.add(1, new Habilidade());
+					habilidades.add(2, new Habilidade());
+					habilidades.add(3, new Habilidade());
+
+					experiencia.setHabilidades(habilidades);
 				}
+
+				candidato.setExperiencias(experiencias);
+
 			}
 
 			if (candidato.getHabilidades() == null) {
 
-				candidato.setHabilidades(new ArrayList<Habilidade>());
+				List<Habilidade> habilidades = new ArrayList<Habilidade>();
 
-				candidato.getHabilidades().add(new Habilidade());
-				candidato.getHabilidades().add(new Habilidade());
-				candidato.getHabilidades().add(new Habilidade());
-				candidato.getHabilidades().add(new Habilidade());
-				candidato.getHabilidades().add(new Habilidade());
-				candidato.getHabilidades().add(new Habilidade());
+				habilidades.add(0, new Habilidade());
+				habilidades.add(1, new Habilidade());
+				habilidades.add(2, new Habilidade());
+				habilidades.add(3, new Habilidade());
+				habilidades.add(4, new Habilidade());
+
+				candidato.setHabilidades(habilidades);
 			}
 		}
 	}

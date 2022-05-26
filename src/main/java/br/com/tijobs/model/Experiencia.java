@@ -62,39 +62,43 @@ public class Experiencia implements Serializable {
 
 	public String duracaoTrabalho() {
 
-		LocalDate dataTermino;
+		if (this.dataInicio != null) {
+			LocalDate dataTermino;
 
-		if (this.dataTermino == null) {
-			dataTermino = LocalDate.now();
-		} else {
-			dataTermino = this.dataTermino;
-		}
-
-		Long meses = this.dataInicio.until(dataTermino, ChronoUnit.MONTHS);
-
-		double anos = meses.doubleValue() / 12;
-
-		BigDecimal bd = new BigDecimal(anos).setScale(1, RoundingMode.HALF_UP);
-
-		double duracaoDouble = bd.doubleValue();
-
-		String duracao = String.valueOf(duracaoDouble);
-
-		if (duracaoDouble < 1) {
-			duracao = duracao.replaceAll("[\\d].", " ");
-			return duracao + " meses";
-		} else if (duracaoDouble == 1) {
-			duracao = duracao.replaceAll(".[\\d]", " ano");
-			return duracao;
-		} else {
-
-			if (duracao.contains(".")) {
-				duracao = duracao.replaceAll("[.]", " ano(s) e ");
-				return duracao + " meses";
+			if (this.dataTermino == null) {
+				dataTermino = LocalDate.now();
 			} else {
-				return duracao + " anos(s)";
+				dataTermino = this.dataTermino;
+			}
+
+			Long meses = this.dataInicio.until(dataTermino, ChronoUnit.MONTHS);
+
+			double anos = meses.doubleValue() / 12;
+
+			BigDecimal bd = new BigDecimal(anos).setScale(1, RoundingMode.HALF_UP);
+
+			double duracaoDouble = bd.doubleValue();
+
+			String duracao = String.valueOf(duracaoDouble);
+
+			if (duracaoDouble < 1) {
+				duracao = duracao.replaceAll("[\\d].", " ");
+				return duracao + " meses";
+			} else if (duracaoDouble == 1) {
+				duracao = duracao.replaceAll(".[\\d]", " ano");
+				return duracao;
+			} else {
+
+				if (duracao.contains(".")) {
+					duracao = duracao.replaceAll("[.]", " ano(s) e ");
+					return duracao + " meses";
+				} else {
+					return duracao + " anos(s)";
+				}
 			}
 		}
+
+		return null;
 	}
 
 	public Integer getId() {
@@ -184,7 +188,7 @@ public class Experiencia implements Serializable {
 		String habilidadesTexto = "";
 
 		for (Habilidade habilidade : habilidades) {
-			if(!habilidade.getHabilidade().isBlank()) {
+			if (!habilidade.getHabilidade().isBlank()) {
 				habilidadesTexto += habilidade.getHabilidade() + " | ";
 			}
 		}

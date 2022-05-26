@@ -11,12 +11,16 @@ import br.com.tijobs.model.Candidato;
 import br.com.tijobs.model.Experiencia;
 import br.com.tijobs.model.habilidade.Habilidade;
 import br.com.tijobs.repository.CandidatoRepository;
+import br.com.tijobs.util.UtilService;
 
 @Service
 public class CandidatoService {
 	
 	@Autowired
 	private CandidatoRepository candidatoRepository;
+	
+	@Autowired
+	private UtilService utilService;
 
 	public void cadastrarCandidato(Candidato candidato) throws IOException {
 		if (candidato.getHabilidades().get(0).getCandidato() == null) {
@@ -34,6 +38,8 @@ public class CandidatoService {
 				}
 			}
 		}
+		
+		candidato.setUsuario(utilService.usuarioLogado());
 
 		candidatoRepository.save(candidato);
 

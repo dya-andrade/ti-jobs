@@ -4,9 +4,10 @@ import static br.com.tijobs.util.Message.addDetailMessage;
 import static com.github.adminfaces.template.util.Assert.has;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -15,10 +16,8 @@ import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.tijobs.model.Empresa;
 import br.com.tijobs.model.Vaga;
 import br.com.tijobs.model.habilidade.ListaHabilidade;
-import br.com.tijobs.repository.EmpresaRepository;
 import br.com.tijobs.repository.habilidade.ListaHabilidadeRepository;
 import br.com.tijobs.service.VagaService;
 import br.com.tijobs.util.UtilService;
@@ -52,7 +51,20 @@ public class CadastroVagaController {
 	public void init() {
 
 		if (has(idVaga)) {
+			
 			vaga = vagaService.buscaVagaPorId(idVaga);
+
+			if (vaga.getBeneficios() != null) {
+				setBeneficiosSelecionados(Arrays.stream(vaga.getBeneficios().split(",")).map(String::valueOf)
+						.collect(Collectors.toList()));
+			}
+
+			if (vaga.getPrincipaisTecnologias() != null) {
+				List<String> habilidadesNomes = Arrays.stream(vaga.getPrincipaisTecnologias().split(","))
+						.map(String::valueOf).collect(Collectors.toList());
+				setTecnologiasSelecionadas(habilidadeRepository.findByNomeIn(habilidadesNomes));
+			}
+
 		} else if (vaga == null) {
 			vaga = new Vaga();
 		}
@@ -115,13 +127,9 @@ public class CadastroVagaController {
 	public void setBeneficiosSelecionados(List<String> beneficiosSelecionados) {
 		this.beneficiosSelecionados = beneficiosSelecionados;
 
-		String beneficios = null;
-
-		for (String beneficio : beneficiosSelecionados) {
-			beneficios = beneficios + "," + beneficio;
+		if (beneficiosSelecionados != null && !beneficiosSelecionados.isEmpty()) {
+			vaga.setBeneficios(beneficiosSelecionados.stream().map(String::valueOf).collect(Collectors.joining(",")));
 		}
-
-		vaga.setBeneficios(beneficios);
 	}
 
 	public List<String> getBenefícios() {
@@ -139,13 +147,15 @@ public class CadastroVagaController {
 	public void setTecnologiasSelecionadas(List<ListaHabilidade> tecnologiasSelecionadas) {
 		this.tecnologiasSelecionadas = tecnologiasSelecionadas;
 
-		String habilidades = null;
+		List<String> habilidades = new ArrayList<String>();
 
 		for (ListaHabilidade habilidade : tecnologiasSelecionadas) {
-			habilidades = habilidades + "," + habilidade.getNome();
+			habilidades.add(habilidade.getNome());
 		}
 
-		vaga.setPrincipaisTecnologias(habilidades);
+		if (habilidades != null && !habilidades.isEmpty()) {
+			vaga.setPrincipaisTecnologias(habilidades.stream().map(String::valueOf).collect(Collectors.joining(",")));
+		}
 	}
 
 }

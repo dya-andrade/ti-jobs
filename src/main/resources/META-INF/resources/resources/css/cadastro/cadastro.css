@@ -13,6 +13,7 @@
 
 #foto img {
 	width: 100px;
+	height: 100px;
 	border-radius: 50%;
 	border: inset;
 	margin-bottom: 10px;

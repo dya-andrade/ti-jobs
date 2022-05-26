@@ -73,7 +73,7 @@
 		<p:dialog header="Código" widgetVar="dlg" minHeight="40" width="350"
 			showEffect="fade" modal="true" id="dialogo">
 
-			<div id="divCodigo">
+			<div id="divCodigo" style="display: #{recoverController.visivel ? 'none' : ''};">
 				<label for="codigo" class="block text-900 font-medium mb-2">Informe
 					o código:</label>
 
@@ -86,7 +86,7 @@
 					action="#{recoverController.confirmarCodigo}" />
 			</div>
 
-			<div id="divSenha">
+			<div id="divSenha" style="display: #{recoverController.visivel ? '' : 'none'};">
 
 				<label for="novaSenha" class="block text-900 font-medium mb-2">Nova senha</label>
 				<p:inputText id="novaSenha" type="password"

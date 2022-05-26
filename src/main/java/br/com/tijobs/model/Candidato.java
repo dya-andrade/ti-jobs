@@ -95,22 +95,31 @@ public class Candidato implements Serializable {
 	
 	public String tamanhoEmpresaFormatada() {
 		
-		String tamanhoEmpresa = this.tamanhoEmpresa;
-		
-		tamanhoEmpresa = tamanhoEmpresa.replaceAll(",", ", ");
-		tamanhoEmpresa = tamanhoEmpresa.replaceFirst("(\\,+)(?!.*\\,)", " ou");
-		
-		return tamanhoEmpresa + " - empresa";
+		if(this.tamanhoEmpresa != null) {
+			
+			String tamanhoEmpresa = this.tamanhoEmpresa;
+			
+			tamanhoEmpresa = tamanhoEmpresa.replaceAll(",", ", ");
+			tamanhoEmpresa = tamanhoEmpresa.replaceFirst("(\\,+)(?!.*\\,)", " ou");
+			
+			return tamanhoEmpresa + " - empresa";
+		}
+
+		return this.tamanhoEmpresa;
 	}
 	
 	public String tipoContratoFormatado() {
 		
-		String tipoContrato = this.tipoContrato;
+		if(this.tipoContrato != null) {
+			String tipoContrato = this.tipoContrato;
+			
+			tipoContrato = tipoContrato.replaceAll(",", ", ");
+			tipoContrato = tipoContrato.replaceFirst("(\\,+)(?!.*\\,)", " ou");
+			
+			return tipoContrato;
+		}
 		
-		tipoContrato = tipoContrato.replaceAll(",", ", ");
-		tipoContrato = tipoContrato.replaceFirst("(\\,+)(?!.*\\,)", " ou");
-		
-		return tipoContrato;
+		return this.tipoContrato;
 	}
 	
 	

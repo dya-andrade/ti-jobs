@@ -37,10 +37,9 @@
 				<div id="perfil" class="surface-card p-4 shadow-2 border-round"
 					style="width: 20%; position: fixed; right: 0px; top: 54px;">
 
-					<div style="display: grid; justify-items: center; height: 5%;">
+					<div id="foto">
 						<img
-							src="data:image/jpg;base64, #{dashboardEmpresaController.fotoStr}"
-							style="width: 100px; border-radius: 50%; border: inset; margin-bottom: 10px;" />
+							src="data:image/jpg;base64, #{dashboardEmpresaController.fotoStr}" />
 
 						<p:outputLabel
 							value="#{dashboardEmpresaController.empresa.nomeEmpresarial}" />

@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.tijobs.model.Usuario;
@@ -29,7 +30,7 @@ public class RecoverController {
 
 	private Usuario usuario;
 
-	private boolean aviso = false;
+	private boolean aviso = false, visivel = false;
 
 	@Autowired
 	private UsuarioService usuarioService;
@@ -75,6 +76,7 @@ public class RecoverController {
 	public void confirmarCodigo() {
 		if (codigoUsuario != null) {
 			if (codigoUsuario.equals(codigo)) {
+				visivel = true;
 				System.out.println("São iguais");
 			} else {
 				System.out.println("São diferentes");
@@ -83,6 +85,9 @@ public class RecoverController {
 		} else {
 			addDetailMessage("Necessário informar o código", FacesMessage.SEVERITY_WARN);
 		}
+		
+		PrimeFaces current = PrimeFaces.current();
+		current.executeScript("PF('dlg').show()");
 	}
 
 	public void confirmarSenhaNova() {
@@ -100,6 +105,10 @@ public class RecoverController {
 
 	public boolean isAviso() {
 		return aviso;
+	}
+
+	public boolean isVisivel() {
+		return visivel;
 	}
 
 	public String getEmailUsuario() {

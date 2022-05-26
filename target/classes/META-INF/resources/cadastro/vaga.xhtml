@@ -137,7 +137,7 @@
 								requiredMessage="O campo benefícios é obrigatório"
 								value="#{cadastroVagaController.beneficiosSelecionados}"
 								style="width: 90%;" multiple="true" filter="true"
-								filterMatchMode="startsWith" panelStyle="width: 30rem"
+								filterMatchMode="contains" panelStyle="width: 30rem"
 								scrollHeight="250">
 								<f:selectItems value="#{cadastroVagaController.benefícios}" />
 							</p:selectCheckboxMenu>
@@ -215,7 +215,7 @@
 								requiredMessage="O campo principais tecnologias é obrigatório"
 								value="#{cadastroVagaController.tecnologiasSelecionadas}"
 								style="width: 90%;" multiple="true" filter="true"
-								filterMatchMode="startsWith" panelStyle="width: 30rem"
+								filterMatchMode="contains" panelStyle="width: 30rem"
 								scrollHeight="250">
 								<f:selectItems var="habilidade" itemLabel=" #{habilidade.nome}"
 									itemValue="#{habilidade}"

@@ -192,6 +192,8 @@ public class VagaService {
 		vaga.setEmpresa(empresa);
 
 		vaga.setDataCriacao(LocalDateTime.now());
+		
+		vaga.setDesativada(false);
 
 		vagaRepository.save(vaga);
 

@@ -1216,11 +1216,10 @@
 									<p:messages id="msgs" />
 								</div>
 								<div>
-									<p:commandButton icon="pi pi-save" value="Salvar"
+									<p:commandButton icon="pi pi-save" value="Salvar" process="@all" update="@all"
 										styleClass="btn-primary transition-colors transition-duration-500  hover:bg-blue-1000"
-										style="font-size: 14px; margin-top: 10px; margin-left: 25px;"
-										title="Salvar os dados" ajax="false"
-										action="#{cadastroCandidatoController.salvar}" />
+										style="font-size: 14px; margin-top: 10px; margin-left: 25px;" 
+										title="Salvar os dados" action="#{cadastroCandidatoController.salvar}" />
 								</div>
 							</div>
 
