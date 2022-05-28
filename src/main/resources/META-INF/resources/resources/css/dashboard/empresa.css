@@ -10,6 +10,14 @@
 	color: #c1c1c1 !important;
 }
 
+/* .jqplot-table-legend { */
+/*     top: 30px !important; */
+/*     display: grid; */
+/*     max-height: 230px; */
+/*     overflow: auto; */
+/*     right: 35px !important; */
+/* } */
+
 @media screen and (max-width: 740px) {
 	.empresa td:nth-child(1) {
 		width: 100% !important;

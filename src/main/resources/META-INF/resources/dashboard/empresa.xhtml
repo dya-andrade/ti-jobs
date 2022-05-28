@@ -265,7 +265,7 @@
 		<p:dialog id="dialogoVaga" responsive="true"
 			header="VAGA: ID# #{dashboardEmpresaController.vagaSelecionada.id}"
 			widgetVar="vagaDialogo" modal="true" showEffect="explode"
-			resizable="false" hideEffect="explode">
+			resizable="false" hideEffect="explode" style="overflow: auto;">
 
 			<p:dataTable id="candidatosDetalhes" var="candidato"
 				value="#{dashboardEmpresaController.vagaSelecionada.candidatos}"
@@ -283,7 +283,7 @@
 							style="vertical-align: middle">
 
 							<img src="data:image/jpg;base64, #{candidato.fotoStr()}"
-								style="#{dashboardEmpresaController.avatarCores()}" width="42" />
+								style="#{dashboardEmpresaController.avatarCores()}" height="42" width="42" />
 
 							<h:outputText styleClass="p-ml-2" value="#{candidato.nome}" />
 						</div>
@@ -318,8 +318,7 @@
 					<i class="fa fa-github" />
 
 					<p:link target="_blank" value=" Ver perfil GitHub"
-						href="#{candidato.github != '' ? 
-							'candidato.github' : 'https://www.github.com' }" />
+						href="#{candidato.github}" />
 				</p:column>
 
 				<p:column style="text-align: center;">

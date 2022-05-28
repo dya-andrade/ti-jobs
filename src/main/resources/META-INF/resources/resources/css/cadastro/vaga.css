@@ -1,5 +1,5 @@
 #perfil {
-	right: 50px !important; 
+	right: 50px !important;
 	top: 110px !important;
 }
 
@@ -22,6 +22,10 @@
 	border-top-style: dotted !important;
 }
 
+.ui-messages {
+	width: max-content !important;
+}
+
 .ui-messages-error ul {
 	display: inline-flex !important;
 }
@@ -34,6 +38,9 @@
 @media screen and (max-width: 650px) {
 	.ui-messages-error ul {
 		display: grid !important;
+	}
+	.ui-messages {
+		width: initial !important;
 	}
 }
 
