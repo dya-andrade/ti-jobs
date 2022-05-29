@@ -233,4 +233,8 @@ public class VagaService {
 		vaga.setDesativada(false);
 		vagaRepository.save(vaga);
 	}
+
+	public Vaga buscaVagaAtivada(Integer id) {
+		return vagaRepository.findByIdAndDesativada(id);
+	}
 }

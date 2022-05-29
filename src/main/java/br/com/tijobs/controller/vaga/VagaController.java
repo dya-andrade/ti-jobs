@@ -213,15 +213,18 @@ public class VagaController {
 	}
 
 	public void setVagaSelecionada(Vaga vagaSelecionada) {
-		Vaga vaga = vagaRepository.getOne(vagaSelecionada.getId());
-		this.vagaSelecionada = vaga;
-		if (vaga == null) {
-			PrimeFaces current = PrimeFaces.current();
+		if(vagaSelecionada != null) {
+			Vaga vaga = vagaService.buscaVagaAtivada(vagaSelecionada.getId());
+			
+			if (vaga == null) {
+				PrimeFaces current = PrimeFaces.current();
 
-			current.executeScript("PF('vagaDialogo').hide();");
+				current.executeScript("PF('vagaDialogo').hide();");
 
-			addDetailMessage("Vaga desativada", FacesMessage.SEVERITY_WARN);
-			current.ajax().update("growl");
+				addDetailMessage("Vaga desativada", FacesMessage.SEVERITY_WARN);
+				current.ajax().update("growl");
+			}
+			this.vagaSelecionada = vaga;
 		}
 	}
 

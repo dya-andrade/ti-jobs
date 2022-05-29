@@ -44,7 +44,12 @@ public class CadastroEmpresaController {
 	public void init() {
 
 		if (empresa == null) {
-			empresa = new Empresa();
+			
+			empresa = utilService.perfilEmpresa();
+			
+			if (empresa == null) {
+				empresa = new Empresa();
+			}
 		}
 
 		adicionaTiposGrupo();
@@ -90,9 +95,9 @@ public class CadastroEmpresaController {
 	}
 
 	public void salvar() {
-		
+
 		empresa.setUsuario(utilService.usuarioLogado());
-		
+
 		try {
 			empresaService.cadastrarEmpresa(empresa);
 		} catch (IOException e) {
