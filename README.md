@@ -6,14 +6,6 @@
 
 <a href="https://github.com/MulherMarav/tijobs/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/MulherMarav/tijobs"></a>
 
-## Índice 
-
-* [Título e Imagem de capa](#Título-e-Imagem-de-capa)
-* [Índice](#índice)
-* [Descrição do Projeto](#descrição-do-projeto)
-* [Funcionalidades e Demonstração da Aplicação](#funcionalidades-e-demonstração-da-aplicação)
-* [Tecnologias Utilizadas](#tecnlogias-utilizadas)
-
 ## 🛠️ Tecnlogias Utilizadas
 
 - `JAVA`
