@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import br.com.tijobs.controller.LoginController;
 import br.com.tijobs.model.Candidato;
 import br.com.tijobs.model.Empresa;
 import br.com.tijobs.model.Usuario;
@@ -20,13 +21,12 @@ import br.com.tijobs.model.habilidade.ListaHabilidade;
 import br.com.tijobs.repository.CandidatoRepository;
 import br.com.tijobs.repository.EmpresaRepository;
 import br.com.tijobs.repository.habilidade.ListaHabilidadeRepository;
-import br.com.tijobs.security.SecurityService;
 
 @Service
 public class UtilService {
 
 	@Autowired
-	private SecurityService securityService;
+	private LoginController login;
 
 	@Autowired
 	private CandidatoRepository candidatoRepository;
@@ -38,7 +38,7 @@ public class UtilService {
 	private ListaHabilidadeRepository habilidadeRepository;
 
 	public Usuario usuarioLogado() {
-		return securityService.getLogado();
+		return login.getUsuario();
 	}
 	
 	public List<String> getColors() {
