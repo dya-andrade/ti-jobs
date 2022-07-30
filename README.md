@@ -1,6 +1,6 @@
  <h1 align="center"> TI Jobs</h1>
 
- <h6>Projeto pessoal para TCC da faculdade de Ciência da Computação. Um site responsivo para divulgação e candidaturas de vagas para programadores e desenvolvedores de sistemas.</h6>
+ <h6>Projeto pessoal para TCC da faculdade UNIP para o curso Ciência da Computação. Um site responsivo para divulgação e candidaturas de vagas para programadores/desenvolvedores de sistemas.</h6>
 
 ![Badge em Concluído](http://img.shields.io/static/v1?label=STATUS&message=%20CONCLUÍDO&color=GREEN&style=for-the-badge)
 
