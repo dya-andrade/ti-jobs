@@ -27,7 +27,7 @@ Tela de apresentação e para visualizar as últimas vagas.
 Tela para filtrar e buscar vagas, realizar e cancelar candidaturas.
 </br> </br>
 
-![image](https://user-images.githubusercontent.com/101612046/181660710-5c7e0221-e264-4c93-abb7-c15e431ea9a8.png)
+![image](https://user-images.githubusercontent.com/101612046/184554290-1c8fb1c5-f965-421c-a443-8b76d8fbb30c.png)
 ![image](https://user-images.githubusercontent.com/101612046/181660759-b74add1c-467f-4a9b-b15f-14a733030f16.png)
 ![image](https://user-images.githubusercontent.com/101612046/181660817-4e45aa53-5451-407b-8b44-464742f088c5.png)
 
